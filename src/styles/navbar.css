@@ -11,30 +11,26 @@ nav.navbar {
   position: sticky !important;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(20px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  background-color: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(12px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(180%) !important;
+  background-color: rgba(var(--bg-main-rgb), 0.8) !important;
   border: none !important;
   border-bottom: 1px solid var(--border) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 
-              0 1px 2px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: 0 1px 3px var(--shadow), 
+              0 1px 2px var(--shadow) !important;
   padding: 0 !important;
   margin: 0 !important;
   min-height: 70px !important;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Dark theme */
-html[data-theme="focus"] nav.navbar {
-  background-color: rgba(30, 30, 30, 0.8) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5) !important;
-}
+/* Dark theme - não precisa mais de override, usa a variável */
 
 /* Scrolled state - mais blur */
 nav.navbar.scrolled {
-  backdrop-filter: blur(24px) saturate(200%) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(200%) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(16px) saturate(200%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(200%) !important;
+  box-shadow: 0 4px 12px var(--shadow-hover) !important;
 }
 
 /* ============================================
@@ -112,14 +108,14 @@ a.navbar-brand:hover {
 
 .navbar-nav .nav-link:hover {
   color: var(--accent) !important;
-  background-color: rgba(46, 170, 220, 0.1) !important;
+  background-color: var(--bg-secondary) !important;
   transform: translateY(-1px);
 }
 
 /* Active link com underline */
 .navbar-nav .nav-link.active {
   color: var(--accent) !important;
-  background-color: rgba(46, 170, 220, 0.12) !important;
+  background-color: var(--bg-secondary) !important;
 }
 
 .navbar-nav .nav-link.active::after {
@@ -164,7 +160,8 @@ nav.navbar input[type="search"]:focus,
 nav.navbar .form-control:focus {
   width: 280px;
   border-color: var(--accent) !important;
-  box-shadow: 0 0 0 4px rgba(46, 170, 220, 0.12) !important;
+  box-shadow: 0 0 0 4px var(--shadow-hover) !important;
+  outline: none !important;
 }
 
 /* ============================================
@@ -178,7 +175,8 @@ nav.navbar .form-control:focus {
 }
 
 .navbar-toggler:focus {
-  box-shadow: 0 0 0 4px rgba(46, 170, 220, 0.15) !important;
+  box-shadow: 0 0 0 4px var(--shadow-hover) !important;
+  outline: none !important;
 }
 
 /* ============================================
