@@ -12,6 +12,7 @@ import { injectCSS } from "~styles/css-injector";
 import globalCSS from "data-text:~styles/global.css";
 import navbarCSS from "data-text:~styles/navbar.css";
 import deckListCSS from "data-text:~styles/deck-list.css";
+import studyScreenCSS from "data-text:~styles/study-screen.css";
 
 /**
  * Configuração do Plasmo Content Script
@@ -31,15 +32,29 @@ let themeManager: ThemeManager | null = null;
 const STORAGE_KEY = 'anki-modern-theme';
 
 /**
+ * Injeta a fonte Inter via Google Fonts
+ */
+function injectGoogleFonts(): void {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap';
+  document.head.appendChild(link);
+}
+
+/**
  * Injeta todos os CSS necessários
  */
 function injectAllStyles(): void {
   console.log('[Anki Modern] Injetando estilos CSS...');
   
-  // Injetar CSS global, navbar e deck-list
+  // Injetar fonte Inter
+  injectGoogleFonts();
+  
+  // Injetar CSS global, navbar, deck-list e study-screen
   injectCSS(globalCSS, 'global');
   injectCSS(navbarCSS, 'navbar');
   injectCSS(deckListCSS, 'deck-list');
+  injectCSS(studyScreenCSS, 'study-screen');
 }
 
 /**
