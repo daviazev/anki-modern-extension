@@ -166,13 +166,13 @@ export function ThemeSelector() {
         ))}
       </div>
 
-      {!user && (
-        <div className="plasmo-rounded-lg plasmo-border plasmo-border-[#555555] plasmo-bg-[#2C2C2C] plasmo-p-3">
-          <p className="plasmo-text-xs plasmo-text-[#A0A0A0]">
-            💡 Sign in to sync your theme across devices
-          </p>
-        </div>
-      )}
+      <div className="plasmo-rounded-lg plasmo-border plasmo-border-[#555555] plasmo-bg-[#2C2C2C] plasmo-p-3">
+        <p className="plasmo-text-xs plasmo-text-[#A0A0A0]">
+          {user
+            ? "✅ Theme synced to your account"
+            : "💡 Theme saved locally. Sign in to sync across devices."}
+        </p>
+      </div>
     </div>
   )
 }

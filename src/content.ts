@@ -216,7 +216,7 @@ async function init() {
  */
 function initializeObserver() {
   // Dynamically import observer to avoid circular dependencies
-  import("./observer").then(({ initObserver }) => {
+  import("./content/observer").then(({ initObserver }) => {
     initObserver({
       onNavigate: () => {
         // Re-apply theme after navigation with current theme

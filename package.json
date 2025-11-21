@@ -33,11 +33,23 @@
     ],
     "permissions": [
       "storage",
-      "tabs"
+      "tabs",
+      "identity"
     ],
     "action": {
       "default_popup": "popup.html",
       "default_title": "AnkiModern Settings"
+    },
+    "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'; connect-src 'self' https://*.firebaseio.com https://*.googleapis.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://*.google.com https://*.firebase.com https://firestore.googleapis.com"
+    },
+    "oauth2": {
+      "client_id": "271687689540-okluec8klap9pjt4o4ol80pfjv1efim3.apps.googleusercontent.com",
+      "scopes": [
+        "openid",
+        "email",
+        "profile"
+      ]
     }
   }
 }

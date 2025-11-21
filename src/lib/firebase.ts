@@ -14,7 +14,31 @@ const firebaseConfig = {
   appId: process.env.PLASMO_PUBLIC_FIREBASE_APP_ID
 }
 
-// Initialize Firebase
-export const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
-export const db = getFirestore(app)
+// Check if Firebase is configured
+const isFirebaseConfigured =
+  firebaseConfig.apiKey &&
+  firebaseConfig.apiKey !== "your_api_key" &&
+  firebaseConfig.projectId &&
+  firebaseConfig.projectId !== "your_project_id"
+
+// Initialize Firebase only if configured
+let app: any = null
+let auth: any = null
+let db: any = null
+
+if (isFirebaseConfigured) {
+  try {
+    app = initializeApp(firebaseConfig)
+    auth = getAuth(app)
+    db = getFirestore(app)
+    console.log("Firebase initialized successfully")
+  } catch (error) {
+    console.warn("Firebase initialization failed:", error)
+  }
+} else {
+  console.warn(
+    "Firebase not configured. Authentication features will be disabled."
+  )
+}
+
+export { app, auth, db }

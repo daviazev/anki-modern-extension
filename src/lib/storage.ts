@@ -1,21 +1,39 @@
 // Chrome Storage wrapper for type-safe storage operations
+// MVP Mode: Using chrome.storage.sync for persistence
+// Future: Will migrate to Firestore for cloud sync - see FIREBASE_MIGRATION_PLAN.md
 
 export interface StorageData {
   theme: "light" | "dark" | "auto"
   customColors?: Record<string, string>
   enabledFeatures?: string[]
   userId?: string
+  // MVP: Mock user stored locally
+  mockUser?: {
+    uid: string
+    email: string
+    displayName?: string
+    photoURL?: string
+  }
 }
 
 export class Storage {
   /**
    * Get data from Chrome storage
+   * MVP: Uses chrome.storage.sync (limited to 100KB, syncs across devices)
+   * Future: Will use Firestore for unlimited storage and advanced queries
    */
   static async get<K extends keyof StorageData>(
     key: K
   ): Promise<StorageData[K] | undefined> {
     const result = await chrome.storage.sync.get(key)
     return result[key]
+    
+    // Future Firestore implementation:
+    // if (auth.currentUser) {
+    //   const docRef = doc(db, "users", auth.currentUser.uid)
+    //   const docSnap = await getDoc(docRef)
+    //   return docSnap.data()?.[key]
+    // }
   }
 
   /**
@@ -30,12 +48,20 @@ export class Storage {
 
   /**
    * Set data in Chrome storage
+   * MVP: Uses chrome.storage.sync
+   * Future: Will use Firestore with offline persistence
    */
   static async set<K extends keyof StorageData>(
     key: K,
     value: StorageData[K]
   ): Promise<void> {
     await chrome.storage.sync.set({ [key]: value })
+    
+    // Future Firestore implementation:
+    // if (auth.currentUser) {
+    //   const docRef = doc(db, "users", auth.currentUser.uid)
+    //   await setDoc(docRef, { [key]: value }, { merge: true })
+    // }
   }
 
   /**
