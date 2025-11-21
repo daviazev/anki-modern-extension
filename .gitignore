@@ -40,3 +40,7 @@ keys.json
 
 # .txt files
 *.txt
+# Backup files
+*.backup
+*.bak
+src/styles.backup/
