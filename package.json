@@ -1,8 +1,8 @@
 {
   "name": "anki-modern-extension",
-  "displayName": "Anki modern extension",
+  "displayName": "AnkiModern - Modern Theme for AnkiWeb",
   "version": "0.0.1",
-  "description": "AnkiModern: Modern theme extension for AnkiWeb",
+  "description": "A beautiful, modern dark theme for AnkiWeb with customizable color schemes and Firebase sync",
   "author": "Davi Azevedo",
   "scripts": {
     "dev": "plasmo dev",
@@ -10,6 +10,7 @@
     "package": "plasmo package"
   },
   "dependencies": {
+    "firebase": "^12.6.0",
     "plasmo": "0.90.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,7 +28,16 @@
   },
   "manifest": {
     "host_permissions": [
-      "https://*/*"
-    ]
+      "https://ankiweb.net/*",
+      "https://ankiuser.net/*"
+    ],
+    "permissions": [
+      "storage",
+      "tabs"
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_title": "AnkiModern Settings"
+    }
   }
 }

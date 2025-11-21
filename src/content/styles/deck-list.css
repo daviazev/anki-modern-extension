@@ -1,0 +1,238 @@
+/* Dashboard & Deck List Styling (/decks) */
+/* Styles for the main deck list page */
+
+/* ============================================
+   Deck List Container
+   ============================================ */
+
+.container {
+  background-color: transparent !important;
+}
+
+/* ============================================
+   Deck Rows
+   ============================================ */
+
+/* Deck row styling */
+.container > .row.light-bottom-border,
+.row.light-bottom-border,
+.light-bottom-border {
+  border-bottom: 1px solid var(--anki-border-color) !important;
+  padding: var(--anki-spacing-md) 0;
+  transition: background-color 0.2s ease;
+}
+
+.container > .row.light-bottom-border:hover,
+.row.light-bottom-border:hover {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+/* Remove default border colors */
+.light-bottom-border {
+  border-bottom-color: var(--anki-border-color) !important;
+}
+
+/* ============================================
+   Deck Names (Links)
+   ============================================ */
+
+/* Deck name button/link */
+.btn-link,
+button.btn-link,
+a.btn-link {
+  color: var(--anki-primary-accent) !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease;
+  padding-left: 0 !important;
+}
+
+.btn-link:hover,
+button.btn-link:hover,
+a.btn-link:hover {
+  color: var(--anki-primary-accent) !important;
+  opacity: 0.8;
+  text-decoration: none !important;
+  transform: translateX(2px);
+}
+
+.btn-link:focus,
+button.btn-link:focus,
+a.btn-link:focus {
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+/* ============================================
+   Card Counts (Due, New, etc.)
+   ============================================ */
+
+/* Base styling for all numbers */
+.number {
+  font-weight: 600 !important;
+  font-variant-numeric: tabular-nums;
+  padding: 2px 6px;
+  border-radius: var(--anki-radius-sm);
+  transition: all 0.2s ease;
+}
+
+/* Due cards - Red/Orange (muted) */
+.number.due {
+  color: #ff8a80 !important;
+  background-color: rgba(255, 138, 128, 0.1) !important;
+}
+
+/* New cards - Green (muted) */
+.number.new {
+  color: #69f0ae !important;
+  background-color: rgba(105, 240, 174, 0.1) !important;
+}
+
+/* Review/Learn cards - Blue (muted) */
+.number.learn,
+.number.review {
+  color: #82b1ff !important;
+  background-color: rgba(130, 177, 255, 0.1) !important;
+}
+
+/* Zero count - Dimmed */
+.number:has-text("0") {
+  color: var(--anki-text-secondary) !important;
+  opacity: 0.5;
+}
+
+/* ============================================
+   Actions Dropdown Button
+   ============================================ */
+
+/* Actions button styling */
+.dropdown-toggle,
+button.dropdown-toggle,
+.btn.dropdown-toggle {
+  background-color: var(--anki-bg-card) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  color: var(--anki-text-secondary) !important;
+  transition: all 0.2s ease;
+  padding: 0.375rem 0.75rem !important;
+  font-size: 0.875rem !important;
+}
+
+.dropdown-toggle:hover,
+button.dropdown-toggle:hover,
+.btn.dropdown-toggle:hover {
+  background-color: var(--anki-bg-main) !important;
+  border-color: var(--anki-primary-accent) !important;
+  color: var(--anki-text-primary) !important;
+}
+
+.dropdown-toggle:focus,
+button.dropdown-toggle:focus,
+.btn.dropdown-toggle:focus {
+  box-shadow: 0 0 0 0.2rem rgba(187, 134, 252, 0.25) !important;
+  outline: none !important;
+}
+
+.dropdown-toggle::after {
+  border-top-color: var(--anki-text-secondary) !important;
+}
+
+/* ============================================
+   Deck Options & Study Buttons
+   ============================================ */
+
+/* Study button */
+.btn-primary,
+button.btn-primary {
+  background-color: var(--anki-primary-accent) !important;
+  border-color: var(--anki-primary-accent) !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover,
+button.btn-primary:hover {
+  background-color: var(--anki-primary-accent) !important;
+  opacity: 0.85;
+  transform: translateY(-1px);
+  box-shadow: var(--anki-shadow-md) !important;
+}
+
+.btn-primary:active,
+button.btn-primary:active {
+  transform: translateY(0) !important;
+}
+
+/* Secondary buttons */
+.btn-secondary,
+button.btn-secondary {
+  background-color: var(--anki-bg-card) !important;
+  border-color: var(--anki-border-color) !important;
+  color: var(--anki-text-primary) !important;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover,
+button.btn-secondary:hover {
+  background-color: var(--anki-bg-main) !important;
+  border-color: var(--anki-primary-accent) !important;
+}
+
+/* ============================================
+   Deck Hierarchy & Indentation
+   ============================================ */
+
+/* Nested/sub-deck styling */
+.row[style*="padding-left"],
+.row[style*="margin-left"] {
+  border-left: 2px solid var(--anki-border-color) !important;
+}
+
+/* Deck collapse indicators */
+.deck-collapse-indicator {
+  color: var(--anki-text-secondary) !important;
+  transition: transform 0.2s ease;
+}
+
+.deck-collapse-indicator:hover {
+  color: var(--anki-text-primary) !important;
+}
+
+/* ============================================
+   Empty State / No Decks
+   ============================================ */
+
+.alert,
+.alert-info {
+  background-color: var(--anki-bg-card) !important;
+  border-color: var(--anki-border-color) !important;
+  color: var(--anki-text-primary) !important;
+}
+
+.alert-info {
+  border-left: 3px solid var(--anki-primary-accent) !important;
+}
+
+/* ============================================
+   Deck Statistics
+   ============================================ */
+
+/* Small text showing deck statistics */
+.text-muted,
+small.text-muted {
+  color: var(--anki-text-secondary) !important;
+  font-size: 0.875rem;
+}
+
+/* Percentage/progress indicators */
+.badge,
+.badge-secondary {
+  background-color: var(--anki-bg-card) !important;
+  color: var(--anki-text-secondary) !important;
+  border: 1px solid var(--anki-border-color) !important;
+}
+
+.badge-primary {
+  background-color: var(--anki-primary-accent) !important;
+  color: #000000 !important;
+}

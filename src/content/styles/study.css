@@ -1,0 +1,343 @@
+/* Flashcard Study Screen Styling (/study) */
+/* Styles for the active study session - card front/back */
+
+/* ============================================
+   Main Flashcard Container
+   ============================================ */
+
+/* The main flashcard box */
+#qa_box,
+.card,
+.card1 {
+  background-color: var(--anki-bg-card) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--anki-shadow-lg) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  padding: var(--anki-spacing-xl) !important;
+  margin: var(--anki-spacing-lg) auto !important;
+  transition: box-shadow 0.2s ease;
+}
+
+#qa_box:hover {
+  box-shadow: 0 15px 25px -5px rgb(0 0 0 / 0.5) !important;
+}
+
+/* Card body */
+.card-body {
+  background-color: transparent !important;
+  padding: var(--anki-spacing-lg) !important;
+}
+
+/* ============================================
+   Question/Answer Content Area
+   ============================================ */
+
+/* The content area - DO NOT override user's custom content styles */
+#qa {
+  /* Ensure text is readable but preserve user styles */
+  color: var(--anki-text-primary);
+  min-height: 200px;
+  padding: var(--anki-spacing-md);
+}
+
+/* Only set default colors for direct text, not nested elements */
+#qa > p,
+#qa > div:not([style]),
+#qa > span:not([style]) {
+  color: var(--anki-text-primary);
+}
+
+/* 
+ * IMPORTANT: Preserve user's custom inline styles
+ * Do not override elements with style attributes or custom classes
+ * This ensures user's card formatting is respected
+ */
+
+/* ============================================
+   Study Session Buttons
+   ============================================ */
+
+/* Show Answer button */
+#answer,
+button#answer,
+.btn-primary[onclick*="answer"],
+button[onclick*="showAnswer"] {
+  background-color: var(--anki-primary-accent) !important;
+  background-image: none !important;
+  border: none !important;
+  color: #000000 !important;
+  font-weight: 600 !important;
+  padding: 0.75rem 2rem !important;
+  border-radius: var(--anki-radius-md) !important;
+  box-shadow: var(--anki-shadow-sm) !important;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.95rem !important;
+}
+
+#answer:hover,
+button#answer:hover {
+  background-color: var(--anki-primary-accent) !important;
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: var(--anki-shadow-md) !important;
+}
+
+#answer:active,
+button#answer:active {
+  transform: translateY(0) !important;
+  box-shadow: var(--anki-shadow-sm) !important;
+}
+
+/* ============================================
+   Answer Buttons (Again, Hard, Good, Easy)
+   ============================================ */
+
+/* Container for answer buttons */
+#answer-buttons,
+.answer-buttons,
+#buttons {
+  display: flex;
+  gap: var(--anki-spacing-sm);
+  justify-content: center;
+  margin-top: var(--anki-spacing-lg);
+  flex-wrap: wrap;
+}
+
+/* Base button styling for all answer buttons */
+.btn,
+button.btn,
+#buttons button {
+  border-radius: var(--anki-radius-md) !important;
+  font-weight: 600 !important;
+  padding: 0.625rem 1.5rem !important;
+  transition: all 0.2s ease;
+  border: none !important;
+  box-shadow: var(--anki-shadow-sm) !important;
+  font-size: 0.875rem !important;
+}
+
+/* Again button - Red */
+.btn-danger,
+button.btn-danger,
+button[title*="Again"],
+#buttons button:nth-child(1) {
+  background-color: #ff5252 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+
+.btn-danger:hover,
+button.btn-danger:hover {
+  background-color: #ff5252 !important;
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Hard button - Orange */
+.btn-warning,
+button.btn-warning,
+button[title*="Hard"],
+#buttons button:nth-child(2) {
+  background-color: #ff9800 !important;
+  background-image: none !important;
+  color: #000000 !important;
+}
+
+.btn-warning:hover,
+button.btn-warning:hover {
+  background-color: #ff9800 !important;
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Good button - Green */
+.btn-success,
+button.btn-success,
+button[title*="Good"],
+#buttons button:nth-child(3) {
+  background-color: #4caf50 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+
+.btn-success:hover,
+button.btn-success:hover {
+  background-color: #4caf50 !important;
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Easy button - Blue/Purple */
+.btn-info,
+button.btn-info,
+button[title*="Easy"],
+#buttons button:nth-child(4) {
+  background-color: var(--anki-primary-accent) !important;
+  background-image: none !important;
+  color: #000000 !important;
+}
+
+.btn-info:hover,
+button.btn-info:hover {
+  background-color: var(--anki-primary-accent) !important;
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* Button active state */
+.btn:active,
+button.btn:active {
+  transform: translateY(0) !important;
+  box-shadow: none !important;
+}
+
+/* ============================================
+   Card Statistics & Timer
+   ============================================ */
+
+/* Timer and card count display */
+#timer,
+.timer,
+#card-count,
+.card-count {
+  color: var(--anki-text-secondary) !important;
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: var(--anki-spacing-sm);
+}
+
+/* Study progress bar */
+.progress {
+  background-color: var(--anki-bg-main) !important;
+  border-radius: var(--anki-radius-sm) !important;
+  height: 6px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: var(--anki-primary-accent) !important;
+  transition: width 0.3s ease;
+}
+
+/* ============================================
+   Study Session Header
+   ============================================ */
+
+/* Deck name and session info */
+#study-header,
+.study-header {
+  background-color: var(--anki-bg-nav) !important;
+  padding: var(--anki-spacing-md) var(--anki-spacing-lg) !important;
+  border-radius: var(--anki-radius-md) !important;
+  margin-bottom: var(--anki-spacing-lg);
+  border: 1px solid var(--anki-border-color) !important;
+}
+
+#study-header h1,
+#study-header h2,
+.study-header h1,
+.study-header h2 {
+  color: var(--anki-text-primary) !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ============================================
+   Card Type Indicators
+   ============================================ */
+
+/* New card indicator */
+.card-type-new,
+[data-card-type="new"] {
+  border-left: 4px solid #69f0ae !important;
+}
+
+/* Learning card indicator */
+.card-type-learning,
+[data-card-type="learning"] {
+  border-left: 4px solid #82b1ff !important;
+}
+
+/* Review card indicator */
+.card-type-review,
+[data-card-type="review"] {
+  border-left: 4px solid #ff8a80 !important;
+}
+
+/* ============================================
+   Edit/Options Buttons
+   ============================================ */
+
+/* Edit and More options buttons */
+.btn-secondary,
+button.btn-secondary,
+#edit-button,
+#more-button {
+  background-color: var(--anki-bg-nav) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  color: var(--anki-text-secondary) !important;
+  background-image: none !important;
+}
+
+.btn-secondary:hover,
+button.btn-secondary:hover {
+  background-color: var(--anki-bg-card) !important;
+  color: var(--anki-text-primary) !important;
+  border-color: var(--anki-primary-accent) !important;
+}
+
+/* ============================================
+   Keyboard Shortcuts Hint
+   ============================================ */
+
+/* Small text showing keyboard shortcuts */
+.keyboard-hint,
+.shortcut-hint {
+  color: var(--anki-text-secondary) !important;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: var(--anki-spacing-xs);
+}
+
+/* ============================================
+   Media Elements (Images, Audio)
+   ============================================ */
+
+/* Ensure media elements are visible and centered */
+#qa img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: var(--anki-spacing-md) auto;
+  border-radius: var(--anki-radius-sm);
+}
+
+#qa audio,
+#qa video {
+  max-width: 100%;
+  margin: var(--anki-spacing-md) auto;
+  display: block;
+}
+
+/* ============================================
+   Completion Message
+   ============================================ */
+
+/* "Congratulations, you've finished!" message */
+.congrats,
+.completion-message {
+  background-color: var(--anki-bg-card) !important;
+  border-radius: var(--anki-radius-lg) !important;
+  padding: var(--anki-spacing-xl) !important;
+  text-align: center;
+  box-shadow: var(--anki-shadow-md) !important;
+}
+
+.congrats h2,
+.completion-message h2 {
+  color: var(--anki-primary-accent) !important;
+  margin-bottom: var(--anki-spacing-md);
+}

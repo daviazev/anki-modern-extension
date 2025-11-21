@@ -1,0 +1,187 @@
+/* Global styling for AnkiWeb - overrides Bootstrap classes */
+/* Uses CSS variables defined in base.css */
+
+/* ============================================
+   Body & HTML Styling
+   ============================================ */
+
+html,
+body {
+  background-color: var(--anki-bg-main) !important;
+  color: var(--anki-text-primary) !important;
+  min-height: 100vh;
+}
+
+body {
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ============================================
+   Navbar Styling
+   ============================================ */
+
+/* Target all navbar variations */
+nav.navbar,
+.navbar,
+.navbar-light,
+.navbar.navbar-light,
+nav.navbar.navbar-light.bg-gray {
+  background-color: var(--anki-bg-nav) !important;
+  background: var(--anki-bg-nav) !important;
+  border-bottom: 1px solid var(--anki-border-color) !important;
+  box-shadow: var(--anki-shadow-sm) !important;
+}
+
+/* Remove default Bootstrap backgrounds */
+.navbar-light {
+  background-color: var(--anki-bg-nav) !important;
+}
+
+.bg-gray,
+.navbar.bg-gray {
+  background-color: var(--anki-bg-nav) !important;
+  background: var(--anki-bg-nav) !important;
+}
+
+/* ============================================
+   Navbar Brand (Logo)
+   ============================================ */
+
+nav .navbar-brand,
+.navbar .navbar-brand,
+.navbar-brand {
+  color: var(--anki-text-primary) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em;
+  transition: color 0.2s ease;
+}
+
+nav .navbar-brand:hover,
+.navbar .navbar-brand:hover {
+  color: var(--anki-primary-accent) !important;
+}
+
+/* ============================================
+   Navbar Links
+   ============================================ */
+
+nav a.nav-link,
+.navbar a.nav-link,
+.nav-link {
+  color: var(--anki-text-secondary) !important;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+nav a.nav-link:hover,
+.navbar a.nav-link:hover,
+.nav-link:hover {
+  color: var(--anki-text-primary) !important;
+}
+
+nav a.nav-link:focus,
+.navbar a.nav-link:focus,
+.nav-link:focus {
+  color: var(--anki-primary-accent) !important;
+}
+
+/* Active nav link */
+nav a.nav-link.active,
+.navbar a.nav-link.active,
+.nav-link.active {
+  color: var(--anki-primary-accent) !important;
+  font-weight: 600;
+}
+
+/* ============================================
+   Navbar Toggler (Mobile Menu)
+   ============================================ */
+
+.navbar-toggler {
+  border-color: var(--anki-border-color) !important;
+  color: var(--anki-text-secondary) !important;
+}
+
+.navbar-toggler:hover {
+  background-color: var(--anki-bg-card) !important;
+}
+
+.navbar-toggler-icon {
+  background-image: none !important;
+  filter: invert(1) !important;
+}
+
+/* ============================================
+   Navbar Dropdown Menus
+   ============================================ */
+
+.navbar .dropdown-menu,
+.dropdown-menu {
+  background-color: var(--anki-bg-card) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  box-shadow: var(--anki-shadow-md) !important;
+}
+
+.navbar .dropdown-item,
+.dropdown-item {
+  color: var(--anki-text-primary) !important;
+  transition: background-color 0.2s ease;
+}
+
+.navbar .dropdown-item:hover,
+.dropdown-item:hover {
+  background-color: var(--anki-bg-main) !important;
+  color: var(--anki-primary-accent) !important;
+}
+
+.navbar .dropdown-divider,
+.dropdown-divider {
+  border-color: var(--anki-border-color) !important;
+}
+
+/* ============================================
+   Main Container
+   ============================================ */
+
+main.container,
+.container,
+.container-fluid {
+  background-color: transparent !important;
+}
+
+/* ============================================
+   General Text & Links
+   ============================================ */
+
+a {
+  color: var(--anki-primary-accent) !important;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--anki-primary-accent) !important;
+  opacity: 0.8;
+}
+
+p,
+span,
+div {
+  color: var(--anki-text-primary);
+}
+
+.text-muted {
+  color: var(--anki-text-secondary) !important;
+}
+
+/* ============================================
+   Headings
+   ============================================ */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--anki-text-primary) !important;
+}
