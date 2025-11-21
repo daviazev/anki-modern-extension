@@ -44,3 +44,6 @@ keys.json
 *.backup
 *.bak
 src/styles.backup/
+
+# PDF files
+*.pdf
