@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anki Modern - Preview dos Temas</title>
+  <style>
+    /* Design Tokens - Academic Theme */
+    :root {
+      --bg-main: #FFFFFF;
+      --bg-secondary: #F7F7F5;
+      --text-main: #37352F;
+      --text-muted: #787774;
+      --border: #E1E1E0;
+      --accent: #2EAADC;
+      --accent-hover: #2596C2;
+      --shadow: rgba(15, 15, 15, 0.05);
+      --shadow-hover: rgba(15, 15, 15, 0.1);
+    }
+
+    html[data-theme="focus"] {
+      --bg-main: #1E1E1E;
+      --bg-secondary: #252526;
+      --text-main: #D4D4D4;
+      --text-muted: #A0A0A0;
+      --border: #3E3E42;
+      --accent: #BB86FC;
+      --accent-hover: #A370E8;
+      --shadow: rgba(0, 0, 0, 0.3);
+      --shadow-hover: rgba(0, 0, 0, 0.5);
+    }
+
+    /* Global Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      transition: all 0.3s ease;
+      padding: 0;
+      margin: 0;
+    }
+
+    /* Navbar */
+    nav.navbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px) saturate(180%);
+      -webkit-backdrop-filter: blur(10px) saturate(180%);
+      background-color: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 3px var(--shadow);
+      padding: 16px 0;
+      transition: all 0.3s ease;
+    }
+
+    html[data-theme="focus"] nav.navbar {
+      background-color: rgba(30, 30, 30, 0.85);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .navbar-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .navbar-brand {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      text-decoration: none;
+    }
+
+    .theme-toggle {
+      padding: 8px 16px;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    /* Main Content */
+    main {
+      padding: 24px 0;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    /* Deck List */
+    #deckList {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .deck {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 3px var(--shadow);
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .deck:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px var(--shadow-hover);
+      border-color: var(--accent);
+    }
+
+    .deck-name {
+      flex: 1;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .deck-counts {
+      display: flex;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 40px;
+      height: 28px;
+      padding: 0 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+
+    .badge:hover {
+      transform: scale(1.05);
+    }
+
+    .new-count {
+      background-color: rgba(59, 130, 246, 0.15);
+      color: #3B82F6;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+
+    .learn-count {
+      background-color: rgba(239, 68, 68, 0.15);
+      color: #EF4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .review-count {
+      background-color: rgba(34, 197, 94, 0.15);
+      color: #22C55E;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+    }
+
+    html[data-theme="focus"] .new-count {
+      background-color: rgba(59, 130, 246, 0.25);
+      color: #60A5FA;
+    }
+
+    html[data-theme="focus"] .learn-count {
+      background-color: rgba(239, 68, 68, 0.25);
+      color: #F87171;
+    }
+
+    html[data-theme="focus"] .review-count {
+      background-color: rgba(34, 197, 94, 0.25);
+      color: #4ADE80;
+    }
+
+    /* Color Palette Display */
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .color-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .color-sample {
+      width: 100%;
+      height: 80px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .color-name {
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .color-value {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-content">
+        <a href="#" class="navbar-brand">AnkiWeb Modern</a>
+        <button class="theme-toggle" onclick="toggleTheme()">
+          Alternar Tema
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="container">
+    <h1>Preview dos Temas</h1>
+    <p class="subtitle">Visualize os dois temas da extensão: Academic (Light) e Focus (Dark)</p>
+
+    <!-- Deck List Example -->
+    <div id="deckList">
+      <div class="deck">
+        <div class="deck-name">📚 Português - Vocabulário</div>
+        <div class="deck-counts">
+          <span class="badge new-count">23</span>
+          <span class="badge learn-count">12</span>
+          <span class="badge review-count">156</span>
+        </div>
+      </div>
+
+      <div class="deck">
+        <div class="deck-name">🧪 Química Orgânica</div>
+        <div class="deck-counts">
+          <span class="badge new-count">45</span>
+          <span class="badge learn-count">8</span>
+          <span class="badge review-count">203</span>
+        </div>
+      </div>
+
+      <div class="deck">
+        <div class="deck-name">💻 Programação - JavaScript</div>
+        <div class="deck-counts">
+          <span class="badge new-count">12</span>
+          <span class="badge learn-count">5</span>
+          <span class="badge review-count">89</span>
+        </div>
+      </div>
+
+      <div class="deck">
+        <div class="deck-name">🌍 Geografia - Capitais</div>
+        <div class="deck-counts">
+          <span class="badge new-count">67</span>
+          <span class="badge learn-count">15</span>
+          <span class="badge review-count">312</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Palette -->
+    <h1 style="margin-top: 48px;">Paleta de Cores</h1>
+    <div class="color-palette">
+      <div class="color-card">
+        <div class="color-sample" style="background-color: var(--bg-main);"></div>
+        <div class="color-name">Background Main</div>
+        <div class="color-value">--bg-main</div>
+      </div>
+      <div class="color-card">
+        <div class="color-sample" style="background-color: var(--bg-secondary);"></div>
+        <div class="color-name">Background Secondary</div>
+        <div class="color-value">--bg-secondary</div>
+      </div>
+      <div class="color-card">
+        <div class="color-sample" style="background-color: var(--text-main);"></div>
+        <div class="color-name">Text Main</div>
+        <div class="color-value">--text-main</div>
+      </div>
+      <div class="color-card">
+        <div class="color-sample" style="background-color: var(--text-muted);"></div>
+        <div class="color-name">Text Muted</div>
+        <div class="color-value">--text-muted</div>
+      </div>
+      <div class="color-card">
+        <div class="color-sample" style="background-color: var(--accent);"></div>
+        <div class="color-name">Accent</div>
+        <div class="color-value">--accent</div>
+      </div>
+      <div class="color-card">
+        <div class="color-sample" style="background-color: var(--border);"></div>
+        <div class="color-name">Border</div>
+        <div class="color-value">--border</div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'focus' ? 'academic' : 'focus';
+      html.setAttribute('data-theme', newTheme);
+      
+      // Salvar no localStorage
+      localStorage.setItem('theme', newTheme);
+    }
+
+    // Carregar tema salvo
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
+  </script>
+</body>
+</html>

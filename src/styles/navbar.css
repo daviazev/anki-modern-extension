@@ -1,0 +1,186 @@
+/**
+ * NAVBAR STYLES
+ * Estilização moderna da navbar do AnkiWeb
+ * Usa ANKI_SELECTORS.global.navbar
+ */
+
+/* ============================================
+   NAVBAR BASE
+   ============================================ */
+
+nav.navbar {
+  /* Sticky no topo */
+  position: sticky !important;
+  top: 0;
+  z-index: 1000;
+  
+  /* Backdrop blur effect (glass morphism) */
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  
+  /* Background com transparência */
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  
+  /* Borda inferior sutil */
+  border-bottom: 1px solid var(--border) !important;
+  box-shadow: 0 1px 3px var(--shadow);
+  
+  /* Remove margens e padding desnecessários */
+  padding: 8px 0 !important;
+  margin-bottom: 0 !important;
+  
+  /* Transição suave */
+  transition: all 0.3s ease;
+}
+
+/* Dark theme adjustments */
+html[data-theme="focus"] nav.navbar {
+  background-color: rgba(30, 30, 30, 0.85) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Navbar on scroll - aumentar blur */
+nav.navbar.scrolled {
+  backdrop-filter: blur(16px) saturate(200%);
+  -webkit-backdrop-filter: blur(16px) saturate(200%);
+  box-shadow: 0 2px 8px var(--shadow-hover);
+}
+
+/* ============================================
+   NAVBAR CONTAINER
+   ============================================ */
+
+nav.navbar .container {
+  max-width: 1200px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ============================================
+   NAVBAR BRAND (Logo)
+   ============================================ */
+
+a.navbar-brand {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--text-main) !important;
+  letter-spacing: -0.02em;
+  transition: all 0.2s ease;
+  padding: 8px 0 !important;
+}
+
+a.navbar-brand:hover {
+  color: var(--accent) !important;
+  transform: translateX(2px);
+}
+
+/* ============================================
+   NAVBAR LINKS
+   ============================================ */
+
+.navbar-nav .nav-link {
+  color: var(--text-main) !important;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 8px 16px !important;
+  margin: 0 4px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.navbar-nav .nav-link:hover {
+  color: var(--accent) !important;
+  background-color: var(--bg-secondary);
+}
+
+/* Active link indicator */
+.navbar-nav .nav-link.active {
+  color: var(--accent) !important;
+  background-color: var(--bg-secondary);
+}
+
+.navbar-nav .nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  right: 16px;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 2px 2px 0 0;
+}
+
+/* ============================================
+   NAVBAR MOBILE RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  nav.navbar .container {
+    padding: 0 16px;
+  }
+  
+  .navbar-nav .nav-link {
+    padding: 10px 12px !important;
+    margin: 2px 0;
+    font-size: 14px;
+  }
+  
+  a.navbar-brand {
+    font-size: 18px !important;
+  }
+}
+
+/* ============================================
+   NAVBAR ANIMATIONS
+   ============================================ */
+
+/* Fade in animation quando a página carrega */
+@keyframes navbarFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+nav.navbar {
+  animation: navbarFadeIn 0.3s ease-out;
+}
+
+/* ============================================
+   NAVBAR SEARCH (se existir)
+   ============================================ */
+
+nav.navbar input[type="search"] {
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 20px;
+  padding: 6px 16px !important;
+  font-size: 13px;
+  width: 200px;
+  transition: all 0.2s ease;
+}
+
+nav.navbar input[type="search"]:focus {
+  width: 260px;
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(46, 170, 220, 0.1);
+}
+
+@media (max-width: 768px) {
+  nav.navbar input[type="search"] {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  nav.navbar input[type="search"]:focus {
+    width: 100%;
+    max-width: 240px;
+  }
+}

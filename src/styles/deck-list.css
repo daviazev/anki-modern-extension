@@ -1,0 +1,314 @@
+/**
+ * DECK LIST STYLES
+ * Estilização moderna da lista de decks do AnkiWeb
+ * Usa ANKI_SELECTORS.decksPage
+ */
+
+/* ============================================
+   DECK LIST CONTAINER
+   ============================================ */
+
+#deckList {
+  background-color: transparent !important;
+  padding: 0;
+  margin: 0;
+}
+
+/* Remove estilos de tabela antigos */
+#deckList table,
+#deckList tbody,
+#deckList tr {
+  display: block;
+  width: 100%;
+  border: none !important;
+  background: transparent !important;
+}
+
+#deckList thead {
+  display: none; /* Esconde cabeçalho da tabela antiga */
+}
+
+/* ============================================
+   DECK ITEMS (Card Style)
+   ============================================ */
+
+.deck {
+  /* Transformar em card flutuante */
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  
+  /* Shadow sutil */
+  box-shadow: 0 1px 3px var(--shadow);
+  
+  /* Transições */
+  transition: all 0.2s ease;
+  
+  /* Remove estilos de tabela */
+  border-collapse: separate !important;
+}
+
+/* Hover effect */
+.deck:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-hover);
+  border-color: var(--accent);
+}
+
+/* Active/Focus state */
+.deck:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px var(--shadow);
+}
+
+/* ============================================
+   DECK NAME & LINK
+   ============================================ */
+
+.deck > a.deckname,
+.deckname {
+  flex: 1;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+  text-decoration: none;
+  padding: 0 !important;
+  margin: 0 16px 0 0;
+  transition: color 0.15s ease;
+  
+  /* Truncate long names */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.deck > a.deckname:hover,
+.deckname:hover {
+  color: var(--accent) !important;
+}
+
+/* ============================================
+   DECK COUNTS (Badges/Pills)
+   ============================================ */
+
+.deck .counts {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Base badge style */
+.new-count,
+.learn-count,
+.review-count,
+.zero-count {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  
+  min-width: 40px;
+  height: 28px;
+  padding: 0 12px;
+  
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  
+  transition: all 0.15s ease;
+  cursor: default;
+}
+
+/* New cards - Azul */
+.new-count {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #3B82F6 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+html[data-theme="focus"] .new-count {
+  background-color: rgba(59, 130, 246, 0.25) !important;
+  color: #60A5FA !important;
+}
+
+.new-count:hover {
+  background-color: rgba(59, 130, 246, 0.25) !important;
+  transform: scale(1.05);
+}
+
+/* Learn cards - Laranja/Vermelho */
+.learn-count {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #EF4444 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+html[data-theme="focus"] .learn-count {
+  background-color: rgba(239, 68, 68, 0.25) !important;
+  color: #F87171 !important;
+}
+
+.learn-count:hover {
+  background-color: rgba(239, 68, 68, 0.25) !important;
+  transform: scale(1.05);
+}
+
+/* Review cards - Verde */
+.review-count {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  color: #22C55E !important;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+html[data-theme="focus"] .review-count {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+  color: #4ADE80 !important;
+}
+
+.review-count:hover {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+  transform: scale(1.05);
+}
+
+/* Zero count - Cinza (desabilitado) */
+.zero-count {
+  background-color: rgba(148, 163, 184, 0.1) !important;
+  color: var(--text-muted) !important;
+  border: 1px solid var(--border);
+  opacity: 0.6;
+}
+
+.zero-count:hover {
+  opacity: 0.8;
+}
+
+/* ============================================
+   DECK ACTIONS (Botões)
+   ============================================ */
+
+.deck button.btn-link {
+  padding: 6px 12px !important;
+  font-size: 13px;
+  color: var(--text-muted) !important;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  margin-left: 8px;
+}
+
+.deck button.btn-link:hover {
+  background-color: var(--bg-main);
+  color: var(--accent) !important;
+}
+
+/* ============================================
+   SEARCH BAR
+   ============================================ */
+
+input[type="search"] {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  padding: 12px 16px !important;
+  border-radius: 8px !important;
+  font-size: 14px;
+  background-color: var(--bg-secondary) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-main) !important;
+  transition: all 0.2s ease;
+}
+
+input[type="search"]:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(46, 170, 220, 0.1) !important;
+  outline: none;
+}
+
+input[type="search"]::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+}
+
+/* ============================================
+   DECK LIST ANIMATIONS
+   ============================================ */
+
+/* Stagger animation para cada deck */
+@keyframes deckFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.deck {
+  animation: deckFadeIn 0.3s ease-out backwards;
+}
+
+/* Aplicar delay crescente para cada deck */
+.deck:nth-child(1) { animation-delay: 0.05s; }
+.deck:nth-child(2) { animation-delay: 0.1s; }
+.deck:nth-child(3) { animation-delay: 0.15s; }
+.deck:nth-child(4) { animation-delay: 0.2s; }
+.deck:nth-child(5) { animation-delay: 0.25s; }
+.deck:nth-child(n+6) { animation-delay: 0.3s; }
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  .deck {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px 16px;
+  }
+  
+  .deck > a.deckname,
+  .deckname {
+    margin: 0 0 8px 0;
+    width: 100%;
+  }
+  
+  .deck .counts {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  .new-count,
+  .learn-count,
+  .review-count,
+  .zero-count {
+    min-width: 50px;
+  }
+  
+  input[type="search"] {
+    max-width: 100%;
+  }
+}
+
+/* ============================================
+   EMPTY STATE
+   ============================================ */
+
+#deckList:empty::after {
+  content: "Nenhum deck encontrado";
+  display: block;
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-size: 16px;
+  font-weight: 500;
+}
