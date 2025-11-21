@@ -13,6 +13,8 @@ interface ThemeToggleProps {
 export function ThemeToggle({ className = "" }: ThemeToggleProps) {
   const [currentTheme, setCurrentTheme] = useState<ThemeName>("academic");
   const [isLoading, setIsLoading] = useState(true);
+  const [isAnkiWebPage, setIsAnkiWebPage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // Buscar tema atual quando o componente montar
   useEffect(() => {
@@ -27,13 +29,18 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       
       if (!tab?.id) {
+        setIsAnkiWebPage(false);
+        setErrorMessage("Nenhuma aba ativa encontrada");
         setIsLoading(false);
         return;
       }
 
       // Verificar se é uma página do AnkiWeb
-      if (!tab.url?.includes("ankiweb.net") && !tab.url?.includes("ankiuser.net")) {
-        console.log("[Theme Toggle] Não está no AnkiWeb");
+      const isAnkiPage = tab.url?.includes("ankiweb.net") || tab.url?.includes("ankiuser.net");
+      setIsAnkiWebPage(isAnkiPage);
+      
+      if (!isAnkiPage) {
+        setErrorMessage("Abra uma página do AnkiWeb para usar os temas");
         setIsLoading(false);
         return;
       }
@@ -44,9 +51,12 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
       if (response?.success) {
         setCurrentTheme(response.theme);
+        setErrorMessage("");
       }
     } catch (error) {
-      console.error("[Theme Toggle] Erro ao buscar tema:", error);
+      // Content script não carregado - instruir usuário a recarregar
+      setErrorMessage("⟳ Recarregue a página do AnkiWeb (F5)");
+      console.warn("[Theme Toggle] Content script não respondeu. Página precisa ser recarregada.", error);
     } finally {
       setIsLoading(false);
     }
@@ -56,13 +66,19 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
    * Alterna o tema
    */
   async function handleToggleTheme() {
+    if (!isAnkiWebPage) {
+      setErrorMessage("Abra uma página do AnkiWeb primeiro");
+      return;
+    }
+    
     setIsLoading(true);
+    setErrorMessage("");
     
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       
       if (!tab?.id) {
-        console.error("[Theme Toggle] Tab não encontrada");
+        setErrorMessage("Nenhuma aba ativa encontrada");
         setIsLoading(false);
         return;
       }
@@ -73,9 +89,11 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
       if (response?.success) {
         setCurrentTheme(response.theme);
+        setErrorMessage("");
       }
     } catch (error) {
-      console.error("[Theme Toggle] Erro ao alternar tema:", error);
+      setErrorMessage("⟳ Recarregue a página do AnkiWeb (F5)");
+      console.warn("[Theme Toggle] Falha ao alternar tema. Content script não carregado.", error);
     } finally {
       setIsLoading(false);
     }
@@ -85,12 +103,19 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
    * Define um tema específico
    */
   async function handleSetTheme(theme: ThemeName) {
+    if (!isAnkiWebPage) {
+      setErrorMessage("Abra uma página do AnkiWeb primeiro");
+      return;
+    }
+    
     setIsLoading(true);
+    setErrorMessage("");
     
     try {
       const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
       
       if (!tab?.id) {
+        setErrorMessage("Nenhuma aba ativa encontrada");
         setIsLoading(false);
         return;
       }
@@ -102,9 +127,11 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
 
       if (response?.success) {
         setCurrentTheme(response.theme);
+        setErrorMessage("");
       }
     } catch (error) {
-      console.error("[Theme Toggle] Erro ao definir tema:", error);
+      setErrorMessage("⟳ Recarregue a página do AnkiWeb (F5)");
+      console.warn("[Theme Toggle] Falha ao definir tema. Content script não carregado.", error);
     } finally {
       setIsLoading(false);
     }
@@ -180,11 +207,27 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       fontSize: "13px",
       color: isActive ? "white" : "#37352f",
       opacity: isLoading ? 0.5 : 1
-    })
+    }),
+    errorBox: {
+      padding: "12px",
+      background: "#fff3cd",
+      border: "1px solid #ffc107",
+      borderRadius: "8px",
+      fontSize: "13px",
+      color: "#856404",
+      textAlign: "center" as const,
+      fontWeight: 500
+    }
   };
 
   return (
     <div style={{ ...styles.container }} className={className}>
+      {errorMessage && (
+        <div style={styles.errorBox}>
+          {errorMessage}
+        </div>
+      )}
+      
       <div style={styles.themeInfo}>
         <span style={styles.emoji}>{current.emoji}</span>
         <div>
@@ -196,9 +239,9 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
       <div style={styles.buttons}>
         <button
           onClick={handleToggleTheme}
-          disabled={isLoading}
+          disabled={isLoading || !isAnkiWebPage}
           style={styles.toggleBtn}
-          title={`Alternar para ${themeDisplay[opposite].name}`}
+          title={!isAnkiWebPage ? "Abra uma página do AnkiWeb" : `Alternar para ${themeDisplay[opposite].name}`}
         >
           {isLoading ? "⏳" : "↔️"} Alternar
         </button>
@@ -206,7 +249,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
         <div style={styles.options}>
           <button
             onClick={() => handleSetTheme("academic")}
-            disabled={isLoading || currentTheme === "academic"}
+            disabled={isLoading || !isAnkiWebPage || currentTheme === "academic"}
             style={styles.themeBtn(currentTheme === "academic")}
             title="Academic (Light)"
           >
@@ -214,7 +257,7 @@ export function ThemeToggle({ className = "" }: ThemeToggleProps) {
           </button>
           <button
             onClick={() => handleSetTheme("focus")}
-            disabled={isLoading || currentTheme === "focus"}
+            disabled={isLoading || !isAnkiWebPage || currentTheme === "focus"}
             style={styles.themeBtn(currentTheme === "focus")}
             title="Focus (Dark)"
           >
