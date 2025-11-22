@@ -19,12 +19,13 @@ textarea {
   color: var(--anki-text-primary) !important;
   border: 1.5px solid var(--anki-border-color) !important;
   border-radius: 10px !important;
-  padding: 12px 16px !important;
+  padding: 16px 16px 12px 16px !important; /* Increased top padding for floating labels */
   font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
   font-size: 15px !important;
   font-weight: 500 !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-shadow: 0 1px 2px var(--anki-shadow-sm) !important;
+  min-height: 48px !important; /* Ensure minimum height to prevent label overlap */
 }
 
 /* Input focus state */
@@ -95,6 +96,49 @@ label,
   font-weight: 500 !important;
   margin-bottom: 0.5rem;
   font-size: 0.875rem;
+  display: block !important;
+  z-index: 1;
+  position: relative;
+}
+
+/* Floating labels specific styling */
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  position: absolute;
+  top: 2px;
+  left: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--anki-text-secondary) !important;
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+/* Labels for inputs with content or focus */
+.form-group input:not(:placeholder-shown) ~ label,
+.form-group input:focus ~ label {
+  top: 2px;
+  font-size: 11px;
+  color: var(--anki-primary-accent) !important;
+}
+
+/* Ensure labels don't overlap with input text */
+.form-group input:not(:placeholder-shown),
+.form-group input:focus {
+  padding-top: 20px !important;
+  padding-bottom: 8px !important;
+}
+
+/* Additional spacing for inputs with visible labels */
+input.form-control:not(:placeholder-shown),
+input[type="text"]:not(:placeholder-shown),
+input[type="email"]:not(:placeholder-shown),
+input[type="password"]:not(:placeholder-shown) {
+  padding-top: 18px !important;
+  padding-bottom: 10px !important;
 }
 
 /* Required field indicator */

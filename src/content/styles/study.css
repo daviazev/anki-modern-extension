@@ -446,3 +446,68 @@ button.btn-secondary:hover {
   color: var(--anki-primary-accent) !important;
   margin-bottom: var(--anki-spacing-md);
 }
+
+/* ============================================
+   Legacy Control Buttons (Zoom, Adjust, etc)
+   ============================================ */
+
+/* Zoom controls and adjustment buttons */
+button[onclick*="zoom"],
+button[title*="zoom"],
+button[title*="Zoom"],
+.zoom-in,
+.zoom-out,
+button.adjust-button,
+button[type="button"]:not(.btn-primary):not(.btn-secondary):not([id]),
+input[type="button"][value="+"],
+input[type="button"][value="-"] {
+  cursor: pointer;
+  background-color: var(--anki-bg-nav) !important;
+  color: var(--anki-text-primary) !important;
+  border: 1.5px solid var(--anki-border-color) !important;
+  border-radius: 8px !important;
+  padding: 8px 16px !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  min-width: 36px !important;
+  min-height: 36px !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  box-shadow: 0 1px 2px var(--anki-shadow-sm) !important;
+}
+
+button[onclick*="zoom"]:hover,
+button[title*="zoom"]:hover,
+button[title*="Zoom"]:hover,
+.zoom-in:hover,
+.zoom-out:hover,
+button.adjust-button:hover,
+input[type="button"][value="+"]:hover,
+input[type="button"][value="-"]:hover {
+  transform: translateY(-1px);
+  background-color: var(--anki-bg-card) !important;
+  color: var(--anki-primary-accent) !important;
+  border-color: var(--anki-primary-accent) !important;
+  box-shadow: 0 2px 6px var(--anki-shadow-md) !important;
+}
+
+button[onclick*="zoom"]:active,
+button[title*="zoom"]:active,
+input[type="button"]:active {
+  transform: translateY(0);
+}
+
+/* Toolbar containing legacy buttons */
+.button-toolbar,
+.control-toolbar,
+.study-toolbar {
+  background-color: var(--anki-bg-nav) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  border-radius: 10px !important;
+  padding: 8px 12px !important;
+  margin-bottom: 16px !important;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 1px 3px var(--anki-shadow-sm) !important;
+}

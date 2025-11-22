@@ -19,6 +19,52 @@ body {
   flex-direction: column;
 }
 
+/* Ensure all text elements inherit proper color in dark mode */
+p, span, div:not([style*="color"]), 
+li, td, th, label, a:not(.btn) {
+  color: var(--anki-text-primary) !important;
+}
+
+/* Specific dark mode text contrast improvements */
+html[data-theme="focus"] p,
+html[data-theme="focus"] span:not([style*="color"]),
+html[data-theme="focus"] div:not([style*="color"]):not(.btn),
+html[data-theme="focus"] li,
+html[data-theme="focus"] td,
+html[data-theme="focus"] label,
+html[data-theme="focus"] h1,
+html[data-theme="focus"] h2,
+html[data-theme="focus"] h3,
+html[data-theme="focus"] h4,
+html[data-theme="focus"] h5,
+html[data-theme="focus"] h6 {
+  color: #e5e5e5 !important;
+}
+
+/* Warning/info text in dark mode */
+html[data-theme="focus"] .alert,
+html[data-theme="focus"] .text-muted,
+html[data-theme="focus"] .form-text {
+  color: #b0b0b0 !important;
+}
+
+/* Ensure body text in cards and containers has good contrast */
+html[data-theme="focus"] .card,
+html[data-theme="focus"] .card-body,
+html[data-theme="focus"] .container,
+html[data-theme="focus"] .container-fluid,
+html[data-theme="focus"] main {
+  color: #e5e5e5 !important;
+}
+
+/* Paragraphs and text inside any container */
+html[data-theme="focus"] .card p,
+html[data-theme="focus"] .container p,
+html[data-theme="focus"] main p,
+html[data-theme="focus"] article p {
+  color: #e5e5e5 !important;
+}
+
 /* Ensure main container expands to fill available space */
 body > .container,
 body > .container-fluid,
@@ -408,8 +454,11 @@ button:disabled {
 
 footer,
 .footer,
-.bg-gray.light-border-top {
+.bg-gray.light-border-top,
+body > div.container-fluid.bg-gray,
+div.container-fluid.bg-gray {
   background-color: var(--anki-bg-nav) !important;
+  background: var(--anki-bg-nav) !important;
   border-top: 1px solid var(--anki-border-color) !important;
   color: var(--anki-text-secondary) !important;
   padding: var(--anki-spacing-lg) !important;
@@ -424,4 +473,31 @@ footer a,
 footer a:hover,
 .footer a:hover {
   color: var(--anki-primary-accent) !important;
+}
+
+/* ============================================
+   Account Management Pages Dark Mode
+   ============================================ */
+
+/* Ensure high contrast on critical pages like remove-account */
+html[data-theme="focus"] form p,
+html[data-theme="focus"] form div:not(.form-group),
+html[data-theme="focus"] .card p,
+html[data-theme="focus"] .card-body p,
+html[data-theme="focus"] .alert p {
+  color: #e5e5e5 !important;
+}
+
+/* Warning text should be clearly visible */
+html[data-theme="focus"] .text-danger,
+html[data-theme="focus"] .alert-danger,
+html[data-theme="focus"] .text-warning {
+  color: #ff8a80 !important;
+}
+
+/* Instructions and help text */
+html[data-theme="focus"] .help-block,
+html[data-theme="focus"] small,
+html[data-theme="focus"] .form-help {
+  color: #b0b0b0 !important;
 }

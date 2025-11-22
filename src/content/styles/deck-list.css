@@ -49,6 +49,51 @@ tbody tr,
   cursor: pointer !important;
 }
 
+/* Remove gray background from nested/child decks */
+tr.deck[style*="background"],
+tbody tr[style*="background-color: #fafafa"],
+tbody tr[style*="background-color:#fafafa"],
+tbody tr[style*="background: #fafafa"] {
+  background-color: var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
+}
+
+/* Hierarchical indentation for nested decks */
+tr.deck[style*="padding-left"],
+tbody tr[style*="padding-left"] {
+  padding-left: 40px !important; /* Clear visual hierarchy */
+  border-left: 3px solid var(--accent) !important;
+  margin-left: 16px !important;
+}
+
+/* Second level nesting */
+tr.deck[style*="padding-left: 4"],
+tbody tr[style*="padding-left:4"] {
+  padding-left: 60px !important;
+  opacity: 0.95;
+}
+
+/* Third level and deeper */
+tr.deck[style*="padding-left: 6"],
+tbody tr[style*="padding-left:6"] {
+  padding-left: 80px !important;
+  opacity: 0.9;
+}
+
+/* Remove gray backgrounds from wrapper divs around nested decks */
+div[style*="background"],
+div[style*="background-color"] {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* Target specific bg-gray divs that wrap decks */
+.bg-gray:not(.navbar):not(footer):not(.container-fluid),
+div.bg-gray:not(footer) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
 /* Hover no card - efeito de elevação suave */
 tr.deck:hover,
 tbody tr:hover {
