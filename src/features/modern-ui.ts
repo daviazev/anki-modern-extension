@@ -5,6 +5,7 @@
 
 import { DeckParser } from "./deck-parser";
 import { DeckRenderer } from "./deck-renderer";
+import { IntegrityMonitor } from "../testing/integrity-monitor";
 
 export class ModernUI {
     private static isInitialized = false;
@@ -56,9 +57,9 @@ export class ModernUI {
 
         console.log('[Anki Modern] Inicializando Modern UI...');
 
-        // 1. Parsear Decks
-        const deckTree = DeckParser.parse();
-        if (deckTree.length === 0) {
+        // 1. Parsear Decks e Metadados
+        const deckData = DeckParser.parse();
+        if (deckData.decks.length === 0) {
             console.warn('[Anki Modern] Nenhum deck encontrado ou falha no parser.');
             return;
         }
@@ -67,7 +68,7 @@ export class ModernUI {
         const mainContainer = document.querySelector('main.container');
         if (!mainContainer) return;
 
-        // Limpar conteúdo antigo (mas guardar referência se precisar restaurar? Por enquanto, overwrite)
+        // Limpar conteúdo antigo
         mainContainer.innerHTML = '';
 
         // 3. Renderizar Título
@@ -86,54 +87,36 @@ export class ModernUI {
 
         // 4. Renderizar Árvore de Decks
         const deckContainer = DeckRenderer.createContainer();
-        deckTree.forEach(node => {
+        deckData.decks.forEach(node => {
             deckContainer.appendChild(DeckRenderer.renderNode(node));
         });
         mainContainer.appendChild(deckContainer);
 
-        // 5. Adicionar Botões de Ação
-        this.renderActionButtons(mainContainer);
+        // 5. Renderizar Ações (Botões)
+        if (deckData.actions.length > 0) {
+            const actionsContainer = DeckRenderer.renderActions(deckData.actions);
+            mainContainer.appendChild(actionsContainer);
+        }
 
-        // 6. Adicionar Footer
-        this.renderFooter();
+        // 6. Renderizar Estatísticas
+        if (deckData.stats) {
+            const statsContainer = DeckRenderer.renderStats(deckData.stats);
+            mainContainer.appendChild(statsContainer);
+        }
 
-        this.isInitialized = true;
-    }
+        // 7. Renderizar Footer (Links Originais)
+        if (deckData.footerLinks.length > 0) {
+            const footerContainer = DeckRenderer.renderFooter(deckData.footerLinks);
+            mainContainer.appendChild(footerContainer);
+        }
 
-    private static renderActionButtons(container: Element): void {
-        const actionContainer = document.createElement('div');
-        actionContainer.style.cssText = "display: flex; justify-content: center; gap: 15px; margin-top: 40px;";
-
-        const createBtn = document.createElement('button');
-        createBtn.innerText = '+ Criar Baralho';
-        createBtn.style.cssText = `
-      padding: 12px 24px;
-      border-radius: 10px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      background: var(--accent);
-      color: white;
-      box-shadow: 0 4px 12px var(--primary-glow);
-      transition: all 0.2s;
-    `;
-        createBtn.onmouseenter = () => createBtn.style.transform = 'translateY(-2px)';
-        createBtn.onmouseleave = () => createBtn.style.transform = 'translateY(0)';
-
-        // TODO: Ligar ação do botão original de criar deck
-
-        actionContainer.appendChild(createBtn);
-        container.appendChild(actionContainer);
-    }
-
-    private static renderFooter(): void {
-        const footer = document.createElement('div');
-        footer.style.cssText = "margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.8rem;";
-        footer.innerHTML = `AnkiWeb 2025 Redesign • Foco no essencial`;
-        document.body.appendChild(footer);
-
-        // Esconder footer antigo
+        // Esconder footer antigo (se ainda estiver visível fora do main)
         const oldFooter = document.querySelector('.container-fluid.bg-gray') as HTMLElement;
         if (oldFooter) oldFooter.style.display = 'none';
+
+        this.isInitialized = true;
+
+        // 8. Monitor de Integridade
+        IntegrityMonitor.init();
     }
 }

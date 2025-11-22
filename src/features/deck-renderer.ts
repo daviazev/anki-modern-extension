@@ -157,4 +157,161 @@ export class DeckRenderer {
 
     return nodeDiv;
   }
+
+  /**
+   * Renderiza a barra de estatísticas (Collection/Media)
+   */
+  public static renderStats(stats: { collection: string; media: string }): HTMLElement {
+    const container = document.createElement('div');
+    container.className = 'deck-stats';
+    container.style.cssText = `
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 40px;
+      padding: 16px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      background: var(--bg-surface);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    `;
+
+    container.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 600;">Collection:</span>
+        <span>${stats.collection}</span>
+      </div>
+      <div style="width: 1px; height: 16px; background: var(--border);"></div>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-weight: 600;">Media:</span>
+        <span>${stats.media}</span>
+      </div>
+    `;
+
+    return container;
+  }
+
+  /**
+   * Renderiza os botões de ação (Get Shared Decks, Create Deck, etc)
+   */
+  public static renderActions(actions: { label: string; originalElement: HTMLElement }[]): HTMLElement {
+    const container = document.createElement('div');
+    container.className = 'deck-actions';
+    container.style.cssText = `
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    `;
+
+    actions.forEach(action => {
+      const btn = document.createElement('button');
+      btn.innerText = action.label;
+
+      // Estilo base
+      btn.style.cssText = `
+        padding: 10px 20px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--bg-surface);
+        color: var(--text-main);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      `;
+
+      // Destaque para "Create Deck" ou "Criar Baralho"
+      if (action.label.toLowerCase().includes('create') || action.label.toLowerCase().includes('criar')) {
+        btn.style.background = 'var(--accent)';
+        btn.style.color = 'white';
+        btn.style.border = 'none';
+        btn.style.boxShadow = '0 4px 12px var(--primary-glow)';
+      }
+
+      // Hover effects
+      btn.onmouseenter = () => {
+        btn.style.transform = 'translateY(-2px)';
+        if (!btn.style.background.includes('var(--accent)')) {
+          btn.style.background = 'var(--bg-surface-hover)';
+        }
+      };
+      btn.onmouseleave = () => {
+        btn.style.transform = 'translateY(0)';
+        if (!btn.style.background.includes('var(--accent)')) {
+          btn.style.background = 'var(--bg-surface)';
+        }
+      };
+
+      // Click handler - Dispara o clique no elemento original
+      btn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        action.originalElement.click();
+      };
+
+      container.appendChild(btn);
+    });
+
+    return container;
+  }
+
+  /**
+   * Renderiza o rodapé com links originais
+   */
+  public static renderFooter(links: { label: string; href: string; originalElement: HTMLElement }[]): HTMLElement {
+    const container = document.createElement('div');
+    container.className = 'modern-footer';
+    container.style.cssText = `
+      margin-top: 60px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    `;
+
+    links.forEach(link => {
+      const a = document.createElement('a');
+      a.innerText = link.label;
+      a.href = link.href;
+      a.className = 'footer-link';
+      a.style.cssText = `
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+      `;
+
+      a.onmouseenter = () => a.style.color = 'var(--accent)';
+      a.onmouseleave = () => a.style.color = 'var(--text-muted)';
+
+      // Preserva comportamento original se necessário, mas href geralmente basta
+      // Se o original tiver eventos, ideal seria clicar nele, mas para links simples href é melhor UX (permite abrir em nova aba)
+
+      container.appendChild(a);
+    });
+
+    // Adiciona branding discreto no final
+    const branding = document.createElement('div');
+    branding.style.cssText = `
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+    `;
+    branding.innerText = 'AnkiWeb Modern';
+    container.appendChild(branding);
+
+    return container;
+  }
 }

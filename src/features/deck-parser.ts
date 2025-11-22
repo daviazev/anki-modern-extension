@@ -12,6 +12,30 @@ export interface DeckNode {
     children: DeckNode[];
 }
 
+export interface DeckStats {
+    collection: string;
+    media: string;
+    originalElement: HTMLElement;
+}
+
+export interface DeckAction {
+    label: string;
+    originalElement: HTMLElement;
+}
+
+export interface DeckFooterLink {
+    label: string;
+    href: string;
+    originalElement: HTMLElement;
+}
+
+export interface DeckData {
+    decks: DeckNode[];
+    stats: DeckStats | null;
+    actions: DeckAction[];
+    footerLinks: DeckFooterLink[];
+}
+
 export class DeckParser {
     /**
      * Conta o nível de indentação baseado em espaços/NBSP
@@ -59,9 +83,76 @@ export class DeckParser {
     }
 
     /**
-     * Parseia o DOM atual e retorna a árvore de decks
+     * Extrai estatísticas de coleção e mídia
      */
-    public static parse(): DeckNode[] {
+    private static parseStats(): DeckStats | null {
+        // Procura pela linha que contém "Collection:"
+        const rows = Array.from(document.querySelectorAll('.row'));
+        const statsRow = rows.find(row => row.textContent?.includes('Collection:'));
+
+        if (!statsRow) return null;
+
+        const colText = (statsRow as HTMLElement).innerText; // Ex: "Collection: 3.76MB Media: 2730.65MB"
+
+        // Extração simples baseada em regex ou split
+        const collectionMatch = colText.match(/Collection:\s*([0-9.]+[A-Z]+)/i);
+        const mediaMatch = colText.match(/Media:\s*([0-9.]+[A-Z]+)/i);
+
+        return {
+            collection: collectionMatch ? collectionMatch[1] : '?',
+            media: mediaMatch ? mediaMatch[1] : '?',
+            originalElement: statsRow as HTMLElement
+        };
+    }
+
+    /**
+     * Extrai botões de ação (Get Shared Decks, Create Deck, etc)
+     */
+    private static parseActions(): DeckAction[] {
+        const actions: DeckAction[] = [];
+
+        // Geralmente estão na última row com botões btn-outline-secondary
+        const buttons = Array.from(document.querySelectorAll('.btn-outline-secondary'));
+
+        buttons.forEach(btn => {
+            const label = btn.textContent?.trim() || '';
+            if (label) {
+                actions.push({
+                    label: label,
+                    originalElement: btn as HTMLElement
+                });
+            }
+        });
+
+        return actions;
+    }
+
+    /**
+     * Extrai links do rodapé (Apps, About, Terms, Privacy, etc)
+     */
+    private static parseFooter(): DeckFooterLink[] {
+        const links: DeckFooterLink[] = [];
+        // O footer geralmente está em .container-fluid.bg-gray > ul.nav > li.nav-item > a.nav-link
+        const footerLinks = Array.from(document.querySelectorAll('.container-fluid.bg-gray .nav-link'));
+
+        footerLinks.forEach(link => {
+            const anchor = link as HTMLAnchorElement;
+            if (anchor.href && anchor.innerText) {
+                links.push({
+                    label: anchor.innerText.trim(),
+                    href: anchor.getAttribute('href') || '', // Pega o atributo original para garantir
+                    originalElement: anchor
+                });
+            }
+        });
+
+        return links;
+    }
+
+    /**
+     * Parseia o DOM atual e retorna a árvore de decks e metadados
+     */
+    public static parse(): DeckData {
         const rows = Array.from(document.querySelectorAll('.row.light-bottom-border'));
         const flatDecks: DeckNode[] = [];
 
@@ -86,6 +177,11 @@ export class DeckParser {
             });
         });
 
-        return this.buildTree(flatDecks);
+        return {
+            decks: this.buildTree(flatDecks),
+            stats: this.parseStats(),
+            actions: this.parseActions(),
+            footerLinks: this.parseFooter()
+        };
     }
 }
