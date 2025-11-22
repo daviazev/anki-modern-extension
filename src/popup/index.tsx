@@ -4,7 +4,6 @@ import React from "react"
 
 import "~assets/style.css"
 
-import { ThemeSelector } from "~popup/components/ThemeSelector"
 import { ThemeToggle } from "~popup/components/ThemeToggle"
 import { AuthProvider, useAuth } from "~popup/context/AuthContext"
 
@@ -127,13 +126,6 @@ function IndexPopup() {
                   AnkiWeb Theme
                 </h3>
                 <ThemeToggle />
-              </div>
-              
-              <div className="plasmo-rounded-lg plasmo-border plasmo-border-[#333333] plasmo-bg-[#1E1E1E] plasmo-p-4">
-                <h3 className="plasmo-mb-3 plasmo-text-sm plasmo-font-semibold plasmo-text-[#E0E0E0]">
-                  Popup Theme
-                </h3>
-                <ThemeSelector />
               </div>
             </div>
 

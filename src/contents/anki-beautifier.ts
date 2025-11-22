@@ -7,11 +7,14 @@ import type { PlasmoCSConfig } from "plasmo";
 import { ThemeManager } from "~styles/theme-engine";
 import type { ThemeName } from "~styles/tokens";
 import { injectCSS } from "~styles/css-injector";
+import { ModernUI } from "~features/modern-ui";
 
 // Importar CSS como texto usando Plasmo data-text
 import globalCSS from "data-text:~styles/global.css";
 import navbarCSS from "data-text:~styles/navbar.css";
 import deckListCSS from "data-text:~styles/deck-list.css";
+import studyScreenCSS from "data-text:~styles/study-screen.css";
+import formsCSS from "data-text:~styles/forms.css";
 
 /**
  * Configuração do Plasmo Content Script
@@ -27,19 +30,36 @@ export const config: PlasmoCSConfig = {
 // INICIALIZAÇÃO
 // ============================================
 
-let themeManager: ThemeManager | null = null;
+let themeManager: ThemeManager = new ThemeManager('academic');
 const STORAGE_KEY = 'anki-modern-theme';
+
+/**
+ * Injeta a fonte Inter via Google Fonts
+ */
+function injectGoogleFonts(): void {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap';
+  (document.head || document.documentElement).appendChild(link);
+}
 
 /**
  * Injeta todos os CSS necessários
  */
 function injectAllStyles(): void {
   console.log('[Anki Modern] Injetando estilos CSS...');
-  
-  // Injetar CSS global, navbar e deck-list
+
+  // Injetar fonte Inter
+  injectGoogleFonts();
+
+  // Injetar CSS global, navbar, deck-list, study-screen e forms
   injectCSS(globalCSS, 'global');
   injectCSS(navbarCSS, 'navbar');
   injectCSS(deckListCSS, 'deck-list');
+  injectCSS(studyScreenCSS, 'study-screen');
+  injectCSS(formsCSS, 'forms');
+
+  console.log('[Anki Modern] Todos os estilos CSS foram injetados com sucesso');
 }
 
 /**
@@ -50,10 +70,10 @@ async function initializeTheme(): Promise<void> {
     // Buscar tema salvo no storage
     const result = await chrome.storage.local.get([STORAGE_KEY]);
     const savedTheme = result[STORAGE_KEY] as ThemeName | undefined;
-    
+
     // Criar instância do ThemeManager
     themeManager = new ThemeManager(savedTheme || 'academic');
-    
+
     console.log('[Anki Modern] Tema aplicado:', themeManager.getCurrent());
   } catch (error) {
     console.error('[Anki Modern] Erro ao inicializar tema:', error);
@@ -82,16 +102,16 @@ function setupNavbarScrollEffect(): void {
   if (!navbar) return;
 
   let lastScrollTop = 0;
-  
+
   const handleScroll = (): void => {
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    
+
     if (scrollTop > 50) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
     }
-    
+
     lastScrollTop = scrollTop;
   };
 
@@ -105,16 +125,16 @@ function setupKeyboardShortcuts(): void {
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.ctrlKey && e.shiftKey && e.key === 'T') {
       e.preventDefault();
-      
+
       if (themeManager) {
         themeManager.toggle();
         const currentTheme = themeManager.getCurrent();
-        
+
         // Salvar preferência
         saveThemePreference(currentTheme);
-        
+
         console.log('[Anki Modern] Tema alternado para:', currentTheme);
-        
+
         // Notificar usuário
         showNotification(`Tema alterado: ${currentTheme === 'academic' ? 'Academic (Light)' : 'Focus (Dark)'}`);
       }
@@ -129,68 +149,57 @@ function setupKeyboardShortcuts(): void {
 function setupMessageListener(): void {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     console.log('[Anki Modern] Mensagem recebida:', message);
-    
+
     // ========================================
     // FORMATO NOVO (ThemeToggle.tsx)
     // ========================================
-    
+
     if (message.action === 'toggleTheme' && themeManager) {
       themeManager.toggle();
       const currentTheme = themeManager.getCurrent();
-      
+
       // Salvar preferência
       saveThemePreference(currentTheme);
-      
+
       // Responder com o tema atual
-      sendResponse({ 
-        success: true, 
-        theme: currentTheme 
+      sendResponse({
+        success: true,
+        theme: currentTheme
       });
-      
+
       console.log('[Anki Modern] Tema alternado via popup:', currentTheme);
-      
+
     } else if (message.action === 'setTheme' && themeManager) {
       const newTheme = message.theme as ThemeName;
       themeManager.switch(newTheme);
-      
+
       // Salvar preferência
       saveThemePreference(newTheme);
-      
+
       // Responder com sucesso
-      sendResponse({ 
-        success: true, 
-        theme: newTheme 
+      sendResponse({
+        success: true,
+        theme: newTheme
       });
-      
+
       console.log('[Anki Modern] Tema definido via popup:', newTheme);
-      
+
     } else if (message.action === 'getTheme' && themeManager) {
       // Retornar tema atual
-      sendResponse({ 
-        success: true, 
-        theme: themeManager.getCurrent() 
-      });
-      
-    // ========================================
-    // FORMATO LEGADO (ThemeSelector.tsx)
-    // Para retrocompatibilidade com o sistema antigo
-    // ========================================
-    
-    } else if (message.type === 'THEME_CHANGE' && themeManager) {
-      console.log('[Anki Modern] Mensagem legada THEME_CHANGE ignorada');
-      console.log('[Anki Modern] ThemeSelector afeta apenas o popup, não o AnkiWeb');
-      
-      // Responder com sucesso mas não fazer nada
-      // (ThemeSelector é para o tema do popup, não do AnkiWeb)
-      sendResponse({ 
+      sendResponse({
         success: true,
-        message: 'ThemeSelector only affects popup theme'
+        theme: themeManager.getCurrent()
       });
-      
+
+      // ========================================
+      // FORMATO LEGADO (ThemeSelector.tsx)
+      // Para retrocompatibilidade com o sistema antigo
+      // ========================================
+
     } else {
       sendResponse({ success: false, error: 'Unknown action' });
     }
-    
+
     // Retornar true para manter o canal de mensagem aberto
     return true;
   });
@@ -217,7 +226,7 @@ function showNotification(message: string): void {
     font-size: 14px;
     animation: slideIn 0.3s ease-out;
   `;
-  
+
   // Adicionar animação
   const style = document.createElement('style');
   style.textContent = `
@@ -233,9 +242,9 @@ function showNotification(message: string): void {
     }
   `;
   document.head.appendChild(style);
-  
+
   document.body.appendChild(notification);
-  
+
   // Remover após 3 segundos
   setTimeout(() => {
     notification.style.animation = 'slideIn 0.3s ease-out reverse';
@@ -252,25 +261,27 @@ function showNotification(message: string): void {
  */
 async function bootstrap(): Promise<void> {
   console.log('[Anki Modern] Iniciando extensão...');
-  
+
   try {
-    // 1. Injetar estilos CSS
+    // 1. Setup listeners immediately (fix for connection error)
+    setupMessageListener();
+
+    // 2. Injetar estilos CSS
     injectAllStyles();
-    
-    // 2. Inicializar sistema de temas
+
+    // 3. Inicializar sistema de temas
     await initializeTheme();
-    
+
     // 3. Aguardar DOM estar pronto
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', setupFeatures);
     } else {
       setupFeatures();
     }
-    
-    // 4. Setup de listeners (não depende do DOM)
+
+    // 5. Setup de listeners (não depende do DOM)
     setupKeyboardShortcuts();
-    setupMessageListener();
-    
+
     console.log('[Anki Modern] ✓ Extensão carregada com sucesso!');
   } catch (error) {
     console.error('[Anki Modern] ✗ Erro ao carregar extensão:', error);
@@ -282,10 +293,13 @@ async function bootstrap(): Promise<void> {
  */
 function setupFeatures(): void {
   console.log('[Anki Modern] Configurando features...');
-  
+
   // Navbar scroll effect
   setupNavbarScrollEffect();
-  
+
+  // Initialize Modern UI (Deck View)
+  ModernUI.init();
+
   // Futuras features podem ser adicionadas aqui
 }
 

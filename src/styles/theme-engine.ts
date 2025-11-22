@@ -21,9 +21,9 @@ export function injectTheme(themeName: ThemeName): void {
   const styleElement = document.createElement('style');
   styleElement.id = THEME_STYLE_ID;
   styleElement.textContent = generateThemeCSS(themeName);
-  
-  // Injeta no head
-  document.head.appendChild(styleElement);
+
+  // Injeta no head ou html (fallback)
+  (document.head || document.documentElement).appendChild(styleElement);
 
   // Adiciona data-attribute na tag HTML para seletores específicos
   document.documentElement.setAttribute('data-theme', themeName);
@@ -67,7 +67,7 @@ export function useTheme(initialTheme: ThemeName = 'academic') {
 
   useEffect(() => {
     injectTheme(theme);
-    
+
     // Cleanup ao desmontar
     return () => {
       removeTheme();

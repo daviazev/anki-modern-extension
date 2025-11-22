@@ -5,15 +5,27 @@
    Body & HTML Styling
    ============================================ */
 
-html,
-body {
+html {
+  height: 100%;
   background-color: var(--anki-bg-main) !important;
-  color: var(--anki-text-primary) !important;
-  min-height: 100vh;
 }
 
 body {
+  min-height: 100vh;
+  background-color: var(--anki-bg-main) !important;
+  color: var(--anki-text-primary) !important;
   transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure main container expands to fill available space */
+body > .container,
+body > .container-fluid,
+body > main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ============================================
@@ -184,4 +196,232 @@ h4,
 h5,
 h6 {
   color: var(--anki-text-primary) !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: var(--anki-spacing-lg);
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--anki-spacing-md);
+}
+
+h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--anki-spacing-md);
+}
+
+/* ============================================
+   Cards & Panels
+   ============================================ */
+
+.card,
+.panel,
+.card-body {
+  background-color: var(--anki-bg-card) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  border-radius: var(--anki-radius-lg) !important;
+  padding: var(--anki-spacing-lg) !important;
+  box-shadow: var(--anki-shadow-sm) !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--anki-shadow-md) !important;
+}
+
+.card-header,
+.panel-heading {
+  background-color: var(--anki-bg-nav) !important;
+  border-bottom: 1px solid var(--anki-border-color) !important;
+  padding: var(--anki-spacing-md) var(--anki-spacing-lg) !important;
+  font-weight: 600;
+}
+
+.card-footer,
+.panel-footer {
+  background-color: var(--anki-bg-nav) !important;
+  border-top: 1px solid var(--anki-border-color) !important;
+  padding: var(--anki-spacing-md) var(--anki-spacing-lg) !important;
+}
+
+/* ============================================
+   Tables
+   ============================================ */
+
+table,
+.table {
+  color: var(--anki-text-primary) !important;
+  border-color: var(--anki-border-color) !important;
+}
+
+table thead th,
+.table thead th {
+  background-color: var(--anki-bg-nav) !important;
+  color: var(--anki-text-primary) !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid var(--anki-border-color) !important;
+  padding: var(--anki-spacing-md) !important;
+}
+
+table tbody td,
+.table tbody td {
+  border-bottom: 1px solid var(--anki-border-color) !important;
+  padding: var(--anki-spacing-md) !important;
+}
+
+table tbody tr:hover,
+.table tbody tr:hover {
+  background-color: var(--anki-bg-nav) !important;
+}
+
+/* ============================================
+   Alerts & Messages
+   ============================================ */
+
+.alert {
+  background-color: var(--anki-bg-card) !important;
+  border: 1px solid var(--anki-border-color) !important;
+  color: var(--anki-text-primary) !important;
+  border-radius: var(--anki-radius-md) !important;
+  padding: var(--anki-spacing-md) var(--anki-spacing-lg) !important;
+}
+
+.alert-info {
+  border-left: 4px solid var(--anki-primary-accent) !important;
+}
+
+.alert-success {
+  border-left: 4px solid #4caf50 !important;
+}
+
+.alert-warning {
+  border-left: 4px solid #ff9800 !important;
+}
+
+.alert-danger,
+.alert-error {
+  border-left: 4px solid #ff5252 !important;
+}
+
+/* ============================================
+   Badges
+   ============================================ */
+
+.badge {
+  background-color: var(--anki-bg-nav) !important;
+  color: var(--anki-text-primary) !important;
+  padding: 0.25rem 0.625rem !important;
+  border-radius: var(--anki-radius-sm) !important;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.badge-primary {
+  background-color: var(--anki-primary-accent) !important;
+  color: #000000 !important;
+}
+
+.badge-success {
+  background-color: #4caf50 !important;
+  color: #ffffff !important;
+}
+
+.badge-warning {
+  background-color: #ff9800 !important;
+  color: #000000 !important;
+}
+
+.badge-danger {
+  background-color: #ff5252 !important;
+  color: #ffffff !important;
+}
+
+/* ============================================
+   Buttons (General)
+   ============================================ */
+
+.btn,
+button:not(.navbar-toggler) {
+  border-radius: var(--anki-radius-md) !important;
+  padding: 0.625rem 1.25rem !important;
+  font-weight: 600 !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
+}
+
+.btn-primary,
+button.btn-primary {
+  background-color: var(--anki-primary-accent) !important;
+  color: #000000 !important;
+  box-shadow: var(--anki-shadow-sm) !important;
+}
+
+.btn-primary:hover,
+button.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+  box-shadow: var(--anki-shadow-md) !important;
+}
+
+.btn-secondary,
+button.btn-secondary {
+  background-color: var(--anki-bg-nav) !important;
+  color: var(--anki-text-primary) !important;
+  border: 1px solid var(--anki-border-color) !important;
+}
+
+.btn-secondary:hover,
+button.btn-secondary:hover {
+  background-color: var(--anki-bg-card) !important;
+  border-color: var(--anki-primary-accent) !important;
+}
+
+.btn-success {
+  background-color: #4caf50 !important;
+  color: #ffffff !important;
+}
+
+.btn-danger {
+  background-color: #ff5252 !important;
+  color: #ffffff !important;
+}
+
+.btn-warning {
+  background-color: #ff9800 !important;
+  color: #000000 !important;
+}
+
+.btn:disabled,
+button:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+footer,
+.footer,
+.bg-gray.light-border-top {
+  background-color: var(--anki-bg-nav) !important;
+  border-top: 1px solid var(--anki-border-color) !important;
+  color: var(--anki-text-secondary) !important;
+  padding: var(--anki-spacing-lg) !important;
+  margin-top: auto;
+}
+
+footer a,
+.footer a {
+  color: var(--anki-text-secondary) !important;
+}
+
+footer a:hover,
+.footer a:hover {
+  color: var(--anki-primary-accent) !important;
 }

@@ -1,201 +1,334 @@
-/* Dashboard & Deck List Styling (/decks) */
-/* Styles for the main deck list page */
+/**
+ * DECK LIST - MODERN CARD DESIGN
+ * Transforma a tabela antiga em cards modernos estilo Notion/Linear
+ * Usa "Table Breaking" para sobrescrever o layout de tabela do AnkiWeb
+ */
 
 /* ============================================
-   Deck List Container
+   TABLE BREAKING - Transformar Tabela em Flex
    ============================================ */
 
-.container {
-  background-color: transparent !important;
+/* Transformar a tabela em container de bloco */
+table,
+table.table,
+.table,
+tbody,
+thead {
+  display: block !important;
+  width: 100% !important;
+  border: none !important;
+  background: transparent !important;
 }
 
-/* ============================================
-   Deck Rows
-   ============================================ */
-
-/* Deck row styling */
-.container > .row.light-bottom-border,
-.row.light-bottom-border,
-.light-bottom-border {
-  border-bottom: 1px solid var(--anki-border-color) !important;
-  padding: var(--anki-spacing-md) 0;
-  transition: background-color 0.2s ease;
-}
-
-.container > .row.light-bottom-border:hover,
-.row.light-bottom-border:hover {
-  background-color: rgba(255, 255, 255, 0.02) !important;
-}
-
-/* Remove default border colors */
-.light-bottom-border {
-  border-bottom-color: var(--anki-border-color) !important;
+/* Esconder cabeçalho da tabela */
+thead,
+thead tr,
+thead th {
+  display: none !important;
 }
 
 /* ============================================
-   Deck Names (Links)
+   DECK CARDS - Cada linha vira um Card
    ============================================ */
 
-/* Deck name button/link */
+/* Cada linha (tr) se torna um card moderno */
+tr.deck,
+tbody tr,
+.deck-row {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background-color: var(--bg-secondary) !important;
+  margin-bottom: 12px !important;
+  padding: 20px 24px !important;
+  border-radius: 16px !important;
+  border: 1.5px solid var(--border) !important;
+  box-shadow: 0 1px 3px var(--shadow), 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  border-collapse: separate !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  cursor: pointer !important;
+}
+
+/* Hover no card - efeito de elevação suave */
+tr.deck:hover,
+tbody tr:hover {
+  transform: translateY(-4px) scale(1.01) !important;
+  box-shadow: 0 12px 24px var(--shadow-hover), 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  border-color: var(--accent) !important;
+}
+
+/* Active state - clique */
+tr.deck:active,
+tbody tr:active {
+  transform: translateY(-2px) scale(1.005) !important;
+}
+
+/* Células (td) dentro do card */
+tr.deck td,
+tbody tr td {
+  display: inline-flex !important;
+  align-items: center !important;
+  border: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+
+/* Primeira célula (nome do deck) - ocupa espaço flexível */
+tr.deck td:first-child,
+tbody tr td:first-child {
+  flex: 1 !important;
+  min-width: 0 !important;
+}
+
+/* Células de contadores - alinhadas à direita */
+tr.deck td:not(:first-child),
+tbody tr td:not(:first-child) {
+  display: inline-flex !important;
+  margin-left: 8px !important;
+}
+
+/* ============================================
+   DECK NAME - Tipografia Moderna
+   ============================================ */
+
+/* Nome do deck (link) */
 .btn-link,
 button.btn-link,
-a.btn-link {
-  color: var(--anki-primary-accent) !important;
+a.btn-link,
+a.deckname,
+.deckname {
+  color: var(--text-main) !important;
   text-decoration: none !important;
-  font-weight: 500 !important;
-  transition: all 0.2s ease;
-  padding-left: 0 !important;
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  transition: all 0.2s ease !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
 }
 
 .btn-link:hover,
-button.btn-link:hover,
-a.btn-link:hover {
-  color: var(--anki-primary-accent) !important;
-  opacity: 0.8;
+a.deckname:hover {
+  color: var(--accent) !important;
   text-decoration: none !important;
-  transform: translateX(2px);
+  transform: translateX(2px) !important;
 }
 
 .btn-link:focus,
-button.btn-link:focus,
-a.btn-link:focus {
+a.deckname:focus {
   box-shadow: none !important;
   outline: none !important;
 }
 
 /* ============================================
-   Card Counts (Due, New, etc.)
+   BADGES MODERNAS - Pílulas de Contador
    ============================================ */
 
-/* Base styling for all numbers */
-.number {
+/* Base para todos os badges */
+.number,
+span[class*="count"],
+.badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 36px !important;
+  height: 28px !important;
+  padding: 0 10px !important;
+  border-radius: 14px !important;
+  font-size: 13px !important;
   font-weight: 600 !important;
-  font-variant-numeric: tabular-nums;
-  padding: 2px 6px;
-  border-radius: var(--anki-radius-sm);
-  transition: all 0.2s ease;
+  font-variant-numeric: tabular-nums !important;
+  transition: all 0.15s ease !important;
+  white-space: nowrap !important;
 }
 
-/* Due cards - Red/Orange (muted) */
-.number.due {
-  color: #ff8a80 !important;
-  background-color: rgba(255, 138, 128, 0.1) !important;
+.number:hover {
+  transform: scale(1.05) !important;
 }
 
-/* New cards - Green (muted) */
-.number.new {
-  color: #69f0ae !important;
-  background-color: rgba(105, 240, 174, 0.1) !important;
+/* Review (Verde - Revisões prontas) */
+.number:nth-of-type(1),
+.review-count {
+  background-color: rgba(34, 197, 94, 0.15) !important;
+  color: #22C55E !important;
+  border: 1px solid rgba(34, 197, 94, 0.3) !important;
 }
 
-/* Review/Learn cards - Blue (muted) */
-.number.learn,
-.number.review {
-  color: #82b1ff !important;
-  background-color: rgba(130, 177, 255, 0.1) !important;
+/* New (Azul - Cards novos) */
+.number:nth-of-type(2),
+.new-count {
+  background-color: rgba(59, 130, 246, 0.15) !important;
+  color: #3B82F6 !important;
+  border: 1px solid rgba(59, 130, 246, 0.3) !important;
 }
 
-/* Zero count - Dimmed */
-.number:has-text("0") {
-  color: var(--anki-text-secondary) !important;
-  opacity: 0.5;
+/* Learn (Vermelho - Em aprendizado) */
+.number:nth-of-type(3),
+.learn-count {
+  background-color: rgba(239, 68, 68, 0.15) !important;
+  color: #EF4444 !important;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
 }
 
-/* ============================================
-   Actions Dropdown Button
-   ============================================ */
-
-/* Actions button styling */
-.dropdown-toggle,
-button.dropdown-toggle,
-.btn.dropdown-toggle {
-  background-color: var(--anki-bg-card) !important;
-  border: 1px solid var(--anki-border-color) !important;
-  color: var(--anki-text-secondary) !important;
-  transition: all 0.2s ease;
-  padding: 0.375rem 0.75rem !important;
-  font-size: 0.875rem !important;
+/* Dark theme adjustments */
+html[data-theme="focus"] .number:nth-of-type(1),
+html[data-theme="focus"] .review-count {
+  background-color: rgba(34, 197, 94, 0.25) !important;
+  color: #4ADE80 !important;
 }
 
-.dropdown-toggle:hover,
-button.dropdown-toggle:hover,
-.btn.dropdown-toggle:hover {
-  background-color: var(--anki-bg-main) !important;
-  border-color: var(--anki-primary-accent) !important;
-  color: var(--anki-text-primary) !important;
+html[data-theme="focus"] .number:nth-of-type(2),
+html[data-theme="focus"] .new-count {
+  background-color: rgba(59, 130, 246, 0.25) !important;
+  color: #60A5FA !important;
 }
 
-.dropdown-toggle:focus,
-button.dropdown-toggle:focus,
-.btn.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem rgba(187, 134, 252, 0.25) !important;
-  outline: none !important;
+html[data-theme="focus"] .number:nth-of-type(3),
+html[data-theme="focus"] .learn-count {
+  background-color: rgba(239, 68, 68, 0.25) !important;
+  color: #F87171 !important;
 }
 
-.dropdown-toggle::after {
-  border-top-color: var(--anki-text-secondary) !important;
+/* Zero count - estilo discreto */
+.number:empty,
+.number:contains("0") {
+  opacity: 0.5 !important;
+  background-color: rgba(128, 128, 128, 0.1) !important;
+  color: var(--text-muted) !important;
+  border-color: transparent !important;
 }
 
 /* ============================================
-   Deck Options & Study Buttons
+   BOTÕES DE AÇÃO (Study, Options, etc.)
    ============================================ */
 
-/* Study button */
+/* Botão de estudo (primário) */
 .btn-primary,
 button.btn-primary {
-  background-color: var(--anki-primary-accent) !important;
-  border-color: var(--anki-primary-accent) !important;
-  color: #000000 !important;
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: white !important;
   font-weight: 600 !important;
-  transition: all 0.2s ease;
+  padding: 8px 16px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  border: none !important;
 }
 
-.btn-primary:hover,
-button.btn-primary:hover {
-  background-color: var(--anki-primary-accent) !important;
-  opacity: 0.85;
-  transform: translateY(-1px);
-  box-shadow: var(--anki-shadow-md) !important;
+.btn-primary:hover {
+  background-color: var(--accent-hover) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px var(--shadow-hover) !important;
 }
 
-.btn-primary:active,
-button.btn-primary:active {
+.btn-primary:active {
   transform: translateY(0) !important;
 }
 
-/* Secondary buttons */
-.btn-secondary,
-button.btn-secondary {
-  background-color: var(--anki-bg-card) !important;
-  border-color: var(--anki-border-color) !important;
-  color: var(--anki-text-primary) !important;
-  transition: all 0.2s ease;
+/* Botão secundário / Dropdown */
+.dropdown-toggle,
+button.dropdown-toggle,
+.btn.dropdown-toggle,
+.btn-secondary {
+  background-color: transparent !important;
+  border: 1px solid var(--border) !important;
+  color: var(--text-muted) !important;
+  padding: 8px 12px !important;
+  border-radius: 8px !important;
+  transition: all 0.2s ease !important;
+  font-size: 14px !important;
 }
 
-.btn-secondary:hover,
-button.btn-secondary:hover {
-  background-color: var(--anki-bg-main) !important;
-  border-color: var(--anki-primary-accent) !important;
+.dropdown-toggle:hover,
+.btn-secondary:hover {
+  background-color: var(--bg-secondary) !important;
+  border-color: var(--accent) !important;
+  color: var(--text-main) !important;
+}
+
+.dropdown-toggle:focus,
+.btn-secondary:focus {
+  box-shadow: 0 0 0 3px rgba(var(--accent), 0.1) !important;
+  outline: none !important;
 }
 
 /* ============================================
-   Deck Hierarchy & Indentation
+   CONTAINER & SPACING
    ============================================ */
 
-/* Nested/sub-deck styling */
-.row[style*="padding-left"],
-.row[style*="margin-left"] {
-  border-left: 2px solid var(--anki-border-color) !important;
+.container,
+.container-fluid,
+main.container {
+  background-color: transparent !important;
+  padding: 32px 24px !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  min-height: calc(100vh - 140px) !important; /* Ensure full height minus navbar and footer */
 }
 
-/* Deck collapse indicators */
+/* Page title */
+h1,
+h2.page-title,
+.deck-list-title {
+  font-size: 2.25rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
+  margin-bottom: 0.75em !important;
+  color: var(--text-main) !important;
+}
+
+/* ============================================
+   ESCONDER ELEMENTOS DESNECESSÁRIOS
+   ============================================ */
+
+/* Esconder colunas vazias ou inúteis */
+.table thead th:empty,
+.table td:empty:not(.number) {
+  display: none !important;
+}
+
+/* Esconder bordas antigas do Bootstrap */
+.light-bottom-border,
+.row.light-bottom-border {
+  border: none !important;
+}
+
+/* ============================================
+   DECK HIERARCHY - Sub-decks aninhados
+   ============================================ */
+
+/* Sub-decks com indentação visual */
+.row[style*="padding-left"],
+tr[style*="padding-left"] {
+  margin-left: 24px !important;
+  position: relative !important;
+}
+
+.row[style*="padding-left"]::before,
+tr[style*="padding-left"]::before {
+  content: '' !important;
+  position: absolute !important;
+  left: -12px !important;
+  top: 50% !important;
+  width: 2px !important;
+  height: 60% !important;
+  background-color: var(--border) !important;
+  transform: translateY(-50%) !important;
+}
+
+/* Collapse indicators */
 .deck-collapse-indicator {
-  color: var(--anki-text-secondary) !important;
-  transition: transform 0.2s ease;
+  color: var(--text-muted) !important;
+  transition: transform 0.2s ease !important;
+  cursor: pointer !important;
 }
 
 .deck-collapse-indicator:hover {
-  color: var(--anki-text-primary) !important;
+  color: var(--text-main) !important;
+  transform: rotate(90deg) !important;
 }
 
 /* ============================================
@@ -235,4 +368,142 @@ small.text-muted {
 .badge-primary {
   background-color: var(--anki-primary-accent) !important;
   color: #000000 !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/* Card slide-in animation */
+@keyframes deckSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to cards with staggered delay */
+tr.deck,
+tbody tr,
+.deck-row {
+  animation: deckSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+tr.deck:nth-child(1),
+tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+tr.deck:nth-child(2),
+tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+tr.deck:nth-child(3),
+tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+tr.deck:nth-child(4),
+tbody tr:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+tr.deck:nth-child(5),
+tbody tr:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+tr.deck:nth-child(n+6),
+tbody tr:nth-child(n+6) {
+  animation-delay: 0.3s;
+}
+
+/* ============================================
+   SEARCH INPUT
+   ============================================ */
+
+input[type="search"],
+.deck-search {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--bg-secondary) !important;
+  border: 1.5px solid var(--border) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 1px 3px var(--shadow) !important;
+  border-radius: 12px !important;
+  margin-bottom: 24px !important;
+  padding: 14px 20px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+input[type="search"]:focus {
+  transform: translateY(-2px);
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px rgba(46, 170, 220, 0.12), 0 2px 8px var(--shadow-hover) !important;
+  outline: none !important;
+}
+
+input[type="search"]::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  tr.deck,
+  tbody tr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px !important;
+  }
+
+  tr.deck td:first-child,
+  tbody tr td:first-child {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  tr.deck td:not(:first-child),
+  tbody tr td:not(:first-child) {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  input[type="search"] {
+    max-width: 100%;
+  }
+
+  .container,
+  .container-fluid {
+    padding: 16px !important;
+  }
+}
+
+/* ============================================
+   EMPTY STATE MESSAGE
+   ============================================ */
+
+#deckList:empty::after,
+tbody:empty::after {
+  content: "Nenhum baralho encontrado";
+  display: block;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 64px 24px;
+  font-size: 17px;
+  font-weight: 600;
 }

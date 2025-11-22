@@ -7,6 +7,7 @@ export type ThemeName = 'academic' | 'focus';
 
 export interface ThemeTokens {
   '--bg-main': string;
+  '--bg-main-rgb': string;
   '--bg-secondary': string;
   '--text-main': string;
   '--text-muted': string;
@@ -15,6 +16,14 @@ export interface ThemeTokens {
   '--accent-hover': string;
   '--shadow': string;
   '--shadow-hover': string;
+  // Modern UI Tokens
+  '--bg-glass': string;
+  '--bg-surface': string;
+  '--bg-surface-hover': string;
+  '--primary-glow': string;
+  '--success': string;
+  '--review': string;
+  '--gradient-title': string;
 }
 
 /**
@@ -23,6 +32,7 @@ export interface ThemeTokens {
  */
 export const THEME_ACADEMIC: ThemeTokens = {
   '--bg-main': '#FFFFFF',
+  '--bg-main-rgb': '255, 255, 255',
   '--bg-secondary': '#F7F7F5',
   '--text-main': '#37352F',
   '--text-muted': '#787774',
@@ -30,7 +40,15 @@ export const THEME_ACADEMIC: ThemeTokens = {
   '--accent': '#2EAADC',
   '--accent-hover': '#2596C2',
   '--shadow': 'rgba(15, 15, 15, 0.05)',
-  '--shadow-hover': 'rgba(15, 15, 15, 0.1)'
+  '--shadow-hover': 'rgba(15, 15, 15, 0.1)',
+  // Modern UI Tokens - Light
+  '--bg-glass': 'rgba(255, 255, 255, 0.8)',
+  '--bg-surface': '#FFFFFF',
+  '--bg-surface-hover': '#F0F0F0',
+  '--primary-glow': 'rgba(46, 170, 220, 0.15)',
+  '--success': '#10b981',
+  '--review': '#f43f5e',
+  '--gradient-title': 'linear-gradient(to right, #37352F, #787774)'
 };
 
 /**
@@ -39,6 +57,7 @@ export const THEME_ACADEMIC: ThemeTokens = {
  */
 export const THEME_FOCUS: ThemeTokens = {
   '--bg-main': '#1E1E1E',
+  '--bg-main-rgb': '30, 30, 30',
   '--bg-secondary': '#252526',
   '--text-main': '#D4D4D4',
   '--text-muted': '#A0A0A0',
@@ -46,7 +65,15 @@ export const THEME_FOCUS: ThemeTokens = {
   '--accent': '#BB86FC',
   '--accent-hover': '#A370E8',
   '--shadow': 'rgba(0, 0, 0, 0.3)',
-  '--shadow-hover': 'rgba(0, 0, 0, 0.5)'
+  '--shadow-hover': 'rgba(0, 0, 0, 0.5)',
+  // Modern UI Tokens - Dark
+  '--bg-glass': 'rgba(30, 30, 30, 0.6)',
+  '--bg-surface': '#252526',
+  '--bg-surface-hover': '#2D2D30',
+  '--primary-glow': 'rgba(187, 134, 252, 0.15)',
+  '--success': '#10b981',
+  '--review': '#f43f5e',
+  '--gradient-title': 'linear-gradient(to right, #ffffff, #9ca3af)'
 };
 
 /**
@@ -72,7 +99,7 @@ export function tokensToCSS(tokens: ThemeTokens): string {
 export function generateThemeCSS(themeName: ThemeName): string {
   const tokens = THEMES[themeName];
   const cssVars = tokensToCSS(tokens);
-  
+
   return `
 :root {
   ${cssVars}
