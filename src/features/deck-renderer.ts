@@ -262,4 +262,56 @@ export class DeckRenderer {
 
     return container;
   }
+
+  /**
+   * Renderiza o rodapé com links originais
+   */
+  public static renderFooter(links: { label: string; href: string; originalElement: HTMLElement }[]): HTMLElement {
+    const container = document.createElement('div');
+    container.className = 'modern-footer';
+    container.style.cssText = `
+      margin-top: 60px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    `;
+
+    links.forEach(link => {
+      const a = document.createElement('a');
+      a.innerText = link.label;
+      a.href = link.href;
+      a.className = 'footer-link';
+      a.style.cssText = `
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.2s;
+      `;
+
+      a.onmouseenter = () => a.style.color = 'var(--accent)';
+      a.onmouseleave = () => a.style.color = 'var(--text-muted)';
+
+      // Preserva comportamento original se necessário, mas href geralmente basta
+      // Se o original tiver eventos, ideal seria clicar nele, mas para links simples href é melhor UX (permite abrir em nova aba)
+
+      container.appendChild(a);
+    });
+
+    // Adiciona branding discreto no final
+    const branding = document.createElement('div');
+    branding.style.cssText = `
+      width: 100%;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+    `;
+    branding.innerText = 'AnkiWeb Modern';
+    container.appendChild(branding);
+
+    return container;
+  }
 }

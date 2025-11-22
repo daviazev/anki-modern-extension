@@ -23,10 +23,17 @@ export interface DeckAction {
     originalElement: HTMLElement;
 }
 
+export interface DeckFooterLink {
+    label: string;
+    href: string;
+    originalElement: HTMLElement;
+}
+
 export interface DeckData {
     decks: DeckNode[];
     stats: DeckStats | null;
     actions: DeckAction[];
+    footerLinks: DeckFooterLink[];
 }
 
 export class DeckParser {
@@ -121,6 +128,28 @@ export class DeckParser {
     }
 
     /**
+     * Extrai links do rodapé (Apps, About, Terms, Privacy, etc)
+     */
+    private static parseFooter(): DeckFooterLink[] {
+        const links: DeckFooterLink[] = [];
+        // O footer geralmente está em .container-fluid.bg-gray > ul.nav > li.nav-item > a.nav-link
+        const footerLinks = Array.from(document.querySelectorAll('.container-fluid.bg-gray .nav-link'));
+
+        footerLinks.forEach(link => {
+            const anchor = link as HTMLAnchorElement;
+            if (anchor.href && anchor.innerText) {
+                links.push({
+                    label: anchor.innerText.trim(),
+                    href: anchor.getAttribute('href') || '', // Pega o atributo original para garantir
+                    originalElement: anchor
+                });
+            }
+        });
+
+        return links;
+    }
+
+    /**
      * Parseia o DOM atual e retorna a árvore de decks e metadados
      */
     public static parse(): DeckData {
@@ -151,7 +180,8 @@ export class DeckParser {
         return {
             decks: this.buildTree(flatDecks),
             stats: this.parseStats(),
-            actions: this.parseActions()
+            actions: this.parseActions(),
+            footerLinks: this.parseFooter()
         };
     }
 }

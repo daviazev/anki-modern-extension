@@ -5,6 +5,7 @@
 
 import { DeckParser } from "./deck-parser";
 import { DeckRenderer } from "./deck-renderer";
+import { IntegrityMonitor } from "../testing/integrity-monitor";
 
 export class ModernUI {
     private static isInitialized = false;
@@ -103,20 +104,19 @@ export class ModernUI {
             mainContainer.appendChild(statsContainer);
         }
 
-        // 7. Adicionar Footer
-        this.renderFooter();
+        // 7. Renderizar Footer (Links Originais)
+        if (deckData.footerLinks.length > 0) {
+            const footerContainer = DeckRenderer.renderFooter(deckData.footerLinks);
+            mainContainer.appendChild(footerContainer);
+        }
 
-        this.isInitialized = true;
-    }
-
-    private static renderFooter(): void {
-        const footer = document.createElement('div');
-        footer.style.cssText = "margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.8rem;";
-        footer.innerHTML = `AnkiWeb 2025 Redesign • Foco no essencial`;
-        document.body.appendChild(footer);
-
-        // Esconder footer antigo
+        // Esconder footer antigo (se ainda estiver visível fora do main)
         const oldFooter = document.querySelector('.container-fluid.bg-gray') as HTMLElement;
         if (oldFooter) oldFooter.style.display = 'none';
+
+        this.isInitialized = true;
+
+        // 8. Monitor de Integridade
+        IntegrityMonitor.init();
     }
 }
