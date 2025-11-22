@@ -39,7 +39,8 @@ keys.json
 .tsbuildinfo
 
 # .txt files
-*.txt
+bla.txt
+
 # Backup files
 *.backup
 *.bak
