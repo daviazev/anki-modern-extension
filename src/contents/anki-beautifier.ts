@@ -58,7 +58,7 @@ function injectAllStyles(): void {
   injectCSS(deckListCSS, 'deck-list');
   injectCSS(studyScreenCSS, 'study-screen');
   injectCSS(formsCSS, 'forms');
-  
+
   console.log('[Anki Modern] Todos os estilos CSS foram injetados com sucesso');
 }
 
@@ -195,17 +195,6 @@ function setupMessageListener(): void {
       // FORMATO LEGADO (ThemeSelector.tsx)
       // Para retrocompatibilidade com o sistema antigo
       // ========================================
-
-    } else if (message.type === 'THEME_CHANGE' && themeManager) {
-      console.log('[Anki Modern] Mensagem legada THEME_CHANGE ignorada');
-      console.log('[Anki Modern] ThemeSelector afeta apenas o popup, não o AnkiWeb');
-
-      // Responder com sucesso mas não fazer nada
-      // (ThemeSelector é para o tema do popup, não do AnkiWeb)
-      sendResponse({
-        success: true,
-        message: 'ThemeSelector only affects popup theme'
-      });
 
     } else {
       sendResponse({ success: false, error: 'Unknown action' });
