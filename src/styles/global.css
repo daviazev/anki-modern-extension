@@ -41,9 +41,9 @@ body {
 }
 
 /* Ensure main container expands to fill available space */
-body > .container,
-body > .container-fluid,
-body > main,
+body>.container,
+body>.container-fluid,
+body>main,
 main.container {
   flex: 1;
   display: flex;
@@ -86,7 +86,12 @@ main.container {
    TIPOGRAFIA AGRESSIVA
    ============================================ */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-main) !important;
   font-weight: 700;
   letter-spacing: -0.025em;
@@ -94,10 +99,22 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.75em;
 }
 
-h1 { font-size: 2.25rem; font-weight: 800; }
-h2 { font-size: 1.875rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.25rem; }
+h1 {
+  font-size: 2.25rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.875rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
+}
 
 p {
   color: var(--text-main);
@@ -115,7 +132,8 @@ a:hover {
   color: var(--accent-hover);
 }
 
-strong, b {
+strong,
+b {
   font-weight: 600;
 }
 
@@ -140,6 +158,9 @@ textarea {
   font-weight: 500 !important;
   box-shadow: 0 1px 2px var(--shadow) !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  /* Ensure text is visible */
+  color: var(--text-main) !important;
+  -webkit-text-fill-color: var(--text-main) !important;
 }
 
 input::placeholder,
@@ -231,6 +252,7 @@ button.btn-link:hover {
   padding: 16px 20px !important;
   box-shadow: 0 1px 3px var(--shadow) !important;
   font-weight: 500;
+  color: var(--text-main) !important;
 }
 
 /* ============================================
@@ -262,7 +284,7 @@ table tr:hover {
    FOOTER
    ============================================ */
 
-body > div.container-fluid.bg-gray {
+body>div.container-fluid.bg-gray {
   background-color: var(--bg-secondary) !important;
   border-top: 1px solid var(--border);
   padding: 32px 0;

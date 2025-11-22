@@ -14,21 +14,21 @@
   max-width: 900px !important;
   margin: 40px auto !important;
   padding: 48px 40px !important;
-  
+
   /* Card físico flutuante */
   background: var(--bg-secondary) !important;
   border: 1.5px solid var(--border) !important;
   border-radius: 20px !important;
-  
+
   /* Shadow profunda para elevação */
   box-shadow: 0 10px 40px var(--shadow-hover),
-              0 4px 12px var(--shadow) !important;
-  
+    0 4px 12px var(--shadow) !important;
+
   /* Typography para leitura */
   font-size: 1.25rem !important;
   line-height: 1.8 !important;
   color: var(--text-main) !important;
-  
+
   /* Smooth transitions */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -36,7 +36,7 @@
 /* Hover effect sutil */
 #qa:hover {
   box-shadow: 0 12px 48px var(--shadow-hover),
-              0 6px 16px var(--shadow) !important;
+    0 6px 16px var(--shadow) !important;
 }
 
 /* ============================================
@@ -55,8 +55,8 @@
   box-shadow: 0 4px 12px var(--shadow);
 }
 
-#qa h1, 
-#qa h2, 
+#qa h1,
+#qa h2,
 #qa h3 {
   color: var(--text-main) !important;
   font-weight: 700;
@@ -98,19 +98,19 @@
   bottom: 0 !important;
   left: 0 !important;
   right: 0 !important;
-  
+
   /* Glassmorphism background */
   background: rgba(255, 255, 255, 0.85) !important;
   backdrop-filter: blur(20px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
-  
+
   border-top: 1.5px solid var(--border) !important;
   padding: 20px 24px !important;
-  
+
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08) !important;
-  
+
   z-index: 9999 !important;
-  
+
   display: flex !important;
   gap: 12px;
   justify-content: center;
@@ -139,20 +139,20 @@ button[id^="ansbut"] {
   flex: 1;
   min-width: 140px;
   max-width: 200px;
-  
+
   padding: 18px 28px !important;
   font-size: 16px !important;
   font-weight: 700 !important;
   font-family: 'Inter', sans-serif !important;
-  
+
   border: 2px solid transparent !important;
   border-radius: 14px !important;
-  
+
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  
+
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  
+
   /* Remove default styles */
   -webkit-appearance: none;
   appearance: none;
@@ -290,13 +290,13 @@ button#showAnswer:hover {
     padding: 32px 24px !important;
     font-size: 1.1rem !important;
   }
-  
+
   #ansbut,
   #ansarea {
     padding: 16px !important;
     gap: 8px;
   }
-  
+
   #ansbut button,
   #ansarea button {
     min-width: 0;
@@ -304,7 +304,7 @@ button#showAnswer:hover {
     padding: 14px 16px !important;
     font-size: 14px !important;
   }
-  
+
   button#showAnswer {
     padding: 16px 32px !important;
     font-size: 16px !important;
@@ -321,6 +321,7 @@ button#showAnswer:hover {
     opacity: 0;
     transform: rotateX(-10deg) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: rotateX(0) scale(1);
@@ -337,6 +338,7 @@ button#showAnswer:hover {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -346,4 +348,20 @@ button#showAnswer:hover {
 #ansbut,
 #ansarea {
   animation: buttonSlideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Generic button styling for Zoom/Adjust controls */
+button {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border);
+  color: var(--text-main);
+  border-radius: 8px;
+  padding: 6px 12px;
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--accent);
+  color: var(--accent);
 }

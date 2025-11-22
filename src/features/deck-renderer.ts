@@ -6,30 +6,30 @@
 import type { DeckNode } from "./deck-parser";
 
 export class DeckRenderer {
-    /**
-     * Cria o container principal
-     */
-    public static createContainer(): HTMLElement {
-        const container = document.createElement('div');
-        container.id = 'modern-deck-list';
-        container.style.display = 'flex';
-        container.style.flexDirection = 'column';
-        container.style.gap = '12px';
-        return container;
-    }
+  /**
+   * Cria o container principal
+   */
+  public static createContainer(): HTMLElement {
+    const container = document.createElement('div');
+    container.id = 'modern-deck-list';
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.gap = '12px';
+    return container;
+  }
 
-    /**
-     * Renderiza um nó de deck (recursivo)
-     */
-    public static renderNode(deck: DeckNode): HTMLElement {
-        const hasChildren = deck.children && deck.children.length > 0;
-        const isReviewing = parseInt(deck.due) > 0;
-        const isNew = parseInt(deck.new) > 0;
+  /**
+   * Renderiza um nó de deck (recursivo)
+   */
+  public static renderNode(deck: DeckNode): HTMLElement {
+    const hasChildren = deck.children && deck.children.length > 0;
+    const isReviewing = parseInt(deck.due) > 0;
+    const isNew = parseInt(deck.new) > 0;
 
-        // Container do Node
-        const nodeDiv = document.createElement('div');
-        nodeDiv.className = 'deck-node';
-        nodeDiv.style.cssText = `
+    // Container do Node
+    const nodeDiv = document.createElement('div');
+    nodeDiv.className = 'deck-node';
+    nodeDiv.style.cssText = `
       margin-bottom: 8px;
       border-radius: 12px;
       overflow: hidden;
@@ -38,10 +38,10 @@ export class DeckRenderer {
       transition: all 0.25s ease;
     `;
 
-        // Header
-        const header = document.createElement('div');
-        header.className = 'deck-header';
-        header.style.cssText = `
+    // Header
+    const header = document.createElement('div');
+    header.className = 'deck-header';
+    header.style.cssText = `
       padding: 16px 20px;
       display: flex;
       align-items: center;
@@ -51,20 +51,20 @@ export class DeckRenderer {
       transition: background 0.2s;
     `;
 
-        // Hover effect via JS (ou poderia ser CSS injetado)
-        header.onmouseenter = () => header.style.background = 'var(--bg-surface-hover)';
-        header.onmouseleave = () => header.style.background = 'transparent';
+    // Hover effect via JS (ou poderia ser CSS injetado)
+    header.onmouseenter = () => header.style.background = 'var(--bg-surface-hover)';
+    header.onmouseleave = () => header.style.background = 'transparent';
 
-        // Ícones SVG
-        const bookIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`;
-        const folderIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
-        const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
-        const playIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+    // Ícones SVG
+    const bookIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>`;
+    const folderIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
+    const chevronIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+    const playIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="var(--accent)" stroke="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
 
-        const iconSvg = hasChildren ? folderIcon : bookIcon;
+    const iconSvg = hasChildren ? folderIcon : bookIcon;
 
-        // HTML Interno do Header
-        header.innerHTML = `
+    // HTML Interno do Header
+    header.innerHTML = `
       <div style="display: flex; align-items: center; gap: 12px; flex: 1;">
         <div style="
           width: 40px; height: 40px; 
@@ -103,58 +103,58 @@ export class DeckRenderer {
       </div>
     `;
 
-        // Event Listeners
-        const toggleIcon = header.querySelector('.toggle-icon') as HTMLElement;
-        const playBtn = header.querySelector('.play-btn') as HTMLElement;
+    // Event Listeners
+    const toggleIcon = header.querySelector('.toggle-icon') as HTMLElement;
+    const playBtn = header.querySelector('.play-btn') as HTMLElement;
 
-        // Ação de Estudar (Play Button)
-        if (playBtn) {
-            playBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                deck.originalElement.click();
-            });
+    // Ação de Estudar (Play Button)
+    if (playBtn) {
+      playBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        deck.originalElement.click();
+      });
+    }
+
+    // Ação Principal (Header Click)
+    header.addEventListener('click', () => {
+      if (hasChildren) {
+        // Toggle Expand
+        const childrenContainer = nodeDiv.querySelector('.deck-children') as HTMLElement;
+        const isOpen = childrenContainer.style.display !== 'none';
+
+        if (isOpen) {
+          childrenContainer.style.display = 'none';
+          toggleIcon.style.transform = 'rotate(0deg)';
+        } else {
+          childrenContainer.style.display = 'block';
+          toggleIcon.style.transform = 'rotate(90deg)';
         }
+      } else {
+        // Se é folha, estuda direto
+        deck.originalElement.click();
+      }
+    });
 
-        // Ação Principal (Header Click)
-        header.addEventListener('click', () => {
-            if (hasChildren) {
-                // Toggle Expand
-                const childrenContainer = nodeDiv.querySelector('.deck-children') as HTMLElement;
-                const isOpen = childrenContainer.style.display !== 'none';
+    nodeDiv.appendChild(header);
 
-                if (isOpen) {
-                    childrenContainer.style.display = 'none';
-                    toggleIcon.style.transform = 'rotate(0deg)';
-                } else {
-                    childrenContainer.style.display = 'block';
-                    toggleIcon.style.transform = 'rotate(90deg)';
-                }
-            } else {
-                // Se é folha, estuda direto
-                deck.originalElement.click();
-            }
-        });
-
-        nodeDiv.appendChild(header);
-
-        // Renderizar Filhos
-        if (hasChildren) {
-            const childrenContainer = document.createElement('div');
-            childrenContainer.className = 'deck-children';
-            childrenContainer.style.cssText = `
+    // Renderizar Filhos
+    if (hasChildren) {
+      const childrenContainer = document.createElement('div');
+      childrenContainer.className = 'deck-children';
+      childrenContainer.style.cssText = `
         display: none;
-        padding-left: 24px;
-        border-top: 1px solid var(--border);
-        background: rgba(0,0,0,0.02);
+        padding-left: 16px; /* Reduced padding for better hierarchy */
+        margin-top: 8px;
+        /* Removed background and border for cleaner look */
       `;
 
-            deck.children.forEach(child => {
-                childrenContainer.appendChild(this.renderNode(child));
-            });
+      deck.children.forEach(child => {
+        childrenContainer.appendChild(this.renderNode(child));
+      });
 
-            nodeDiv.appendChild(childrenContainer);
-        }
-
-        return nodeDiv;
+      nodeDiv.appendChild(childrenContainer);
     }
+
+    return nodeDiv;
+  }
 }
