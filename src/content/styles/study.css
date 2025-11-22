@@ -2,24 +2,50 @@
 /* Styles for the active study session - card front/back */
 
 /* ============================================
+   Study Page Container
+   ============================================ */
+
+/* Ensure study page uses full height */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container,
+.container-fluid,
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 120px !important; /* Space for bottom buttons */
+}
+
+/* ============================================
    Main Flashcard Container
    ============================================ */
 
 /* The main flashcard box */
 #qa_box,
-.card,
-.card1 {
+#qa,
+.card-container,
+.flashcard {
   background-color: var(--anki-bg-card) !important;
-  border-radius: 12px !important;
-  box-shadow: var(--anki-shadow-lg) !important;
-  border: 1px solid var(--anki-border-color) !important;
-  padding: var(--anki-spacing-xl) !important;
-  margin: var(--anki-spacing-lg) auto !important;
-  transition: box-shadow 0.2s ease;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+  border: 1.5px solid var(--anki-border-color) !important;
+  padding: 48px 40px !important;
+  margin: 40px auto !important;
+  max-width: 900px !important;
+  min-height: 400px !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 1.25rem !important;
+  line-height: 1.8 !important;
 }
 
-#qa_box:hover {
-  box-shadow: 0 15px 25px -5px rgb(0 0 0 / 0.5) !important;
+#qa_box:hover,
+#qa:hover {
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.35), 0 6px 16px rgba(0, 0, 0, 0.25) !important;
 }
 
 /* Card body */
@@ -60,137 +86,216 @@
 /* Show Answer button */
 #answer,
 button#answer,
+button#showAnswer,
 .btn-primary[onclick*="answer"],
 button[onclick*="showAnswer"] {
-  background-color: var(--anki-primary-accent) !important;
-  background-image: none !important;
+  cursor: pointer;
+  background: linear-gradient(135deg, var(--anki-primary-accent) 0%, #a370e8 100%) !important;
+  background-image: linear-gradient(135deg, var(--anki-primary-accent) 0%, #a370e8 100%) !important;
   border: none !important;
-  color: #000000 !important;
-  font-weight: 600 !important;
-  padding: 0.75rem 2rem !important;
-  border-radius: var(--anki-radius-md) !important;
-  box-shadow: var(--anki-shadow-sm) !important;
-  transition: all 0.2s ease;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  padding: 20px 48px !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(187, 134, 252, 0.3) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-size: 0.95rem !important;
+  font-size: 18px !important;
+  font-family: Inter, sans-serif !important;
 }
 
 #answer:hover,
-button#answer:hover {
-  background-color: var(--anki-primary-accent) !important;
-  opacity: 0.9;
-  transform: translateY(-2px);
-  box-shadow: var(--anki-shadow-md) !important;
+button#answer:hover,
+button#showAnswer:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(187, 134, 252, 0.4) !important;
 }
 
 #answer:active,
-button#answer:active {
-  transform: translateY(0) !important;
-  box-shadow: var(--anki-shadow-sm) !important;
+button#answer:active,
+button#showAnswer:active {
+  transform: translateY(-2px) scale(1.01) !important;
 }
 
 /* ============================================
    Answer Buttons (Again, Hard, Good, Easy)
    ============================================ */
 
-/* Container for answer buttons */
+/* Container for answer buttons - Fixed at bottom */
+#ansbut,
+#ansarea,
 #answer-buttons,
 .answer-buttons,
-#buttons {
-  display: flex;
-  gap: var(--anki-spacing-sm);
-  justify-content: center;
-  margin-top: var(--anki-spacing-lg);
-  flex-wrap: wrap;
+#buttons,
+.button-container {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  justify-content: center !important;
+  align-items: center !important;
+  gap: 12px !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-top: 1.5px solid var(--anki-border-color) !important;
+  padding: 20px 24px !important;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.08) !important;
+  z-index: 9999 !important;
+}
+
+/* Dark theme adjustment for button container */
+html[data-theme="focus"] #ansbut,
+html[data-theme="focus"] #ansarea,
+html[data-theme="focus"] #answer-buttons,
+html[data-theme="focus"] .button-container {
+  background: rgba(30, 30, 30, 0.9) !important;
+}
+
+/* Add padding to body to prevent content overlap */
+#ansarea-pad {
+  min-height: 100px !important;
 }
 
 /* Base button styling for all answer buttons */
-.btn,
-button.btn,
-#buttons button {
-  border-radius: var(--anki-radius-md) !important;
-  font-weight: 600 !important;
-  padding: 0.625rem 1.5rem !important;
-  transition: all 0.2s ease;
-  border: none !important;
-  box-shadow: var(--anki-shadow-sm) !important;
-  font-size: 0.875rem !important;
+#ansbut button,
+#ansarea button,
+#buttons button,
+button[id^="ansbut"],
+.answer-btn {
+  cursor: pointer;
+  appearance: none;
+  flex: 1;
+  min-width: 140px;
+  max-width: 200px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 2px solid transparent !important;
+  border-radius: 14px !important;
+  padding: 18px 28px !important;
+  font-family: Inter, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+}
+
+#ansbut button:hover,
+#ansarea button:hover,
+#buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+#ansbut button:active,
+#ansarea button:active,
+#buttons button:active {
+  transform: translateY(-1px);
 }
 
 /* Again button - Red */
+#ansbut button:first-child,
+button#ansbut0,
 .btn-danger,
 button.btn-danger,
 button[title*="Again"],
 #buttons button:nth-child(1) {
-  background-color: #ff5252 !important;
-  background-image: none !important;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
+  background-image: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
   color: #ffffff !important;
+  border-color: #dc2626 !important;
 }
 
-.btn-danger:hover,
-button.btn-danger:hover {
-  background-color: #ff5252 !important;
-  opacity: 0.85;
-  transform: translateY(-1px);
+#ansbut button:first-child:hover,
+button#ansbut0:hover,
+.btn-danger:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%) !important;
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4) !important;
 }
 
 /* Hard button - Orange */
+#ansbut button:nth-child(2),
+button#ansbut1,
 .btn-warning,
 button.btn-warning,
 button[title*="Hard"],
 #buttons button:nth-child(2) {
-  background-color: #ff9800 !important;
-  background-image: none !important;
-  color: #000000 !important;
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  background-image: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
 }
 
-.btn-warning:hover,
-button.btn-warning:hover {
-  background-color: #ff9800 !important;
-  opacity: 0.85;
-  transform: translateY(-1px);
+#ansbut button:nth-child(2):hover,
+button#ansbut1:hover,
+.btn-warning:hover {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%) !important;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4) !important;
 }
 
 /* Good button - Green */
+#ansbut button:nth-child(3),
+button#ansbut2,
 .btn-success,
 button.btn-success,
 button[title*="Good"],
 #buttons button:nth-child(3) {
-  background-color: #4caf50 !important;
-  background-image: none !important;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  background-image: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
   color: #ffffff !important;
+  border-color: #059669 !important;
 }
 
-.btn-success:hover,
-button.btn-success:hover {
-  background-color: #4caf50 !important;
-  opacity: 0.85;
-  transform: translateY(-1px);
+#ansbut button:nth-child(3):hover,
+button#ansbut2:hover,
+.btn-success:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%) !important;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4) !important;
 }
 
-/* Easy button - Blue/Purple */
+/* Easy button - Blue */
+#ansbut button:nth-child(4),
+button#ansbut3,
 .btn-info,
 button.btn-info,
 button[title*="Easy"],
 #buttons button:nth-child(4) {
-  background-color: var(--anki-primary-accent) !important;
-  background-image: none !important;
-  color: #000000 !important;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  background-image: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%) !important;
+  color: #ffffff !important;
+  border-color: #2563eb !important;
 }
 
-.btn-info:hover,
-button.btn-info:hover {
-  background-color: var(--anki-primary-accent) !important;
-  opacity: 0.85;
-  transform: translateY(-1px);
+#ansbut button:nth-child(4):hover,
+button#ansbut3:hover,
+.btn-info:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%) !important;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4) !important;
 }
 
-/* Button active state */
-.btn:active,
-button.btn:active {
-  transform: translateY(0) !important;
-  box-shadow: none !important;
+/* Mobile responsive */
+@media (max-width: 768px) {
+  #ansbut,
+  #ansarea,
+  #answer-buttons {
+    gap: 8px !important;
+    padding: 16px !important;
+  }
+
+  #ansbut button,
+  #ansarea button,
+  #buttons button {
+    flex: 1;
+    min-width: 0;
+    padding: 14px 16px !important;
+    font-size: 14px !important;
+  }
+
+  button#showAnswer {
+    padding: 16px 32px !important;
+    font-size: 16px !important;
+  }
 }
 
 /* ============================================

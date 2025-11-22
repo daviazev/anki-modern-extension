@@ -40,20 +40,27 @@ tbody tr,
   align-items: center !important;
   background-color: var(--bg-secondary) !important;
   margin-bottom: 12px !important;
-  padding: 16px 24px !important;
-  border-radius: 12px !important;
-  border: 1px solid var(--border) !important;
-  box-shadow: 0 2px 4px var(--shadow) !important;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  padding: 20px 24px !important;
+  border-radius: 16px !important;
+  border: 1.5px solid var(--border) !important;
+  box-shadow: 0 1px 3px var(--shadow), 0 1px 2px rgba(0, 0, 0, 0.06) !important;
+  border-collapse: separate !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   cursor: pointer !important;
 }
 
-/* Hover no card - efeito de elevação */
+/* Hover no card - efeito de elevação suave */
 tr.deck:hover,
 tbody tr:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px var(--shadow-hover) !important;
+  transform: translateY(-4px) scale(1.01) !important;
+  box-shadow: 0 12px 24px var(--shadow-hover), 0 4px 8px rgba(0, 0, 0, 0.1) !important;
   border-color: var(--accent) !important;
+}
+
+/* Active state - clique */
+tr.deck:active,
+tbody tr:active {
+  transform: translateY(-2px) scale(1.005) !important;
 }
 
 /* Células (td) dentro do card */
@@ -253,9 +260,24 @@ button.dropdown-toggle,
    ============================================ */
 
 .container,
-.container-fluid {
+.container-fluid,
+main.container {
   background-color: transparent !important;
-  padding: 24px !important;
+  padding: 32px 24px !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  min-height: calc(100vh - 140px) !important; /* Ensure full height minus navbar and footer */
+}
+
+/* Page title */
+h1,
+h2.page-title,
+.deck-list-title {
+  font-size: 2.25rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.025em !important;
+  margin-bottom: 0.75em !important;
+  color: var(--text-main) !important;
 }
 
 /* ============================================
@@ -346,4 +368,142 @@ small.text-muted {
 .badge-primary {
   background-color: var(--anki-primary-accent) !important;
   color: #000000 !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+/* Card slide-in animation */
+@keyframes deckSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Apply animation to cards with staggered delay */
+tr.deck,
+tbody tr,
+.deck-row {
+  animation: deckSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) backwards;
+}
+
+tr.deck:nth-child(1),
+tbody tr:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+tr.deck:nth-child(2),
+tbody tr:nth-child(2) {
+  animation-delay: 0.1s;
+}
+
+tr.deck:nth-child(3),
+tbody tr:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+tr.deck:nth-child(4),
+tbody tr:nth-child(4) {
+  animation-delay: 0.2s;
+}
+
+tr.deck:nth-child(5),
+tbody tr:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+tr.deck:nth-child(n+6),
+tbody tr:nth-child(n+6) {
+  animation-delay: 0.3s;
+}
+
+/* ============================================
+   SEARCH INPUT
+   ============================================ */
+
+input[type="search"],
+.deck-search {
+  width: 100%;
+  max-width: 500px;
+  background-color: var(--bg-secondary) !important;
+  border: 1.5px solid var(--border) !important;
+  color: var(--text-main) !important;
+  box-shadow: 0 1px 3px var(--shadow) !important;
+  border-radius: 12px !important;
+  margin-bottom: 24px !important;
+  padding: 14px 20px !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+input[type="search"]:focus {
+  transform: translateY(-2px);
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 4px rgba(46, 170, 220, 0.12), 0 2px 8px var(--shadow-hover) !important;
+  outline: none !important;
+}
+
+input[type="search"]::placeholder {
+  color: var(--text-muted);
+  opacity: 0.7;
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  tr.deck,
+  tbody tr {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px !important;
+  }
+
+  tr.deck td:first-child,
+  tbody tr td:first-child {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  tr.deck td:not(:first-child),
+  tbody tr td:not(:first-child) {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 0 !important;
+  }
+
+  input[type="search"] {
+    max-width: 100%;
+  }
+
+  .container,
+  .container-fluid {
+    padding: 16px !important;
+  }
+}
+
+/* ============================================
+   EMPTY STATE MESSAGE
+   ============================================ */
+
+#deckList:empty::after,
+tbody:empty::after {
+  content: "Nenhum baralho encontrado";
+  display: block;
+  text-align: center;
+  color: var(--text-muted);
+  padding: 64px 24px;
+  font-size: 17px;
+  font-weight: 600;
 }

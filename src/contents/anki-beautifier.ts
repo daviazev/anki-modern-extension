@@ -14,6 +14,7 @@ import globalCSS from "data-text:~styles/global.css";
 import navbarCSS from "data-text:~styles/navbar.css";
 import deckListCSS from "data-text:~styles/deck-list.css";
 import studyScreenCSS from "data-text:~styles/study-screen.css";
+import formsCSS from "data-text:~styles/forms.css";
 
 /**
  * Configuração do Plasmo Content Script
@@ -51,11 +52,14 @@ function injectAllStyles(): void {
   // Injetar fonte Inter
   injectGoogleFonts();
 
-  // Injetar CSS global, navbar, deck-list e study-screen
+  // Injetar CSS global, navbar, deck-list, study-screen e forms
   injectCSS(globalCSS, 'global');
   injectCSS(navbarCSS, 'navbar');
   injectCSS(deckListCSS, 'deck-list');
   injectCSS(studyScreenCSS, 'study-screen');
+  injectCSS(formsCSS, 'forms');
+  
+  console.log('[Anki Modern] Todos os estilos CSS foram injetados com sucesso');
 }
 
 /**
