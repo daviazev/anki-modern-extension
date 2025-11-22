@@ -1,15 +1,26 @@
 // Firestore data model helpers
+// TEMPORARILY DISABLED - Will be enabled in future iteration
+// See: FIREBASE_MIGRATION_PLAN.md
 
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  setDoc,
-  updateDoc
-} from "firebase/firestore"
+// import {
+//   collection,
+//   doc,
+//   getDoc,
+//   getDocs,
+//   setDoc,
+//   updateDoc
+// } from "firebase/firestore"
 
-import { db } from "~lib/firebase"
+// import { db } from "~lib/firebase"
+
+// Stub db and functions for now
+const db: any = null
+const doc: any = () => null
+const collection: any = () => null
+const getDoc: any = async () => ({ exists: () => false, data: () => null })
+const getDocs: any = async () => ({ forEach: () => {} })
+const setDoc: any = async () => {}
+const updateDoc: any = async () => {}
 
 // ============================================
 // Interfaces
@@ -39,6 +50,12 @@ export interface Theme {
  * @returns User profile or null if not found
  */
 export async function getUserProfile(uid: string): Promise<User | null> {
+  // Firebase disabled - return null for MVP
+  if (!db) {
+    console.log("Firebase disabled - getUserProfile returning null")
+    return null
+  }
+  
   try {
     const userRef = doc(db, "users", uid)
     const userSnap = await getDoc(userRef)
@@ -59,6 +76,12 @@ export async function getUserProfile(uid: string): Promise<User | null> {
  * @param user - The user data to create
  */
 export async function createUserProfile(user: User): Promise<void> {
+  // Firebase disabled - skip for MVP
+  if (!db) {
+    console.log("Firebase disabled - createUserProfile skipped")
+    return
+  }
+  
   try {
     const userRef = doc(db, "users", user.uid)
     await setDoc(userRef, user)
@@ -77,6 +100,12 @@ export async function updateActiveTheme(
   uid: string,
   themeId: string
 ): Promise<void> {
+  // Firebase disabled - skip for MVP
+  if (!db) {
+    console.log("Firebase disabled - updateActiveTheme skipped")
+    return
+  }
+  
   try {
     const userRef = doc(db, "users", uid)
     await updateDoc(userRef, {
@@ -97,6 +126,12 @@ export async function addOwnedTheme(
   uid: string,
   themeId: string
 ): Promise<void> {
+  // Firebase disabled - skip for MVP
+  if (!db) {
+    console.log("Firebase disabled - addOwnedTheme skipped")
+    return
+  }
+  
   try {
     const userRef = doc(db, "users", uid)
     const userSnap = await getDoc(userRef)
@@ -126,6 +161,12 @@ export async function addOwnedTheme(
  * @returns Array of all themes
  */
 export async function getAvailableThemes(): Promise<Theme[]> {
+  // Firebase disabled - return empty array for MVP
+  if (!db) {
+    console.log("Firebase disabled - getAvailableThemes returning []")
+    return []
+  }
+  
   try {
     const themesRef = collection(db, "themes")
     const themesSnap = await getDocs(themesRef)
@@ -151,6 +192,12 @@ export async function getAvailableThemes(): Promise<Theme[]> {
  * @returns Theme or null if not found
  */
 export async function getThemeById(themeId: string): Promise<Theme | null> {
+  // Firebase disabled - return null for MVP
+  if (!db) {
+    console.log("Firebase disabled - getThemeById returning null")
+    return null
+  }
+  
   try {
     const themeRef = doc(db, "themes", themeId)
     const themeSnap = await getDoc(themeRef)

@@ -70,10 +70,11 @@ export function ThemeSelector() {
       await Storage.set("theme", themeId as any)
 
       // Save to Firestore if user is logged in
-      if (user) {
-        const { updateActiveTheme } = await import("~lib/firestore")
-        await updateActiveTheme(user.uid, themeId)
-      }
+      // TODO: Re-enable when Firebase is properly configured
+      // if (user) {
+      //   const { updateActiveTheme } = await import("~lib/firestore")
+      //   await updateActiveTheme(user.uid, themeId)
+      // }
 
       // Send message to content script to update theme immediately
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
