@@ -103,6 +103,61 @@ export class DeckRenderer {
       </div>
     `;
 
+    // Injetar Ações Originais (Se existirem)
+    if (deck.actions) {
+      // Criar um container para as ações dentro do header
+      const actionsWrapper = document.createElement('div');
+      actionsWrapper.className = 'deck-actions-wrapper';
+      actionsWrapper.style.cssText = `
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        `;
+
+      // Mover o elemento original para cá
+      // Importante: Ao mover, garantimos que os eventos continuem funcionando
+      // Mas precisamos garantir que ele esteja visível (pois o pai original estava hidden)
+      deck.actions.style.visibility = 'visible';
+      deck.actions.style.position = 'static';
+      deck.actions.style.opacity = '1';
+      deck.actions.style.height = 'auto';
+      deck.actions.style.pointerEvents = 'auto';
+      deck.actions.style.display = 'block';
+
+      // Estilizar o botão original para parecer um ícone de engrenagem ou "..."
+      // Vamos tentar encontrar o botão dentro do container
+      const btn = deck.actions.querySelector('button');
+      if (btn) {
+        btn.style.cssText = `
+                background: transparent;
+                border: none;
+                color: var(--text-muted);
+                padding: 4px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            `;
+        // Substituir texto por ícone se quiser, ou manter "Actions"
+        // btn.innerHTML = settingsIcon; // Se tivermos um ícone
+        // Por enquanto, vamos deixar o botão original mas limpo
+        btn.classList.add('modern-actions-btn');
+      }
+
+      actionsWrapper.appendChild(deck.actions);
+
+      // Inserir antes do toggle-icon ou no final do stats-group
+      const statsGroup = header.querySelector('.stats-group');
+      if (statsGroup) {
+        statsGroup.appendChild(actionsWrapper);
+      }
+
+      // Prevenir propagação do clique no dropdown para não expandir/estudar o deck
+      actionsWrapper.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
     // Event Listeners
     const toggleIcon = header.querySelector('.toggle-icon') as HTMLElement;
     const playBtn = header.querySelector('.play-btn') as HTMLElement;

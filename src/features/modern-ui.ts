@@ -68,8 +68,21 @@ export class ModernUI {
         const mainContainer = document.querySelector('main.container');
         if (!mainContainer) return;
 
-        // Limpar conteúdo antigo
-        mainContainer.innerHTML = '';
+        // Limpar conteúdo antigo - NÃO FAZER ISSO (Destrutivo)
+        // mainContainer.innerHTML = '';
+
+        // Adicionar classe ao body para controle CSS
+        document.body.classList.add('anki-modern-active');
+
+        // Criar wrapper para a UI moderna (se não existir)
+        let modernWrapper = document.getElementById('modern-ui-wrapper');
+        if (modernWrapper) {
+            modernWrapper.innerHTML = ''; // Limpa apenas o nosso wrapper se já existir
+        } else {
+            modernWrapper = document.createElement('div');
+            modernWrapper.id = 'modern-ui-wrapper';
+            mainContainer.appendChild(modernWrapper);
+        }
 
         // 3. Renderizar Título
         const title = document.createElement('h1');
@@ -83,31 +96,31 @@ export class ModernUI {
       -webkit-text-fill-color: transparent;
       font-weight: 800;
     `;
-        mainContainer.appendChild(title);
+        modernWrapper.appendChild(title);
 
         // 4. Renderizar Árvore de Decks
         const deckContainer = DeckRenderer.createContainer();
         deckData.decks.forEach(node => {
             deckContainer.appendChild(DeckRenderer.renderNode(node));
         });
-        mainContainer.appendChild(deckContainer);
+        modernWrapper.appendChild(deckContainer);
 
         // 5. Renderizar Ações (Botões)
         if (deckData.actions.length > 0) {
             const actionsContainer = DeckRenderer.renderActions(deckData.actions);
-            mainContainer.appendChild(actionsContainer);
+            modernWrapper.appendChild(actionsContainer);
         }
 
         // 6. Renderizar Estatísticas
         if (deckData.stats) {
             const statsContainer = DeckRenderer.renderStats(deckData.stats);
-            mainContainer.appendChild(statsContainer);
+            modernWrapper.appendChild(statsContainer);
         }
 
         // 7. Renderizar Footer (Links Originais)
         if (deckData.footerLinks.length > 0) {
             const footerContainer = DeckRenderer.renderFooter(deckData.footerLinks);
-            mainContainer.appendChild(footerContainer);
+            modernWrapper.appendChild(footerContainer);
         }
 
         // Esconder footer antigo (se ainda estiver visível fora do main)

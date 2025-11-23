@@ -8,20 +8,24 @@
    DESTRUIR ESTRUTURA DE TABELA
    ============================================ */
 
-#deckList,
-#deckList table,
-#deckList tbody,
-#deckList tr {
-  display: block !important;
-  width: 100% !important;
-  border: none !important;
-  background: transparent !important;
-  padding: 0 !important;
-  margin: 0 !important;
+/* ============================================
+   OCULTAR ESTRUTURA ORIGINAL (NÃO-DESTRUTIVO)
+   ============================================ */
+
+.anki-modern-active main.container > :not(#modern-ui-wrapper) {
+  visibility: hidden !important;
+  position: absolute !important;
+  pointer-events: none !important;
+  opacity: 0 !important;
+  z-index: -1 !important;
+  height: 0 !important;
+  overflow: hidden !important;
 }
 
-#deckList thead {
-  display: none !important;
+/* Resetar estilos da tabela original para não interferir no layout invisível */
+.anki-modern-active #deckList,
+.anki-modern-active #deckList table {
+  display: block !important; /* Mantém no DOM mas sem layout complexo */
 }
 
 /* ============================================

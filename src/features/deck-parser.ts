@@ -9,6 +9,7 @@ export interface DeckNode {
     due: string;
     new: string;
     originalElement: HTMLElement;
+    actions?: HTMLElement; // Dropdown original de ações
     children: DeckNode[];
 }
 
@@ -86,21 +87,31 @@ export class DeckParser {
      * Extrai estatísticas de coleção e mídia
      */
     private static parseStats(): DeckStats | null {
-        // Procura pela linha que contém "Collection:"
+        // Tenta encontrar a linha de estatísticas de forma mais genérica
+        // Geralmente contém dois tamanhos de arquivo (ex: "3.76MB" e "2730.65MB")
         const rows = Array.from(document.querySelectorAll('.row'));
-        const statsRow = rows.find(row => row.textContent?.includes('Collection:'));
+
+        // Regex para tamanho de arquivo: número + (opcional ponto + números) + KB/MB/GB/TB (case insensitive)
+        const fileSizeRegex = /[0-9]+(\.[0-9]+)?\s*[KMGT]?B/i;
+
+        const statsRow = rows.find(row => {
+            const text = row.textContent || '';
+            // Verifica se tem pelo menos dois padrões de tamanho de arquivo e NÃO é um deck (não tem botão de link)
+            const matches = text.match(new RegExp(fileSizeRegex, 'gi'));
+            const hasLink = row.querySelector('button.btn-link');
+            return matches && matches.length >= 2 && !hasLink;
+        });
 
         if (!statsRow) return null;
 
-        const colText = (statsRow as HTMLElement).innerText; // Ex: "Collection: 3.76MB Media: 2730.65MB"
+        const colText = (statsRow as HTMLElement).innerText;
 
-        // Extração simples baseada em regex ou split
-        const collectionMatch = colText.match(/Collection:\s*([0-9.]+[A-Z]+)/i);
-        const mediaMatch = colText.match(/Media:\s*([0-9.]+[A-Z]+)/i);
+        // Extrai todos os tamanhos encontrados
+        const sizes = colText.match(new RegExp(fileSizeRegex, 'gi'));
 
         return {
-            collection: collectionMatch ? collectionMatch[1] : '?',
-            media: mediaMatch ? mediaMatch[1] : '?',
+            collection: sizes && sizes[0] ? sizes[0] : '?',
+            media: sizes && sizes[1] ? sizes[1] : '?',
             originalElement: statsRow as HTMLElement
         };
     }
@@ -167,12 +178,25 @@ export class DeckParser {
             const dueEl = row.querySelector('.number.due') as HTMLElement;
             const newEl = row.querySelector('.number.new') as HTMLElement;
 
+            // Encontrar o dropdown de ações (geralmente um .btn-group ou .dropdown)
+            // No AnkiWeb atual, é frequentemente um botão "Actions" que abre um menu
+            // Vamos tentar pegar o container pai do botão de ações
+            const actionsBtn = row.querySelector('button.dropdown-toggle') || row.querySelector('.actions-dropdown');
+            let actionsContainer: HTMLElement | undefined;
+
+            if (actionsBtn) {
+                // Se achou o botão, pega o pai (o .dropdown ou .btn-group) para mover tudo junto
+                actionsContainer = actionsBtn.closest('.dropdown, .btn-group') as HTMLElement;
+                if (!actionsContainer) actionsContainer = actionsBtn as HTMLElement; // Fallback
+            }
+
             flatDecks.push({
                 name: name,
                 level: level,
                 due: dueEl ? dueEl.innerText.trim() : "0",
                 new: newEl ? newEl.innerText.trim() : "0",
                 originalElement: linkBtn,
+                actions: actionsContainer,
                 children: []
             });
         });
