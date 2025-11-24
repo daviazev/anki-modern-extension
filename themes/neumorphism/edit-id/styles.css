@@ -83,71 +83,8 @@ body.anki-modern-edit .form-control.field:focus {
               0 0 0 3px rgba(94, 114, 228, 0.1) !important;
 }
 
-/* Estilização do conteúdo dentro dos campos editáveis */
-body.anki-modern-edit .form-control.field .new-word {
-  color: var(--primary) !important;
-  font-weight: 600 !important;
-}
-
-/* Seção de explicação dentro do campo */
-body.anki-modern-edit .form-control.field .explanation-section {
-  padding: 0.5rem 0 !important;
-}
-
-body.anki-modern-edit .form-control.field .explanation-section h2.title {
-  color: var(--primary) !important;
-  font-size: 1.1rem !important;
-  font-weight: 700 !important;
-  margin-bottom: 1rem !important;
-}
-
-body.anki-modern-edit .form-control.field .explanation-section h3.subtitle {
-  color: var(--text-secondary) !important;
-  font-size: 0.9rem !important;
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
-  margin-top: 1rem !important;
-  margin-bottom: 0.5rem !important;
-}
-
-body.anki-modern-edit .form-control.field .explanation-section p {
-  color: var(--text-main) !important;
-  margin-bottom: 0.75rem !important;
-  line-height: 1.6 !important;
-}
-
-body.anki-modern-edit .form-control.field .explanation-section ul {
-  margin-left: 1.5rem !important;
-  margin-bottom: 0.75rem !important;
-}
-
-body.anki-modern-edit .form-control.field .explanation-section li {
-  color: var(--text-main) !important;
-  margin-bottom: 0.5rem !important;
-  line-height: 1.6 !important;
-}
-
-body.anki-modern-edit .form-control.field .usage-warning {
-  background: linear-gradient(145deg, #fff5f5, #fed7d7) !important;
-  border-left: 4px solid #fc8181 !important;
-  border-radius: 8px !important;
-  padding: 0.75rem 1rem !important;
-  margin: 0.75rem 0 !important;
-  color: #742a2a !important;
-  font-size: 0.95rem !important;
-}
-
-body.anki-modern-edit .form-control.field .summary {
-  background: linear-gradient(145deg, #f0fff4, #c6f6d5) !important;
-  border-left: 4px solid #48bb78 !important;
-  border-radius: 8px !important;
-  padding: 0.75rem 1rem !important;
-  margin-top: 1rem !important;
-  color: #22543d !important;
-  font-weight: 600 !important;
-  font-size: 0.95rem !important;
-}
+/* NÃO estilizar conteúdo interno dos campos - preserva CSS do usuário */
+/* Usuário pode ter suas próprias classes e estilos personalizados */
 
 /* ===================================
    CAMPO DE INPUT NORMAL (Tags)
