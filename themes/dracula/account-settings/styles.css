@@ -30,23 +30,33 @@ body.anki-modern-account-settings main.container {
   background: var(--bg-body) !important;
   padding: 2rem 1rem !important;
   max-width: 900px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
 }
 
-/* Título */
-body.anki-modern-account-settings h1 {
+/* Wrapper do título e link */
+body.anki-modern-account-settings .delete-link {
+  order: -1 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-bottom: 2rem !important;
+}
+
+body.anki-modern-account-settings .delete-link::before {
+  content: 'Account Settings' !important;
   color: var(--text-main) !important;
   font-weight: 700 !important;
   font-size: 2rem !important;
-  margin-bottom: 2rem !important;
   text-transform: uppercase !important;
   letter-spacing: 1px !important;
   text-shadow: 0 0 20px rgba(189, 147, 249, 0.3) !important;
 }
 
-/* Link "Remove Account" */
-body.anki-modern-account-settings .delete-link {
-  text-align: right !important;
-  margin-bottom: 1rem !important;
+/* Título - ocultar pois está duplicado no ::before */
+body.anki-modern-account-settings h1 {
+  display: none !important;
 }
 
 body.anki-modern-account-settings .delete-link a {
