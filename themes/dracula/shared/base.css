@@ -1,0 +1,165 @@
+/* ===================================
+   SHARED BASE - dracula
+   Estilos comuns entre todas as URLs
+   
+   INSTRUÇÕES:
+   1. Substitua dracula pelo nome do tema
+   2. Ajuste os valores das variáveis conforme theme-config.json
+   3. Este arquivo será importado em TODOS os styles.css de cada URL
+   =================================== */
+
+:root {
+  /* ===== Cores Principais - Dracula Theme ===== */
+  --theme-bg-primary: #282a36;
+  --theme-bg-secondary: #44475a;
+  --theme-text-primary: #f8f8f2;
+  --theme-text-secondary: #6272a4;
+  --theme-accent: #bd93f9;
+  --theme-accent-hover: #a97fe0;
+  
+  /* ===== Sombras (Dark Mode) ===== */
+  --theme-shadow-light: #383a4a;
+  --theme-shadow-dark: #191a21;
+  --theme-shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --theme-shadow-pressed: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  --theme-shadow-hover: 0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+  --theme-shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --theme-shadow-glow: 0 0 20px rgba(189, 147, 249, 0.4);
+  
+  /* ===== Dracula Accent Colors ===== */
+  --theme-pink: #ff79c6;
+  --theme-cyan: #8be9fd;
+  --theme-green: #50fa7b;
+  --theme-orange: #ffb86c;
+  --theme-purple: #bd93f9;
+  --theme-red: #ff5555;
+  --theme-yellow: #f1fa8c;
+  
+  /* ===== Status Colors ===== */
+  --theme-success: #50fa7b;
+  --theme-warning: #f1fa8c;
+  --theme-danger: #ff5555;
+  
+  /* ===== Espaçamentos ===== */
+  --theme-spacing-xs: 8px;
+  --theme-spacing-sm: 12px;
+  --theme-spacing-md: 16px;
+  --theme-spacing-lg: 24px;
+  --theme-spacing-xl: 32px;
+  --theme-spacing-xxl: 48px;
+  
+  /* ===== Bordas ===== */
+  --theme-radius-sm: 8px;
+  --theme-radius-md: 12px;
+  --theme-radius-lg: 16px;
+  --theme-radius-xl: 20px;
+  --theme-radius-round: 50%;
+  
+  /* ===== Fontes ===== */
+  --theme-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --theme-font-mono: 'Fira Code', 'Courier New', monospace;
+  --theme-font-size-xs: 10px;
+  --theme-font-size-sm: 12px;
+  --theme-font-size-md: 14px;
+  --theme-font-size-lg: 16px;
+  --theme-font-size-xl: 20px;
+  --theme-font-size-xxl: 24px;
+  --theme-font-size-xxxl: 32px;
+  
+  /* ===== Transições ===== */
+  --theme-transition-fast: 0.15s ease;
+  --theme-transition-normal: 0.3s ease;
+  --theme-transition-slow: 0.5s ease;
+}
+
+/* ===== Reset Básico ===== */
+body {
+  background: var(--theme-bg-primary) !important;
+  color: var(--theme-text-primary) !important;
+  font-family: var(--theme-font-primary) !important;
+  line-height: 1.6;
+}
+
+/* ===== Scrollbar Customizada (Dracula Style) ===== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-bg-secondary);
+  border-radius: 6px;
+  border: 2px solid var(--theme-bg-primary);
+  transition: background var(--theme-transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-accent);
+  box-shadow: var(--theme-shadow-glow);
+}
+
+/* ===== Utilitários Globais ===== */
+.theme-btn {
+  padding: var(--theme-spacing-sm) var(--theme-spacing-lg);
+  border-radius: var(--theme-radius-md);
+  border: none;
+  background: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  box-shadow: var(--theme-shadow-raised);
+  cursor: pointer;
+  transition: all var(--theme-transition-normal);
+  font-family: var(--theme-font-primary);
+  font-size: var(--theme-font-size-md);
+  font-weight: 500;
+}
+
+.theme-btn:hover {
+  box-shadow: var(--theme-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.theme-btn:active {
+  box-shadow: var(--theme-shadow-pressed);
+  transform: translateY(0);
+}
+
+.theme-btn-primary {
+  background: var(--theme-accent);
+  color: white;
+}
+
+.theme-btn-primary:hover {
+  background: var(--theme-accent-hover);
+}
+
+.theme-card {
+  background: var(--theme-bg-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-raised);
+  padding: var(--theme-spacing-lg);
+  transition: all var(--theme-transition-normal);
+}
+
+.theme-card:hover {
+  box-shadow: var(--theme-shadow-hover);
+}
+
+/* ===== Animações ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-fade-in {
+  animation: fadeIn var(--theme-transition-normal);
+}

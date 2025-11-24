@@ -7,7 +7,7 @@ const themeSelectorContainer = document.getElementById('themeSelectorContainer')
 // NOTA: Adicione novos temas aqui quando criá-los
 const AVAILABLE_THEMES = [
   { value: 'neumorphism', label: 'Neumorphism' },
-  // { value: 'dracula', label: 'Dracula' },
+  { value: 'dracula', label: 'Dracula' },
   // { value: 'nord', label: 'Nord' },
   // Adicione mais temas conforme criar
 ];

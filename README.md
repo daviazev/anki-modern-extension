@@ -51,24 +51,36 @@ anki-modern-extension/
 
 ## 🚀 Como Criar um Novo Tema
 
+### 📘 Tutorial Completo com Exemplo Prático
+
+**Ver:** [TUTORIAL-CRIAR-TEMA.md](./TUTORIAL-CRIAR-TEMA.md)
+
+Este tutorial mostra **passo a passo detalhado** de como foi criado o tema **Dracula**, incluindo:
+- ✅ Como usar os scripts de automação
+- ✅ Como configurar cores e variáveis
+- ✅ Como adaptar estilos existentes
+- ✅ Como registrar no popup
+- ✅ Comparação Neumorphism vs Dracula
+- ✅ Troubleshooting e boas práticas
+
 ### Opção 1: Com Script (Recomendado)
 
 ```bash
 cd .templates/scripts
-./create-theme.sh "dracula" "Seu Nome"
+./create-theme.sh "meu-tema" "Seu Nome"
 ```
 
 Isso cria automaticamente:
-- `themes/dracula/theme-config.json`
-- `themes/dracula/shared/base.css`
-- `themes/dracula/shared/common.js`
+- `themes/meu-tema/theme-config.json`
+- `themes/meu-tema/shared/base.css`
+- `themes/meu-tema/shared/common.js`
 
 ### Opção 2: Manual
 
 1. Copie `.templates/theme-structure/` para `themes/seu-tema/`
 2. Edite `theme-config.json` com suas cores e variáveis
 3. Ajuste `shared/base.css` com as CSS variables
-4. Atualize `src/loader.js`: `const theme = 'seu-tema';`
+4. Registre em `popup/popup.js`
 
 ---
 

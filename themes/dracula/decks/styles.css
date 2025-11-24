@@ -1,0 +1,215 @@
+/* ===== Dracula Theme - Decks Page ===== */
+:root {
+    --primary: #bd93f9;
+    --primary-hover: #a97fe0;
+    --bg-body: #282a36;
+    --surface: #44475a;
+    --text-main: #f8f8f2;
+    --text-muted: #6272a4;
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+    --shadow-floating: 0 12px 48px rgba(189, 147, 249, 0.2);
+    --accent-pink: #ff79c6;
+    --accent-cyan: #8be9fd;
+    --accent-green: #50fa7b;
+    --accent-orange: #ffb86c;
+    --accent-red: #ff5555;
+    --accent-yellow: #f1fa8c;
+}
+body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-main) !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+}
+main.container > .row {
+    display: none !important;
+}
+#custom-interface {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 40px 0 2rem 0;
+    text-align: center;
+}
+.deck-card {
+    background: var(--surface);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+}
+.deck-card:hover {
+    transform: translateY(-3px) scale(1.005);
+    box-shadow: var(--shadow-hover);
+    z-index: 5;
+}
+.card-content {
+    display: flex;
+    align-items: center;
+    padding: 24px 32px;
+    cursor: pointer;
+}
+.deck-icon {
+    color: var(--primary);
+    margin-right: 24px;
+    transform: scale(1.2);
+    display: flex;
+    align-items: center;
+}
+.deck-name {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+.right-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.stats-pill {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-width: 40px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.pill-due { background: rgba(255, 85, 85, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
+.pill-new { background: rgba(80, 250, 123, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+.pill-zero { background: rgba(98, 114, 164, 0.2); color: var(--text-muted); border: 1px solid var(--text-muted); }
+.custom-actions-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.custom-actions-btn:hover, .custom-actions-btn.active {
+    background: rgba(189, 147, 249, 0.2);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.custom-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow-floating);
+    padding: 12px;
+    min-width: 200px;
+    margin-top: 12px;
+    display: none;
+    z-index: 100;
+    animation: fadeIn 0.15s ease-out;
+}
+.custom-dropdown-menu.show { display: block; }
+.custom-dropdown-item {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: var(--text-main);
+    display: block;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.custom-dropdown-item:hover { background: var(--bg-body); color: var(--primary); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.children-block {
+    display: none;
+    background: rgba(40, 42, 54, 0.5);
+    border-top: 1px solid rgba(98, 114, 164, 0.3);
+    border-radius: 0 0 20px 20px;
+    padding: 10px 0;
+    overflow: hidden;
+}
+.children-block.open { display: block; }
+.child-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 32px 16px 64px;
+    position: relative;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.child-row:hover { background: rgba(189, 147, 249, 0.1); }
+.child-row::before {
+    content: '';
+    position: absolute;
+    left: 42px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #E9ECEF;
+}
+.child-row .deck-name { font-size: 1rem; }
+.toggle-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    color: var(--text-muted);
+}
+.toggle-arrow:hover { background: rgba(189, 147, 249, 0.2); color: var(--primary); }
+.toggle-arrow.rotated { transform: rotate(90deg); color: var(--primary); background: rgba(189, 147, 249, 0.3); }
+.footer-container {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+.footer-stats-row {
+    display: flex;
+    gap: 32px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    background: var(--surface);
+    padding: 12px 32px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid rgba(98, 114, 164, 0.3);
+}
+.footer-stats-row span { color: var(--accent-cyan); font-weight: 700; cursor: pointer; transition: color 0.2s; }
+.footer-stats-row span:hover { color: var(--primary); }
+.footer-buttons-row {
+    display: flex;
+    gap: 20px;
+}
+.big-btn {
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+    color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.big-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(189, 147, 249, 0.3); border-color: var(--primary); }
+.big-btn-primary {
+    background: var(--primary);
+    color: var(--bg-body);
+    box-shadow: 0 4px 15px rgba(189, 147, 249, 0.4);
+}
+.big-btn-primary:hover { background: var(--primary-hover); box-shadow: 0 8px 25px rgba(189, 147, 249, 0.6); }
