@@ -19,6 +19,11 @@ body.anki-modern-search {
                              inset -4px -4px 8px rgba(255, 255, 255, 0.8);
 }
 
+/* Background do body */
+body.anki-modern-search {
+  background: var(--bg-body) !important;
+}
+
 /* Container principal */
 body.anki-modern-search main.container {
   background: var(--bg-body) !important;
@@ -92,20 +97,9 @@ body.anki-modern-search .form-floating input.form-control::placeholder {
   color: transparent !important;
 }
 
-/* Label do input */
+/* Label do input - ocultar para evitar conflito visual */
 body.anki-modern-search .form-floating label {
-  color: var(--text-secondary) !important;
-  font-weight: 600 !important;
-  font-size: 0.875rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
-  padding: 1.5rem 1rem !important;
-}
-
-body.anki-modern-search .form-floating input.form-control:focus ~ label,
-body.anki-modern-search .form-floating input.form-control:not(:placeholder-shown) ~ label {
-  transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem) !important;
-  color: var(--primary) !important;
+  display: none !important;
 }
 
 /* Botão de busca - Estilo Neumórfico elevado */
