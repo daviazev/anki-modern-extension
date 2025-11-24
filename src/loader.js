@@ -93,7 +93,20 @@
 
     console.log(`Injetando tema ${theme}/${currentFolder} para ${path}...`);
 
-    // Injeta CSS (usa ID único por pasta para evitar duplicação)
+    // Injeta CSS GLOBAL (header/footer) - uma vez por tema
+    const globalCssId = `anki-modern-${theme}-global-css`;
+    if (!document.getElementById(globalCssId)) {
+      const globalCssPath = chrome.runtime.getURL(`themes/${theme}/shared/global.css`);
+      const globalStyleEl = document.createElement('link');
+      globalStyleEl.id = globalCssId;
+      globalStyleEl.rel = 'stylesheet';
+      globalStyleEl.type = 'text/css';
+      globalStyleEl.href = globalCssPath;
+      document.head.appendChild(globalStyleEl);
+      console.log(`CSS global do tema ${theme} injetado!`);
+    }
+
+    // Injeta CSS da página específica (usa ID único por pasta para evitar duplicação)
     const cssId = `anki-modern-${currentFolder}-css`;
     let styleEl = document.getElementById(cssId);
     if (!styleEl) {

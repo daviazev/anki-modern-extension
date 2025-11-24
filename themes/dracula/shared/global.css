@@ -1,0 +1,113 @@
+/* ===================================
+   Dracula Theme - Global Styles
+   Header e Footer para todas as páginas
+   =================================== */
+
+/* ===================================
+   HEADER/NAVBAR
+   =================================== */
+
+/* Navbar principal */
+.navbar.bg-gray {
+  background: var(--bg-body, #282a36) !important;
+  border-bottom: 1px solid rgba(98, 114, 164, 0.3) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5),
+              0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  padding: 0.75rem 0 !important;
+}
+
+/* Brand/Logo */
+.navbar-brand {
+  font-weight: 700 !important;
+  color: var(--text-main, #f8f8f2) !important;
+  font-size: 1.25rem !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+}
+
+.navbar-brand span {
+  color: var(--text-main, #f8f8f2) !important;
+}
+
+.logo-container {
+  background: var(--surface, #44475a) !important;
+  border-radius: 8px !important;
+  padding: 0.25rem !important;
+  box-shadow: 0 0 15px rgba(189, 147, 249, 0.3) !important;
+  transition: all 0.3s ease !important;
+}
+
+.logo-container:hover {
+  box-shadow: 0 0 25px rgba(189, 147, 249, 0.5) !important;
+}
+
+/* Nav items */
+.navbar .nav-link {
+  color: var(--text-main, #f8f8f2) !important;
+  font-weight: 500 !important;
+  padding: 0.5rem 1rem !important;
+  margin: 0 0.25rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+}
+
+.navbar .nav-link:hover {
+  color: var(--primary, #bd93f9) !important;
+  background: rgba(189, 147, 249, 0.15) !important;
+  box-shadow: 0 0 15px rgba(189, 147, 249, 0.2) !important;
+}
+
+.navbar .nav-link:active,
+.navbar .nav-link.active {
+  color: var(--accent-pink, #ff79c6) !important;
+  background: rgba(255, 121, 198, 0.15) !important;
+}
+
+/* Botão toggler mobile */
+.navbar-toggler {
+  border: 1px solid rgba(98, 114, 164, 0.5) !important;
+  background: var(--surface, #44475a) !important;
+  border-radius: 8px !important;
+}
+
+.navbar-toggler:focus {
+  box-shadow: 0 0 15px rgba(189, 147, 249, 0.3) !important;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1) !important;
+}
+
+/* ===================================
+   FOOTER
+   =================================== */
+
+.container-fluid.bg-gray {
+  background: var(--bg-body, #282a36) !important;
+  border-top: 1px solid rgba(98, 114, 164, 0.3) !important;
+  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.5),
+              0 -2px 4px rgba(0, 0, 0, 0.3) !important;
+  padding: 1.5rem 0 !important;
+  margin-top: 3rem !important;
+}
+
+.container-fluid.bg-gray .nav {
+  gap: 0.5rem !important;
+}
+
+.container-fluid.bg-gray .nav-link {
+  color: var(--text-secondary, #6272a4) !important;
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+}
+
+.container-fluid.bg-gray .nav-link:hover {
+  color: var(--accent-cyan, #8be9fd) !important;
+  background: rgba(139, 233, 253, 0.1) !important;
+  box-shadow: 0 0 15px rgba(139, 233, 253, 0.2) !important;
+}
