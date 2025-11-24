@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Anki Modern Extension",
+  "version": "1.0.0",
+  "description": "Modifica o layout e funcionalidades do AnkiWeb com temas modernos.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://ankiweb.net/*"],
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://ankiweb.net/*"],
+      "js": ["src/loader.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "themes/*/*/*.js",
+        "themes/*/*/*.css"
+      ],
+      "matches": ["https://ankiweb.net/*"]
+    }
+  ]
+}
