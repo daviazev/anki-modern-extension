@@ -1,7 +1,11 @@
-console.log("Aplicando tema 'Neumorphism Pro' com Fixes de Funcionalidade...");
+// IIFE para evitar conflito de variáveis ao reinjetar o script
+(function() {
+  'use strict';
+  
+  console.log("Aplicando tema 'Neumorphism Pro' com Fixes de Funcionalidade...");
 
-// Função principal que aplica o tema
-function init() {
+  // Função principal que aplica o tema
+  function init() {
   // CRÍTICO: Verifica se está na URL correta ANTES de fazer qualquer coisa
   if (window.location.pathname !== '/decks') {
     console.log('Tema Neumorphism Decks: URL incorreta, abortando...', window.location.pathname);
@@ -262,24 +266,54 @@ console.log("Tema aplicado e funcional!");
   }, 300); // Aguarda 300ms para o DOM estar completamente pronto
 }
 
-// Executa a inicialização
-init();
+// Executa a inicialização APENAS se está em /decks
+if (window.location.pathname === '/decks') {
+  init();
+}
 
-// SEGURANÇA: Monitora mudanças de URL e remove o tema se sair de /decks
+// SEGURANÇA: Monitora mudanças de URL e DESLIGA completamente o tema ao sair de /decks
 let lastPathname = window.location.pathname;
-setInterval(() => {
-  const currentPathname = window.location.pathname;
-  if (currentPathname !== lastPathname) {
-    console.log('Tema Neumorphism Decks: URL mudou de', lastPathname, 'para', currentPathname);
-    lastPathname = currentPathname;
-    
-    // Se saiu de /decks, remove a interface customizada
-    if (currentPathname !== '/decks') {
-      const customInterface = document.getElementById('custom-interface');
-      if (customInterface) {
-        console.log('Tema Neumorphism Decks: Removendo interface customizada...');
-        customInterface.remove();
-      }
-    }
+let isThemeApplied = (lastPathname === '/decks');
+let monitorInterval = null;
+
+// Função para limpar TUDO relacionado ao tema
+function cleanupTheme() {
+  console.log('Tema Neumorphism Decks: Limpeza completa...');
+  
+  // Remove a interface customizada
+  const customInterface = document.getElementById('custom-interface');
+  if (customInterface) {
+    customInterface.remove();
   }
-}, 500); // Verifica a cada 500ms
+  
+  // Para o monitor de URL
+  if (monitorInterval) {
+    clearInterval(monitorInterval);
+    monitorInterval = null;
+  }
+  
+  isThemeApplied = false;
+  console.log('Tema Neumorphism Decks: DESATIVADO');
+}
+
+// Monitor de URL - SÓ roda se começou em /decks
+if (window.location.pathname === '/decks') {
+  monitorInterval = setInterval(() => {
+    const currentPathname = window.location.pathname;
+    
+    // Se SAIU de /decks, limpa TUDO e para o monitor
+    if (currentPathname !== '/decks') {
+      console.log('Tema Neumorphism Decks: Saiu de /decks, desativando...');
+      cleanupTheme();
+      return; // Para de executar
+    }
+    
+    // Se ESTÁ em /decks mas o tema não foi aplicado, aplica
+    if (currentPathname === '/decks' && !document.getElementById('custom-interface')) {
+      console.log('Tema Neumorphism Decks: Reaplicando tema...');
+      init();
+    }
+  }, 500);
+}
+
+})(); // Fim da IIFE
