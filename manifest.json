@@ -36,7 +36,10 @@
         "themes/*/*/*.js",
         "themes/*/*/*.css"
       ],
-      "matches": ["https://ankiweb.net/*"]
+      "matches": [
+        "https://ankiweb.net/*",
+        "https://ankiuser.net/*"
+      ]
     }
   ]
 }

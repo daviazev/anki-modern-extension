@@ -106,18 +106,38 @@
       document.head.appendChild(styleEl);
     }
 
-    // Injeta a lógica JS do tema via script src (contorna CSP)
-    // IMPORTANTE: Injeta SEMPRE porque precisamos reinicializar ao voltar
-    const jsPath = chrome.runtime.getURL(`themes/${theme}/${currentFolder}/logic.js`);
-    const scriptEl = document.createElement('script');
-    scriptEl.src = jsPath;
-    scriptEl.type = 'text/javascript';
-    scriptEl.onload = () => {
-      console.log(`Lógica do tema ${currentFolder} carregada/reinjetada com sucesso!`);
-      scriptEl.remove();
-    };
-    scriptEl.onerror = (err) => console.error(`Erro ao carregar lógica do tema ${currentFolder}:`, err);
-    (document.head || document.documentElement).appendChild(scriptEl);
+    // Injeta o shared/common.js do tema ANTES do logic.js
+    const sharedId = `anki-modern-${theme}-shared-js`;
+    if (!document.getElementById(sharedId)) {
+      const sharedPath = chrome.runtime.getURL(`themes/${theme}/shared/common.js`);
+      const sharedScript = document.createElement('script');
+      sharedScript.id = sharedId;
+      sharedScript.src = sharedPath;
+      sharedScript.type = 'text/javascript';
+      sharedScript.onload = () => {
+        console.log(`Shared do tema ${theme} carregado!`);
+        // Só injeta a lógica do tema após o shared estar disponível
+        injectThemeLogic();
+      };
+      sharedScript.onerror = (err) => console.error(`Erro ao carregar shared do tema ${theme}:`, err);
+      (document.head || document.documentElement).appendChild(sharedScript);
+    } else {
+      // Shared já carregado, pode injetar a lógica direto
+      injectThemeLogic();
+    }
+
+    function injectThemeLogic() {
+      const jsPath = chrome.runtime.getURL(`themes/${theme}/${currentFolder}/logic.js`);
+      const scriptEl = document.createElement('script');
+      scriptEl.src = jsPath;
+      scriptEl.type = 'text/javascript';
+      scriptEl.onload = () => {
+        console.log(`Lógica do tema ${currentFolder} carregada/reinjetada com sucesso!`);
+        scriptEl.remove();
+      };
+      scriptEl.onerror = (err) => console.error(`Erro ao carregar lógica do tema ${currentFolder}:`, err);
+      (document.head || document.documentElement).appendChild(scriptEl);
+    }
 
     lastInjectedFolder = currentFolder;
   }

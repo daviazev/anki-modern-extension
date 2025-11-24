@@ -1,0 +1,3128 @@
+<body
+  data-sveltekit-preload-data="hover"
+  __processed_1b27a386-838e-4000-9227-0a3068c0f8d2__="true"
+  bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjMzIiwic2NvcmUiOjIwMDMzfV0="
+>
+  <noscript>JavaScript is required.</noscript>
+  <div style="display: contents" bis_skin_checked="1">
+    <script>
+      {
+        __sveltekit_o1gkj7 = {
+          base: "",
+        };
+
+        const element = document.currentScript.parentElement;
+
+        Promise.all([
+          import("/_app/immutable/entry/start.D5kXpQJE.mjs"),
+          import("/_app/immutable/entry/app.DcuJZdbn.mjs"),
+        ]).then(([kit, app]) => {
+          kit.start(app, element);
+        });
+      }
+    </script>
+    <nav
+      class="navbar navbar-expand-md navbar-light bg-gray sticky-top svelte-uhvvkf"
+      data-sveltekit-preload-data="hover"
+    >
+      <div class="container svelte-uhvvkf" bis_skin_checked="1">
+        <div class="navbar-brand" bis_skin_checked="1">
+          <span class="align-middle">AnkiWeb</span>
+          <div
+            class="logo-container align-middle svelte-uhvvkf"
+            bis_skin_checked="1"
+          >
+            <img
+              id="logo"
+              height="32"
+              width="32"
+              alt="logo"
+              src="/logo.png"
+              class="svelte-uhvvkf"
+            />
+          </div>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          bis_skin_checked="1"
+        >
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item svelte-lzss3o">
+              <a href="/decks" class="nav-link svelte-lzss3o">Decks</a>
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a href="https://ankiuser.net:/add" class="nav-link svelte-lzss3o"
+                >Add</a
+              >
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a href="/search" class="nav-link svelte-lzss3o">Search</a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item svelte-lzss3o">
+              <a href="/account/settings" class="nav-link svelte-lzss3o"
+                >Account</a
+              >
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a href="/account/logout" class="nav-link svelte-lzss3o"
+                >Log Out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="container svelte-uhvvkf">
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; Banco do Brasel
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">102</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; AT
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; CB
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">30</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">10</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sistema
+            Financeiro Nacional
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">30</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">10</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Hierarquia do SFN
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">16</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Mercados do SFN
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Papéis da Comissão de Valores Mobiliários
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">6</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Papéis da Superintendência de Previdência Complementar
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Papéis da Superintendência de Seguros Privados
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">9</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Papéis do Banco Central
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">8</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="row light-bottom-border svelte-p9sq8d current"
+        bis_skin_checked="1"
+      >
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Erros
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">10</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PE
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; PT
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">19</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Classes de
+            palavras
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Substantivos
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ortografia
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">19</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Emprego do Hífen
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Letras, Fonemas, Dígrafos
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">5</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pronomes
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TI
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">100</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Banco de
+            Dados
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">47</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Aprendizado de Máquina
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">4</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Conceitos Iniciais e Responsible AI
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">1</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Tipos de Aprendizado
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Aprendizado por Reforço
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Não-Supervisionado
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Semi-Supervisionado
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Supervisionado
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Técnicas e tarefas
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Big Data
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">6</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Big Data Analytics
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Conceitos Iniciais e 5v's
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">2</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            NoSQL
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            SGBDs NoSQL
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">1</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Conceitos de BD e SGBD's
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">6</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Data Warehouse
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">11</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Dados Multidimensionais
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">8</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Modelagem Conceitual
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Modelagem Conceitual de dados
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">7</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Modelo Relacional de dados
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">10</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Normalização
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Desenvolvimento de Software
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">80</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            DevOps
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">2</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Estrutura de Dadas e Algoritmos
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">5</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            BubbleSort
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">4</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            InsertionSort
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">1</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Extra
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">8</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Números Binários
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">8</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Java
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">29</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Palavras reservadas
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Lógica de Programação
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Python
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">33</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; bbla
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; Inglês
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">69</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">21</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; iudhsiuf
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; Matemática
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">51</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ensino Fundamental
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">14</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Conjuntos
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">7</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Sistema de
+            Medidas
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">7</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Conversão de Unidades
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">2</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            Comprimento
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">2</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Tabuadas
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">47</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">4</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Adição
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">15</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Divisão
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">11</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Multiplicação
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">21</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">5</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            1 a 10
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">10</div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            11
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">11</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">5</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Subtração
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; PRÁTICA RÁPIDA
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Fatiamento
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs" bis_skin_checked="1">3</div>
+          <div class="number new svelte-uzu9cs" bis_skin_checked="1">3</div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row light-bottom-border svelte-p9sq8d" bis_skin_checked="1">
+        <div
+          class="col-7 col-sm-8 col-lg-9"
+          style="overflow: hidden; text-overflow: ellipsis"
+          bis_skin_checked="1"
+        >
+          <button class="btn btn-link pl-0 svelte-p9sq8d">
+            &nbsp;&nbsp;&nbsp; testando
+          </button>
+        </div>
+        <div class="col-1" bis_skin_checked="1">
+          <div class="number due svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+          <div class="number new svelte-uzu9cs zero" bis_skin_checked="1">
+            0
+          </div>
+        </div>
+        <div class="col-4 col-sm-3 col-lg-2" bis_skin_checked="1">
+          <div class="dropdown" bis_skin_checked="1">
+            <div style="float: right" bis_skin_checked="1">
+              <button
+                class="btn btn-link dropdown-toggle svelte-p9sq8d"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Actions
+              </button>
+              <div
+                class="dropdown-menu"
+                aria-labelledby="deckOptions"
+                bis_skin_checked="1"
+              >
+                <button class="dropdown-item" type="button">Rename</button>
+                <button class="dropdown-item" type="button">Share</button>
+                <button class="dropdown-item" type="button">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3" bis_skin_checked="1">
+        <div class="col text-center" bis_skin_checked="1">
+          Collection:
+          <a
+            href="https://faqs.ankiweb.net/are-there-limits-on-file-sizes-on-ankiweb.html"
+            >3.76MB</a
+          >
+          Media:
+          <a href="/account/media">2730.65MB</a>
+        </div>
+      </div>
+      <div class="row" bis_skin_checked="1">
+        <div class="col text-center" bis_skin_checked="1">
+          <a href="/shared/decks/" class="btn btn-outline-secondary"
+            >Get Shared Decks</a
+          >
+          <a href="/shared/mine" class="btn btn-outline-secondary"
+            >My Shared Items</a
+          >
+          <button class="btn btn-outline-secondary">Create Deck</button>
+        </div>
+      </div>
+    </main>
+    <div
+      class="container-fluid bg-gray svelte-uhvvkf"
+      data-sveltekit-preload-data="hover"
+      bis_skin_checked="1"
+    >
+      <ul class="nav justify-content-center">
+        <li class="nav-item svelte-lzss3o">
+          <a href="https://apps.ankiweb.net" class="nav-link svelte-lzss3o"
+            >Apps</a
+          >
+        </li>
+        <li class="nav-item svelte-lzss3o">
+          <a href="/about" class="nav-link svelte-lzss3o">About</a>
+        </li>
+        <li class="nav-item svelte-lzss3o">
+          <a href="https://help.ankiweb.net" class="nav-link svelte-lzss3o"
+            >Support</a
+          >
+        </li>
+        <li class="nav-item svelte-lzss3o">
+          <a href="/account/terms" class="nav-link svelte-lzss3o">Terms</a>
+        </li>
+        <li class="nav-item svelte-lzss3o">
+          <a href="/account/privacy" class="nav-link svelte-lzss3o">Privacy</a>
+        </li>
+      </ul>
+    </div>
+    <div
+      id="svelte-announcer"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        clip: rect(0px, 0px, 0px, 0px);
+        clip-path: inset(50%);
+        overflow: hidden;
+        white-space: nowrap;
+        width: 1px;
+        height: 1px;
+      "
+      bis_skin_checked="1"
+    ></div>
+  </div>
+
+  <div id="extension-dpfof" bis_skin_checked="1"></div>
+</body>
