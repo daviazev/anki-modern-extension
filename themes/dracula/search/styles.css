@@ -140,11 +140,79 @@ body.anki-modern-search table {
   width: 100% !important;
   max-width: 800px !important;
   margin: 2rem auto 0 !important;
-  background: var(--bg-surface) !important;
+  background: var(--bg-body) !important;
   border-radius: 8px !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-  padding: 1rem !important;
+  padding: 1.5rem !important;
   border: 1px solid var(--border-color) !important;
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+/* Oculta tabela quando estiver vazia (sem resultados) */
+body.anki-modern-search table:empty {
+  display: none !important;
+}
+
+/* Linhas da tabela */
+body.anki-modern-search table tr {
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-search table tr.light-bottom-border {
+  border-bottom: 1px solid rgba(98, 114, 164, 0.3) !important;
+}
+
+body.anki-modern-search table tr:last-child {
+  border-bottom: none !important;
+}
+
+body.anki-modern-search table tr:hover {
+  background: rgba(189, 147, 249, 0.1) !important;
+}
+
+/* Células da tabela */
+body.anki-modern-search table td {
+  padding: 1rem !important;
+  color: var(--text-main) !important;
+  font-size: 0.95rem !important;
+  vertical-align: middle !important;
+}
+
+body.anki-modern-search table td:first-child {
+  width: 5em !important;
+}
+
+/* Botão Edit dentro da tabela */
+body.anki-modern-search table .btn-link {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  border: 2px solid var(--primary) !important;
+  color: var(--bg-body) !important;
+  font-weight: 700 !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+              0 0 15px rgba(189, 147, 249, 0.3) !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+}
+
+body.anki-modern-search table .btn-link:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4),
+              0 0 25px rgba(189, 147, 249, 0.5) !important;
+  border-color: var(--primary-hover) !important;
+  color: var(--bg-body) !important;
+}
+
+body.anki-modern-search table .btn-link:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3),
+              0 0 10px rgba(189, 147, 249, 0.3) !important;
 }
 
 /* Responsividade */
