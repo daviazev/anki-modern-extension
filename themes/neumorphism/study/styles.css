@@ -1,0 +1,293 @@
+/* ===================================
+   Neumorphism Theme - Study Page
+   Estiliza apenas elementos do AnkiWeb,
+   preservando flashcards personalizados
+   =================================== */
+
+/* Variáveis do tema */
+body.anki-modern-study {
+  --bg-body: #f0f2f5;
+  --bg-surface: #e8ebef;
+  --text-main: #2d3748;
+  --text-secondary: #718096;
+  --primary: #5e72e4;
+  --primary-hover: #4c5fd4;
+  --shadow-neumorphic: 6px 6px 12px rgba(163, 177, 198, 0.5), 
+                       -6px -6px 12px rgba(255, 255, 255, 0.9);
+  --shadow-neumorphic-inset: inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+                             inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Background do body */
+body.anki-modern-study {
+  background: var(--bg-body) !important;
+}
+
+/* Container principal */
+body.anki-modern-study main.container {
+  background: var(--bg-body) !important;
+  padding: 2rem 1rem !important;
+  max-width: 1200px !important;
+}
+
+/* Remove espaço extra do form-group vazio no final */
+body.anki-modern-study .form-group:empty {
+  display: none !important;
+}
+
+/* ===================================
+   BARRA DE FERRAMENTAS DO TOPO
+   =================================== */
+
+body.anki-modern-study #quiz {
+  margin-bottom: 2rem !important;
+}
+
+/* Container dos botões à esquerda (Edit, Limits, +, -) */
+body.anki-modern-study .float-start {
+  display: flex !important;
+  gap: 0.5rem !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Botões outline-primary */
+body.anki-modern-study .btn-outline-primary {
+  background: var(--bg-body) !important;
+  border: none !important;
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  box-shadow: 3px 3px 6px rgba(163, 177, 198, 0.4),
+              -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.3s ease !important;
+  text-decoration: none !important;
+}
+
+body.anki-modern-study .btn-outline-primary:hover {
+  color: white !important;
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 4px 4px 8px rgba(163, 177, 198, 0.5),
+              -4px -4px 8px rgba(255, 255, 255, 1) !important;
+}
+
+body.anki-modern-study .btn-outline-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+}
+
+/* ===================================
+   CONTADOR DE CARDS (New, Learn, Review)
+   =================================== */
+
+body.anki-modern-study .float-end {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  color: var(--text-secondary) !important;
+  margin-bottom: 1rem !important;
+}
+
+body.anki-modern-study .count {
+  background: var(--bg-body) !important;
+  color: var(--text-secondary) !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: 8px !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  font-weight: 700 !important;
+  min-width: 2.5rem !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-study .count.active {
+  color: var(--primary) !important;
+  box-shadow: var(--shadow-neumorphic-inset),
+              0 0 0 2px rgba(94, 114, 228, 0.3) !important;
+}
+
+/* ===================================
+   CARD BOX (Container do flashcard)
+   =================================== */
+
+body.anki-modern-study #qa_box {
+  background: var(--bg-body) !important;
+  border: none !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+  padding: 2rem !important;
+  margin-bottom: 2rem !important;
+  min-height: 300px !important;
+}
+
+/* ===================================
+   ÁREA DE RESPOSTA (Botões de ação)
+   =================================== */
+
+body.anki-modern-study #ansarea {
+  margin-top: 2rem !important;
+  padding-bottom: 1rem !important;
+}
+
+/* Container dos botões de dificuldade */
+body.anki-modern-study #ansarea .d-flex.justify-content-center {
+  padding: 1rem 0 !important;
+}
+
+/* Botão "Show Answer" */
+body.anki-modern-study #ansarea .btn-primary {
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  padding: 1rem 3rem !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-study #ansarea .btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.6),
+              -8px -8px 16px rgba(255, 255, 255, 1) !important;
+}
+
+body.anki-modern-study #ansarea .btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+}
+
+/* Botões de dificuldade (Again, Hard, Good, Easy) */
+body.anki-modern-study #ansarea .d-flex > div {
+  text-align: center !important;
+}
+
+body.anki-modern-study #ansarea .text-center {
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+body.anki-modern-study #ansarea .btn-primary.m-1 {
+  background: var(--bg-body) !important;
+  border: none !important;
+  color: var(--text-main) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  padding: 0.75rem 1.5rem !important;
+  min-width: 100px !important;
+  border-radius: 10px !important;
+  box-shadow: 3px 3px 6px rgba(163, 177, 198, 0.4),
+              -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-study #ansarea .btn-primary.m-1:active {
+  transform: translateY(0) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+}
+
+/* Cores específicas para cada botão - harmonizadas com tema Neumorphism */
+/* Again - Vermelho suave (repetir) */
+body.anki-modern-study #ansarea .d-flex > div:nth-child(1) .btn-primary.m-1 {
+  background: linear-gradient(145deg, #fc8181, #f56565) !important;
+  color: white !important;
+  box-shadow: 4px 4px 8px rgba(245, 101, 101, 0.3),
+              -4px -4px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.anki-modern-study #ansarea .d-flex > div:nth-child(1) .btn-primary.m-1:hover {
+  background: linear-gradient(145deg, #f56565, #e53e3e) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 12px rgba(245, 101, 101, 0.4),
+              -6px -6px 12px rgba(255, 255, 255, 1) !important;
+}
+
+/* Hard - Laranja suave (difícil) */
+body.anki-modern-study #ansarea .d-flex > div:nth-child(2) .btn-primary.m-1 {
+  background: linear-gradient(145deg, #f6ad55, #ed8936) !important;
+  color: white !important;
+  box-shadow: 4px 4px 8px rgba(237, 137, 54, 0.3),
+              -4px -4px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.anki-modern-study #ansarea .d-flex > div:nth-child(2) .btn-primary.m-1:hover {
+  background: linear-gradient(145deg, #ed8936, #dd6b20) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 12px rgba(237, 137, 54, 0.4),
+              -6px -6px 12px rgba(255, 255, 255, 1) !important;
+}
+
+/* Good - Azul suave harmonizado com tema (bom) */
+body.anki-modern-study #ansarea .d-flex > div:nth-child(3) .btn-primary.m-1 {
+  background: linear-gradient(145deg, #7c9fe8, #5e72e4) !important;
+  color: white !important;
+  box-shadow: 4px 4px 8px rgba(94, 114, 228, 0.3),
+              -4px -4px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.anki-modern-study #ansarea .d-flex > div:nth-child(3) .btn-primary.m-1:hover {
+  background: linear-gradient(145deg, #5e72e4, #4c5fd4) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 12px rgba(94, 114, 228, 0.4),
+              -6px -6px 12px rgba(255, 255, 255, 1) !important;
+}
+
+/* Easy - Verde suave (fácil) */
+body.anki-modern-study #ansarea .d-flex > div:nth-child(4) .btn-primary.m-1 {
+  background: linear-gradient(145deg, #68d391, #48bb78) !important;
+  color: white !important;
+  box-shadow: 4px 4px 8px rgba(72, 187, 120, 0.3),
+              -4px -4px 8px rgba(255, 255, 255, 0.9) !important;
+}
+
+body.anki-modern-study #ansarea .d-flex > div:nth-child(4) .btn-primary.m-1:hover {
+  background: linear-gradient(145deg, #48bb78, #38a169) !important;
+  color: white !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 12px rgba(72, 187, 120, 0.4),
+              -6px -6px 12px rgba(255, 255, 255, 1) !important;
+}
+
+/* ===================================
+   RESPONSIVIDADE
+   =================================== */
+
+@media (max-width: 768px) {
+  body.anki-modern-study main.container {
+    padding: 1rem !important;
+  }
+
+  body.anki-modern-study .float-start,
+  body.anki-modern-study .float-end {
+    float: none !important;
+    justify-content: center !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  body.anki-modern-study #qa_box {
+    padding: 1.5rem !important;
+  }
+
+  body.anki-modern-study #ansarea .d-flex {
+    flex-wrap: wrap !important;
+  }
+
+  body.anki-modern-study #ansarea .btn-primary.m-1 {
+    min-width: 80px !important;
+    font-size: 0.875rem !important;
+    padding: 0.5rem 1rem !important;
+  }
+}
