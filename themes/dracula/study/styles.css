@@ -21,19 +21,31 @@ body.anki-modern-study {
   background: var(--bg-body) !important;
 }
 
-/* Container principal - centralizado entre header e footer */
+/* Força todos os elementos a usarem a cor de fundo do tema */
+body.anki-modern-study,
+body.anki-modern-study html,
+body.anki-modern-study main,
+body.anki-modern-study > *:not(#qa_box):not(button) {
+  background-color: var(--bg-body) !important;
+}
+
+/* Container principal */
 body.anki-modern-study main.container {
   background: var(--bg-body) !important;
   padding: 2rem 1rem !important;
   max-width: 1200px !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
 }
 
 /* Remove espaço extra do form-group vazio no final */
 body.anki-modern-study .form-group:empty {
   display: none !important;
+}
+
+/* Footer - remove espaço em branco */
+body.anki-modern-study footer {
+  margin-top: 0 !important;
+  padding-top: 1rem !important;
+  padding-bottom: 1rem !important;
 }
 
 /* ===================================
@@ -96,7 +108,7 @@ body.anki-modern-study .float-end {
 
 body.anki-modern-study .count {
   background: var(--bg-surface) !important;
-  color: var(--text-secondary) !important;
+  color: var(--text-main) !important;
   padding: 0.5rem 0.75rem !important;
   border-radius: 8px !important;
   border: 1px solid rgba(98, 114, 164, 0.3) !important;
