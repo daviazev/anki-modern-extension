@@ -1,0 +1,79 @@
+/* ===================================
+   TEMPLATE - {{URL_NAME}}
+   
+   INSTRUÇÕES:
+   1. Copie este arquivo para themes/{tema}/{url-name}/styles.css
+   2. Substitua {{URL_NAME}} pelo nome da URL
+   3. Adicione estilos específicos desta URL abaixo
+   4. O @import traz TODAS as variáveis do shared/base.css
+   =================================== */
+
+/* Importa estilos compartilhados (OBRIGATÓRIO) */
+@import url('chrome-extension://__MSG_@@extension_id__/themes/{{THEME_NAME}}/shared/base.css');
+
+/* ===== Container Principal ===== */
+main.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--theme-spacing-xl);
+}
+
+/* ===== Estilos Específicos da URL ===== */
+/* Adicione seus estilos aqui */
+
+/* NOTA: O script add-url-support.sh substituirá {{URL_NAME}} pelo nome real */
+/* #custom-interface-{{URL_NAME}} {
+  display: flex;
+  flex-direction: column;
+  gap: var(--theme-spacing-lg);
+} */
+
+/* Exemplo: Container customizado (ajuste o ID após usar o script) */
+#custom-interface {
+  display: flex;
+  flex-direction: column;
+  gap: var(--theme-spacing-lg);
+}
+
+/* Exemplo: Ocultar elementos originais */
+.original-ankiweb-element {
+  display: none !important;
+}
+
+/* Exemplo: Card customizado */
+.custom-card {
+  background: var(--theme-bg-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-raised);
+  padding: var(--theme-spacing-lg);
+  transition: all var(--theme-transition-normal);
+}
+
+.custom-card:hover {
+  box-shadow: var(--theme-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Exemplo: Botão customizado */
+.custom-button {
+  padding: var(--theme-spacing-sm) var(--theme-spacing-lg);
+  background: var(--theme-accent);
+  color: white;
+  border: none;
+  border-radius: var(--theme-radius-md);
+  box-shadow: var(--theme-shadow-raised);
+  cursor: pointer;
+  transition: all var(--theme-transition-normal);
+  font-size: var(--theme-font-size-md);
+  font-weight: 500;
+}
+
+.custom-button:hover {
+  background: var(--theme-accent-hover);
+  box-shadow: var(--theme-shadow-hover);
+}
+
+.custom-button:active {
+  box-shadow: var(--theme-shadow-pressed);
+  transform: scale(0.98);
+}

@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "description": "Modifica o layout e funcionalidades do AnkiWeb com temas modernos.",
   "permissions": ["activeTab", "scripting", "storage"],
-  "host_permissions": ["https://ankiweb.net/*"],
+  "host_permissions": [
+    "https://ankiweb.net/*",
+    "https://ankiuser.net/*"
+  ],
   "action": {
     "default_popup": "popup/index.html",
     "default_icon": {
@@ -19,7 +22,10 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://ankiweb.net/*"],
+      "matches": [
+        "https://ankiweb.net/*",
+        "https://ankiuser.net/*"
+      ],
       "js": ["src/loader.js"],
       "run_at": "document_end"
     }

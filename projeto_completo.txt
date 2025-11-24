@@ -1,0 +1,2136 @@
+===== PROJECT STRUCTURE =====
+
+.templates
+.templates/README.md
+.templates/scripts
+.templates/scripts/add-url-support.sh
+.templates/scripts/create-theme.sh
+.templates/theme-structure
+.templates/theme-structure/shared
+.templates/theme-structure/shared/base.css
+.templates/theme-structure/shared/common.js
+.templates/theme-structure/theme-config.json
+.templates/theme-structure/url-template
+.templates/theme-structure/url-template/logic.js
+.templates/theme-structure/url-template/styles.css
+README.md
+export-project.js
+manifest.json
+popup
+popup/index.html
+popup/popup.js
+src
+src/background.js
+src/loader.js
+themes
+themes/neumorphism
+themes/neumorphism/decks
+themes/neumorphism/decks/logic.js
+themes/neumorphism/decks/styles.css
+
+
+===== FILE CONTENTS =====
+
+
+===== .templates/README.md =====
+# 🎨 Templates para Criação de Temas
+
+Esta pasta contém **templates genéricos** para criar novos temas e adicionar suporte para novas URLs.
+
+## 📁 Estrutura
+
+```
+.templates/
+├── README.md                    # Este arquivo
+├── theme-structure/             # Estrutura completa de um tema
+│   ├── theme-config.json        # Configuração do tema (cores, sombras, etc)
+│   ├── shared/                  # Código compartilhado entre URLs
+│   │   ├── base.css             # CSS base com variáveis
+│   │   └── common.js            # Funções utilitárias JS
+│   └── url-template/            # Template para cada URL
+│       ├── styles.css           # Estilos específicos da URL
+│       └── logic.js             # Lógica específica da URL
+└── scripts/
+    └── create-theme.sh          # Script para criar novo tema
+```
+
+---
+
+## 🚀 Como Criar um Novo Tema
+
+### Opção 1: Manual
+
+1. Copie a pasta `theme-structure/` para `themes/{nome-do-tema}/`
+2. Renomeie e ajuste os arquivos
+3. Configure as variáveis em `theme-config.json`
+4. Atualize o `loader.js` para usar o novo tema
+
+### Opção 2: Com Script (futuro)
+
+```bash
+./templates/scripts/create-theme.sh "meu-tema"
+```
+
+---
+
+## 📝 Como Adicionar Suporte para Nova URL
+
+### 1️⃣ Adicione o pattern no `src/loader.js`:
+
+```javascript
+const URL_PATTERNS = [
+  // ... patterns existentes ...
+  { pattern: /^\/nova\/url$/, folder: 'nova-url', host: 'ankiweb.net' },
+  { pattern: /^\/outra\/\d+$/, folder: 'outra-id', host: 'ankiuser.net' },
+];
+```
+
+### 2️⃣ Crie a pasta no tema:
+
+```bash
+mkdir themes/neumorphism/nova-url
+cp .templates/theme-structure/url-template/styles.css themes/neumorphism/nova-url/
+cp .templates/theme-structure/url-template/logic.js themes/neumorphism/nova-url/
+```
+
+### 3️⃣ Customize os arquivos:
+
+- Ajuste `EXPECTED_URL` no `logic.js`
+- Adicione estilos específicos no `styles.css`
+
+---
+
+## 🎯 Convenção de Nomenclatura
+
+### Pastas:
+- URL: `/decks` → Pasta: `decks/`
+- URL: `/account/settings` → Pasta: `account-settings/`
+- URL: `/decks/share/123` → Pasta: `decks-share-id/`
+- URL: `/edit/123` → Pasta: `edit-id/`
+
+**Regra:** Substitua `/` por `-` e use sufixo `-id` para URLs com IDs.
+
+---
+
+## ✨ Benefícios
+
+- ✅ **Reutilização total:** Todo código é reaproveitado
+- ✅ **Escalável:** Suporta dezenas de URLs facilmente
+- ✅ **Temas rápidos:** Criar novo tema = copiar + mudar variáveis
+- ✅ **Manutenção fácil:** Mudanças no template afetam todos os temas
+- ✅ **Isolamento:** Cada URL tem seu próprio CSS/JS
+
+
+===== .templates/scripts/add-url-support.sh =====
+#!/bin/bash
+
+# ===================================
+# Script para adicionar suporte a nova URL
+# Uso: ./add-url-support.sh "tema" "url-name" "/url/esperada"
+# Exemplo: ./add-url-support.sh "neumorphism" "account-settings" "/account/settings"
+# ===================================
+
+set -e
+
+# Cores
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m'
+
+# Valida argumentos
+if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then
+  echo -e "${YELLOW}Uso: ./add-url-support.sh \"tema\" \"url-name\" \"/url/esperada\"${NC}"
+  echo ""
+  echo "Exemplos:"
+  echo "  ./add-url-support.sh \"neumorphism\" \"account-settings\" \"/account/settings\""
+  echo "  ./add-url-support.sh \"neumorphism\" \"edit-id\" \"/edit/\\d+\" (com regex)"
+  exit 1
+fi
+
+THEME_NAME=$1
+URL_NAME=$2
+EXPECTED_URL=$3
+THEME_DIR="../../themes/${THEME_NAME}"
+URL_DIR="${THEME_DIR}/${URL_NAME}"
+TEMPLATE_DIR="../theme-structure/url-template"
+
+echo -e "${BLUE}🔧 Adicionando suporte para URL: ${URL_NAME}${NC}"
+
+# Verifica se tema existe
+if [ ! -d "$THEME_DIR" ]; then
+  echo -e "${YELLOW}⚠️  Tema '${THEME_NAME}' não existe!${NC}"
+  echo "Crie o tema primeiro com: ./create-theme.sh \"${THEME_NAME}\""
+  exit 1
+fi
+
+# Verifica se URL já existe
+if [ -d "$URL_DIR" ]; then
+  echo -e "${YELLOW}⚠️  URL '${URL_NAME}' já existe em ${URL_DIR}${NC}"
+  read -p "Deseja sobrescrever? (y/N): " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Operação cancelada."
+    exit 1
+  fi
+  rm -rf "$URL_DIR"
+fi
+
+# Cria pasta da URL
+echo -e "${BLUE}📁 Criando pasta ${URL_NAME}...${NC}"
+mkdir -p "$URL_DIR"
+
+# Copia templates
+echo -e "${BLUE}📄 Copiando templates...${NC}"
+cp "$TEMPLATE_DIR/styles.css" "$URL_DIR/"
+cp "$TEMPLATE_DIR/logic.js" "$URL_DIR/"
+
+# Substitui placeholders
+echo -e "${BLUE}✏️  Personalizando arquivos...${NC}"
+
+# No styles.css
+sed -i "s/{{THEME_NAME}}/${THEME_NAME}/g" "$URL_DIR/styles.css"
+sed -i "s/{{URL_NAME}}/${URL_NAME}/g" "$URL_DIR/styles.css"
+
+# No logic.js
+sed -i "s/{{THEME_NAME}}/${THEME_NAME}/g" "$URL_DIR/logic.js"
+sed -i "s/{{URL_NAME}}/${URL_NAME}/g" "$URL_DIR/logic.js"
+sed -i "s|{{EXPECTED_URL}}|${EXPECTED_URL}|g" "$URL_DIR/logic.js"
+sed -i "s/{{CONTAINER_ID}}/custom-interface-${URL_NAME}/g" "$URL_DIR/logic.js"
+
+echo -e "${GREEN}✓ Suporte para ${URL_NAME} adicionado com sucesso!${NC}"
+echo ""
+echo -e "${BLUE}📋 Próximos passos:${NC}"
+echo "1. Adicione o pattern no src/loader.js:"
+echo "   { pattern: /REGEX_AQUI/, folder: '${URL_NAME}', host: 'ankiweb.net' },"
+echo ""
+echo "2. Personalize os arquivos:"
+echo "   - themes/${THEME_NAME}/${URL_NAME}/styles.css"
+echo "   - themes/${THEME_NAME}/${URL_NAME}/logic.js"
+echo ""
+echo -e "${GREEN}✨ Pronto para desenvolver!${NC}"
+
+
+===== .templates/scripts/create-theme.sh =====
+#!/bin/bash
+
+# ===================================
+# Script para criar novo tema
+# Uso: ./create-theme.sh "nome-do-tema" "Autor"
+# ===================================
+
+set -e
+
+# Cores para output
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+# Valida argumentos
+if [ -z "$1" ]; then
+  echo -e "${YELLOW}Uso: ./create-theme.sh \"nome-do-tema\" \"Autor (opcional)\"${NC}"
+  exit 1
+fi
+
+THEME_NAME=$1
+AUTHOR=${2:-"Seu Nome"}
+THEME_DIR="../../themes/${THEME_NAME}"
+TEMPLATE_DIR="../theme-structure"
+
+echo -e "${BLUE}🎨 Criando novo tema: ${THEME_NAME}${NC}"
+
+# Verifica se tema já existe
+if [ -d "$THEME_DIR" ]; then
+  echo -e "${YELLOW}⚠️  Tema '${THEME_NAME}' já existe em themes/${THEME_NAME}${NC}"
+  read -p "Deseja sobrescrever? (y/N): " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Operação cancelada."
+    exit 1
+  fi
+  rm -rf "$THEME_DIR"
+fi
+
+# Cria estrutura do tema
+echo -e "${BLUE}📁 Criando estrutura de pastas...${NC}"
+mkdir -p "$THEME_DIR/shared"
+
+# Copia arquivos base
+echo -e "${BLUE}📄 Copiando arquivos template...${NC}"
+cp "$TEMPLATE_DIR/theme-config.json" "$THEME_DIR/"
+cp "$TEMPLATE_DIR/shared/base.css" "$THEME_DIR/shared/"
+cp "$TEMPLATE_DIR/shared/common.js" "$THEME_DIR/shared/"
+
+# Substitui placeholders
+echo -e "${BLUE}✏️  Personalizando arquivos...${NC}"
+
+# No config.json
+sed -i "s/{{THEME_NAME}}/${THEME_NAME}/g" "$THEME_DIR/theme-config.json"
+sed -i "s/{{THEME_DESCRIPTION}}/Tema ${THEME_NAME} para AnkiWeb/g" "$THEME_DIR/theme-config.json"
+sed -i "s/{{AUTHOR_NAME}}/${AUTHOR}/g" "$THEME_DIR/theme-config.json"
+
+# No base.css
+sed -i "s/{{THEME_NAME}}/${THEME_NAME}/g" "$THEME_DIR/shared/base.css"
+
+# No common.js
+sed -i "s/{{THEME_NAME}}/${THEME_NAME}/g" "$THEME_DIR/shared/common.js"
+
+echo -e "${GREEN}✓ Tema '${THEME_NAME}' criado com sucesso!${NC}"
+echo ""
+echo -e "${BLUE}📋 Próximos passos:${NC}"
+echo "1. Edite themes/${THEME_NAME}/theme-config.json para ajustar cores e variáveis"
+echo "2. Personalize themes/${THEME_NAME}/shared/base.css com os estilos do tema"
+echo "3. Adicione suporte para URLs usando: ./add-url-support.sh \"${THEME_NAME}\" \"url-name\""
+echo "4. Atualize src/loader.js para usar o novo tema: const theme = '${THEME_NAME}';"
+echo ""
+echo -e "${GREEN}✨ Pronto para usar!${NC}"
+
+
+===== .templates/theme-structure/shared/base.css =====
+/* ===================================
+   SHARED BASE - {{THEME_NAME}}
+   Estilos comuns entre todas as URLs
+   
+   INSTRUÇÕES:
+   1. Substitua {{THEME_NAME}} pelo nome do tema
+   2. Ajuste os valores das variáveis conforme theme-config.json
+   3. Este arquivo será importado em TODOS os styles.css de cada URL
+   =================================== */
+
+:root {
+  /* ===== Cores Principais ===== */
+  --theme-bg-primary: #e0e5ec;
+  --theme-bg-secondary: #f0f4f8;
+  --theme-text-primary: #2c3e50;
+  --theme-text-secondary: #6c757d;
+  --theme-accent: #5e72e4;
+  --theme-accent-hover: #4c63d2;
+  
+  /* ===== Sombras ===== */
+  --theme-shadow-light: #ffffff;
+  --theme-shadow-dark: #a3b1c6;
+  --theme-shadow-raised: 8px 8px 16px var(--theme-shadow-dark), -8px -8px 16px var(--theme-shadow-light);
+  --theme-shadow-pressed: inset 4px 4px 8px var(--theme-shadow-dark), inset -4px -4px 8px var(--theme-shadow-light);
+  --theme-shadow-hover: 12px 12px 24px var(--theme-shadow-dark), -12px -12px 24px var(--theme-shadow-light);
+  --theme-shadow-subtle: 4px 4px 8px var(--theme-shadow-dark), -4px -4px 8px var(--theme-shadow-light);
+  
+  /* ===== Status Colors ===== */
+  --theme-success: #28a745;
+  --theme-warning: #ffc107;
+  --theme-danger: #dc3545;
+  
+  /* ===== Espaçamentos ===== */
+  --theme-spacing-xs: 8px;
+  --theme-spacing-sm: 12px;
+  --theme-spacing-md: 16px;
+  --theme-spacing-lg: 24px;
+  --theme-spacing-xl: 32px;
+  --theme-spacing-xxl: 48px;
+  
+  /* ===== Bordas ===== */
+  --theme-radius-sm: 8px;
+  --theme-radius-md: 12px;
+  --theme-radius-lg: 16px;
+  --theme-radius-xl: 20px;
+  --theme-radius-round: 50%;
+  
+  /* ===== Fontes ===== */
+  --theme-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --theme-font-mono: 'Fira Code', 'Courier New', monospace;
+  --theme-font-size-xs: 10px;
+  --theme-font-size-sm: 12px;
+  --theme-font-size-md: 14px;
+  --theme-font-size-lg: 16px;
+  --theme-font-size-xl: 20px;
+  --theme-font-size-xxl: 24px;
+  --theme-font-size-xxxl: 32px;
+  
+  /* ===== Transições ===== */
+  --theme-transition-fast: 0.15s ease;
+  --theme-transition-normal: 0.3s ease;
+  --theme-transition-slow: 0.5s ease;
+}
+
+/* ===== Reset Básico ===== */
+body {
+  background: var(--theme-bg-primary) !important;
+  color: var(--theme-text-primary) !important;
+  font-family: var(--theme-font-primary) !important;
+  line-height: 1.6;
+}
+
+/* ===== Scrollbar Customizada ===== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-shadow-dark);
+  border-radius: 6px;
+  box-shadow: var(--theme-shadow-subtle);
+  transition: background var(--theme-transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-secondary);
+}
+
+/* ===== Utilitários Globais ===== */
+.theme-btn {
+  padding: var(--theme-spacing-sm) var(--theme-spacing-lg);
+  border-radius: var(--theme-radius-md);
+  border: none;
+  background: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  box-shadow: var(--theme-shadow-raised);
+  cursor: pointer;
+  transition: all var(--theme-transition-normal);
+  font-family: var(--theme-font-primary);
+  font-size: var(--theme-font-size-md);
+  font-weight: 500;
+}
+
+.theme-btn:hover {
+  box-shadow: var(--theme-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.theme-btn:active {
+  box-shadow: var(--theme-shadow-pressed);
+  transform: translateY(0);
+}
+
+.theme-btn-primary {
+  background: var(--theme-accent);
+  color: white;
+}
+
+.theme-btn-primary:hover {
+  background: var(--theme-accent-hover);
+}
+
+.theme-card {
+  background: var(--theme-bg-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-raised);
+  padding: var(--theme-spacing-lg);
+  transition: all var(--theme-transition-normal);
+}
+
+.theme-card:hover {
+  box-shadow: var(--theme-shadow-hover);
+}
+
+/* ===== Animações ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-fade-in {
+  animation: fadeIn var(--theme-transition-normal);
+}
+
+
+===== .templates/theme-structure/shared/common.js =====
+// ===================================
+// SHARED COMMON - {{THEME_NAME}}
+// Funções utilitárias reutilizáveis
+//
+// INSTRUÇÕES:
+// 1. Substitua {{THEME_NAME}} pelo nome do tema
+// 2. Este arquivo é injetado ANTES dos logic.js específicos
+// 3. Todas as funções ficam disponíveis via window.AnkiModernShared
+// ===================================
+
+(function() {
+  'use strict';
+
+  // Namespace global para funções compartilhadas
+  window.AnkiModernShared = window.AnkiModernShared || {};
+
+  // ===== URL Helpers =====
+
+  /**
+   * Verifica se está na URL esperada
+   * @param {string|RegExp} expectedPath - Caminho ou pattern esperado
+   * @returns {boolean}
+   */
+  window.AnkiModernShared.isCorrectUrl = function(expectedPath) {
+    const currentPath = window.location.pathname;
+    if (expectedPath instanceof RegExp) {
+      return expectedPath.test(currentPath);
+    }
+    return currentPath === expectedPath;
+  };
+
+  /**
+   * Extrai ID da URL (ex: /edit/123456 → 123456)
+   * @param {RegExp} pattern - Pattern com grupo de captura
+   * @returns {string|null}
+   */
+  window.AnkiModernShared.extractIdFromUrl = function(pattern) {
+    const match = window.location.pathname.match(pattern);
+    return match ? match[1] : null;
+  };
+
+  // ===== DOM Helpers =====
+
+  /**
+   * Aguarda elemento aparecer no DOM
+   * @param {string} selector - Seletor CSS
+   * @param {number} timeout - Timeout em ms (padrão: 5000)
+   * @returns {Promise<Element>}
+   */
+  window.AnkiModernShared.waitForElement = function(selector, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        resolve(element);
+        return;
+      }
+
+      const observer = new MutationObserver(() => {
+        const element = document.querySelector(selector);
+        if (element) {
+          observer.disconnect();
+          resolve(element);
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+
+      setTimeout(() => {
+        observer.disconnect();
+        reject(new Error(`Elemento ${selector} não encontrado em ${timeout}ms`));
+      }, timeout);
+    });
+  };
+
+  /**
+   * Remove todos os elementos criados pelo tema
+   * @param {string} containerId - ID do container customizado
+   */
+  window.AnkiModernShared.cleanup = function(containerId) {
+    const container = document.getElementById(containerId);
+    if (container) {
+      container.remove();
+      console.log(`✓ Container ${containerId} removido`);
+    }
+  };
+
+  /**
+   * Oculta elementos originais do AnkiWeb
+   * @param {string} selector - Seletor CSS dos elementos a ocultar
+   */
+  window.AnkiModernShared.hideOriginalElements = function(selector) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      el.style.display = 'none';
+    });
+    console.log(`✓ ${elements.length} elementos originais ocultados`);
+  };
+
+  // ===== Component Builders =====
+
+  /**
+   * Cria botão com estilo do tema
+   * @param {string} text - Texto do botão
+   * @param {Function} onClick - Callback do clique
+   * @param {boolean} isPrimary - Se é botão primário
+   * @returns {HTMLElement}
+   */
+  window.AnkiModernShared.createButton = function(text, onClick, isPrimary = false) {
+    const btn = document.createElement('button');
+    btn.innerText = text;
+    btn.className = isPrimary ? 'theme-btn theme-btn-primary' : 'theme-btn';
+    btn.onclick = onClick;
+    return btn;
+  };
+
+  /**
+   * Cria card com estilo do tema
+   * @returns {HTMLElement}
+   */
+  window.AnkiModernShared.createCard = function() {
+    const card = document.createElement('div');
+    card.className = 'theme-card theme-fade-in';
+    return card;
+  };
+
+  /**
+   * Cria dropdown customizado
+   * @param {string} buttonText - Texto do botão
+   * @param {Array<{text: string, onClick: Function}>} items - Itens do menu
+   * @returns {HTMLElement}
+   */
+  window.AnkiModernShared.createDropdown = function(buttonText, items) {
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+
+    const button = this.createButton(buttonText, () => {
+      menu.classList.toggle('show');
+    });
+    
+    const menu = document.createElement('div');
+    menu.className = 'theme-dropdown-menu';
+    menu.style.cssText = `
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: var(--theme-bg-primary);
+      border-radius: var(--theme-radius-md);
+      box-shadow: var(--theme-shadow-raised);
+      padding: var(--theme-spacing-xs);
+      min-width: 150px;
+      z-index: 1000;
+    `;
+
+    items.forEach(item => {
+      const menuItem = document.createElement('div');
+      menuItem.innerText = item.text;
+      menuItem.className = 'theme-dropdown-item';
+      menuItem.style.cssText = `
+        padding: var(--theme-spacing-sm);
+        cursor: pointer;
+        border-radius: var(--theme-radius-sm);
+        transition: all var(--theme-transition-fast);
+      `;
+      menuItem.onclick = (e) => {
+        e.stopPropagation();
+        menu.classList.remove('show');
+        item.onClick();
+      };
+      menuItem.onmouseenter = () => {
+        menuItem.style.background = 'var(--theme-bg-secondary)';
+      };
+      menuItem.onmouseleave = () => {
+        menuItem.style.background = 'transparent';
+      };
+      menu.appendChild(menuItem);
+    });
+
+    menu.classList.add('show');
+    menu.style.display = 'block';
+
+    wrapper.appendChild(button);
+    wrapper.appendChild(menu);
+
+    // Fecha ao clicar fora
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) {
+        menu.classList.remove('show');
+        menu.style.display = 'none';
+      }
+    });
+
+    return wrapper;
+  };
+
+  // ===== Lifecycle Management =====
+
+  /**
+   * Cria monitor de URL que limpa o tema ao sair
+   * @param {string} expectedUrl - URL esperada (string ou regex)
+   * @param {Function} cleanupCallback - Função de cleanup
+   * @returns {number} - ID do interval
+   */
+  window.AnkiModernShared.createUrlMonitor = function(expectedUrl, cleanupCallback) {
+    return setInterval(() => {
+      const isCorrect = this.isCorrectUrl(expectedUrl);
+      if (!isCorrect) {
+        console.log('✗ URL mudou, executando cleanup...');
+        cleanupCallback();
+      }
+    }, 500);
+  };
+
+  // ===== Debug Helpers =====
+
+  /**
+   * Log formatado para debug
+   * @param {string} themeName - Nome do tema
+   * @param {string} message - Mensagem
+   */
+  window.AnkiModernShared.log = function(themeName, message) {
+    console.log(`[${themeName}] ${message}`);
+  };
+
+  /**
+   * Log de erro formatado
+   * @param {string} themeName - Nome do tema
+   * @param {string} message - Mensagem de erro
+   */
+  window.AnkiModernShared.error = function(themeName, message) {
+    console.error(`[${themeName}] ✗ ${message}`);
+  };
+
+  console.log('✓ AnkiModern Shared utilities loaded');
+})();
+
+
+===== .templates/theme-structure/theme-config.json =====
+{
+  "name": "{{THEME_NAME}}",
+  "version": "1.0.0",
+  "description": "{{THEME_DESCRIPTION}}",
+  "author": "{{AUTHOR_NAME}}",
+  
+  "colors": {
+    "primary": "#e0e5ec",
+    "secondary": "#f0f4f8",
+    "textPrimary": "#2c3e50",
+    "textSecondary": "#6c757d",
+    "accent": "#5e72e4",
+    "accentHover": "#4c63d2",
+    "shadowLight": "#ffffff",
+    "shadowDark": "#a3b1c6",
+    "success": "#28a745",
+    "warning": "#ffc107",
+    "danger": "#dc3545"
+  },
+  
+  "shadows": {
+    "raised": "8px 8px 16px var(--theme-shadow-dark), -8px -8px 16px var(--theme-shadow-light)",
+    "pressed": "inset 4px 4px 8px var(--theme-shadow-dark), inset -4px -4px 8px var(--theme-shadow-light)",
+    "hover": "12px 12px 24px var(--theme-shadow-dark), -12px -12px 24px var(--theme-shadow-light)",
+    "subtle": "4px 4px 8px var(--theme-shadow-dark), -4px -4px 8px var(--theme-shadow-light)"
+  },
+  
+  "spacing": {
+    "xs": "8px",
+    "sm": "12px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "xxl": "48px"
+  },
+  
+  "borderRadius": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "20px",
+    "round": "50%"
+  },
+  
+  "fonts": {
+    "primary": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "monospace": "'Fira Code', 'Courier New', monospace",
+    "size": {
+      "xs": "10px",
+      "sm": "12px",
+      "md": "14px",
+      "lg": "16px",
+      "xl": "20px",
+      "xxl": "24px",
+      "xxxl": "32px"
+    },
+    "weight": {
+      "light": 300,
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  
+  "transitions": {
+    "fast": "0.15s ease",
+    "normal": "0.3s ease",
+    "slow": "0.5s ease"
+  },
+  
+  "breakpoints": {
+    "mobile": "768px",
+    "tablet": "1024px",
+    "desktop": "1440px"
+  }
+}
+
+
+===== .templates/theme-structure/url-template/logic.js =====
+// ===================================
+// TEMPLATE - {{URL_NAME}} Logic
+//
+// INSTRUÇÕES:
+// 1. Copie este arquivo para themes/{tema}/{url-name}/logic.js
+// 2. Substitua:
+//    - {{URL_NAME}} pelo nome da URL
+//    - {{EXPECTED_URL}} pela URL esperada (ex: '/decks')
+//    - {{CONTAINER_ID}} por um ID único (ex: 'custom-interface-decks')
+// 3. Implemente sua lógica na função init()
+// 4. Este código é ENCAPSULADO em IIFE para evitar conflitos
+// ===================================
+
+(function() {
+  'use strict';
+  
+  // ===== Configuração =====
+  const THEME_NAME = '{{THEME_NAME}}';
+  const URL_NAME = '{{URL_NAME}}';
+  const EXPECTED_URL = '{{EXPECTED_URL}}'; // String ou RegExp
+  const CONTAINER_ID = 'custom-interface-{{URL_NAME}}';
+  
+  window.AnkiModernShared.log(THEME_NAME, `Carregando tema para ${URL_NAME}...`);
+
+  // ===== Variáveis de Estado =====
+  let monitorInterval = null;
+  let isThemeApplied = false;
+
+  // ===== Função Principal =====
+  function init() {
+    // CRÍTICO: Verifica URL antes de executar
+    if (!window.AnkiModernShared.isCorrectUrl(EXPECTED_URL)) {
+      window.AnkiModernShared.log(THEME_NAME, `URL incorreta, esperado: ${EXPECTED_URL}`);
+      return;
+    }
+
+    // Aguarda DOM estar pronto
+    setTimeout(() => {
+      // Double-check da URL (SPA pode ter mudado)
+      if (!window.AnkiModernShared.isCorrectUrl(EXPECTED_URL)) {
+        window.AnkiModernShared.log(THEME_NAME, 'URL mudou durante carregamento, abortando');
+        return;
+      }
+
+      // Busca container principal
+      const main = document.querySelector('main.container');
+      if (!main) {
+        window.AnkiModernShared.error(THEME_NAME, 'main.container não encontrado');
+        return;
+      }
+
+      // ===== IMPLEMENTE SUA LÓGICA AQUI =====
+      
+      // Exemplo: Oculta elementos originais
+      window.AnkiModernShared.hideOriginalElements('.row.light-bottom-border');
+      
+      // Exemplo: Cria container customizado
+      let customInterface = document.getElementById(CONTAINER_ID);
+      if (!customInterface) {
+        customInterface = document.createElement('div');
+        customInterface.id = CONTAINER_ID;
+        customInterface.className = 'theme-fade-in';
+        main.appendChild(customInterface);
+      }
+
+      // Exemplo: Adiciona conteúdo
+      buildUI(customInterface, main);
+
+      // Marca como aplicado
+      isThemeApplied = true;
+      window.AnkiModernShared.log(THEME_NAME, `✓ Tema ${URL_NAME} aplicado com sucesso!`);
+      
+      // ===== FIM DA SUA LÓGICA =====
+
+    }, 300); // Aguarda 300ms para DOM estabilizar
+  }
+
+  // ===== Função de Build da UI =====
+  function buildUI(container, main) {
+    // EXEMPLO: Substitua pela sua lógica
+    container.innerHTML = '';
+    
+    // Cria header
+    const header = document.createElement('div');
+    header.innerHTML = `<h1>{{URL_NAME}} - Customizado</h1>`;
+    container.appendChild(header);
+    
+    // Cria card de exemplo
+    const card = window.AnkiModernShared.createCard();
+    card.innerHTML = `<p>Este é um card customizado para ${URL_NAME}</p>`;
+    container.appendChild(card);
+    
+    // Cria botão de exemplo
+    const button = window.AnkiModernShared.createButton('Ação Exemplo', () => {
+      alert('Botão clicado!');
+    }, true);
+    container.appendChild(button);
+    
+    // TODO: Implemente sua UI específica aqui
+  }
+
+  // ===== Cleanup =====
+  function cleanupTheme() {
+    window.AnkiModernShared.log(THEME_NAME, `Limpando tema ${URL_NAME}...`);
+    
+    // Remove interface customizada
+    window.AnkiModernShared.cleanup(CONTAINER_ID);
+    
+    // Para monitor de URL
+    if (monitorInterval) {
+      clearInterval(monitorInterval);
+      monitorInterval = null;
+    }
+    
+    isThemeApplied = false;
+    window.AnkiModernShared.log(THEME_NAME, `✓ Tema ${URL_NAME} desativado`);
+  }
+
+  // ===== Execução =====
+  
+  // Só inicia se está na URL correta
+  if (window.AnkiModernShared.isCorrectUrl(EXPECTED_URL)) {
+    init();
+
+    // Monitor de URL - limpa ao sair
+    monitorInterval = setInterval(() => {
+      if (!window.AnkiModernShared.isCorrectUrl(EXPECTED_URL)) {
+        cleanupTheme();
+        return;
+      }
+      
+      // Opcional: Reaplica se interface foi removida
+      if (isThemeApplied && !document.getElementById(CONTAINER_ID)) {
+        window.AnkiModernShared.log(THEME_NAME, 'Interface removida, reaplicando...');
+        init();
+      }
+    }, 500);
+  }
+
+})(); // Fim da IIFE
+
+
+===== .templates/theme-structure/url-template/styles.css =====
+/* ===================================
+   TEMPLATE - {{URL_NAME}}
+   
+   INSTRUÇÕES:
+   1. Copie este arquivo para themes/{tema}/{url-name}/styles.css
+   2. Substitua {{URL_NAME}} pelo nome da URL
+   3. Adicione estilos específicos desta URL abaixo
+   4. O @import traz TODAS as variáveis do shared/base.css
+   =================================== */
+
+/* Importa estilos compartilhados (OBRIGATÓRIO) */
+@import url('chrome-extension://__MSG_@@extension_id__/themes/{{THEME_NAME}}/shared/base.css');
+
+/* ===== Container Principal ===== */
+main.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--theme-spacing-xl);
+}
+
+/* ===== Estilos Específicos da URL ===== */
+/* Adicione seus estilos aqui */
+
+/* NOTA: O script add-url-support.sh substituirá {{URL_NAME}} pelo nome real */
+/* #custom-interface-{{URL_NAME}} {
+  display: flex;
+  flex-direction: column;
+  gap: var(--theme-spacing-lg);
+} */
+
+/* Exemplo: Container customizado (ajuste o ID após usar o script) */
+#custom-interface {
+  display: flex;
+  flex-direction: column;
+  gap: var(--theme-spacing-lg);
+}
+
+/* Exemplo: Ocultar elementos originais */
+.original-ankiweb-element {
+  display: none !important;
+}
+
+/* Exemplo: Card customizado */
+.custom-card {
+  background: var(--theme-bg-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-raised);
+  padding: var(--theme-spacing-lg);
+  transition: all var(--theme-transition-normal);
+}
+
+.custom-card:hover {
+  box-shadow: var(--theme-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Exemplo: Botão customizado */
+.custom-button {
+  padding: var(--theme-spacing-sm) var(--theme-spacing-lg);
+  background: var(--theme-accent);
+  color: white;
+  border: none;
+  border-radius: var(--theme-radius-md);
+  box-shadow: var(--theme-shadow-raised);
+  cursor: pointer;
+  transition: all var(--theme-transition-normal);
+  font-size: var(--theme-font-size-md);
+  font-weight: 500;
+}
+
+.custom-button:hover {
+  background: var(--theme-accent-hover);
+  box-shadow: var(--theme-shadow-hover);
+}
+
+.custom-button:active {
+  box-shadow: var(--theme-shadow-pressed);
+  transform: scale(0.98);
+}
+
+
+===== README.md =====
+# 🎨 Anki Modern Extension
+
+Extensão do Google Chrome (Manifest V3) que moderniza o layout e funcionalidades do **AnkiWeb** e **AnkiUser** com sistema de temas modular e reutilizável.
+
+---
+
+## ✨ Características
+
+- ✅ **Sistema de Temas Modular:** Crie novos temas apenas mudando variáveis
+- ✅ **Suporte Multi-URL:** Cada tela tem sua lógica e estilos separados
+- ✅ **Roteamento Inteligente:** Suporta URLs exatas, com IDs e aninhadas
+- ✅ **Dois Domínios:** ankiweb.net + ankiuser.net
+- ✅ **Isolamento Perfeito:** Nenhum elemento vaza para outras URLs
+- ✅ **Templates Prontos:** Scripts para criar temas e adicionar URLs rapidamente
+
+---
+
+## 📁 Estrutura do Projeto
+
+```
+anki-modern-extension/
+├── manifest.json                 # Configuração da extensão
+├── src/
+│   ├── loader.js                # Sistema de roteamento (URL → Tema)
+│   └── background.js            # Service worker
+├── popup/
+│   ├── index.html               # Interface toggle on/off
+│   └── popup.js                 # Lógica do popup
+├── themes/
+│   └── neumorphism/             # Tema Neumorphism (padrão)
+│       ├── decks/               # Tema para /decks
+│       │   ├── styles.css
+│       │   └── logic.js
+│       └── ...                  # (outras URLs no futuro)
+└── .templates/                  # 🔧 Templates para criar temas
+    ├── README.md                # Documentação dos templates
+    ├── theme-structure/         # Estrutura completa de um tema
+    │   ├── theme-config.json
+    │   ├── shared/
+    │   │   ├── base.css
+    │   │   └── common.js
+    │   └── url-template/
+    │       ├── styles.css
+    │       └── logic.js
+    └── scripts/
+        ├── create-theme.sh      # Cria novo tema
+        └── add-url-support.sh   # Adiciona suporte para URL
+```
+
+---
+
+## 🚀 Como Criar um Novo Tema
+
+### Opção 1: Com Script (Recomendado)
+
+```bash
+cd .templates/scripts
+./create-theme.sh "dracula" "Seu Nome"
+```
+
+Isso cria automaticamente:
+- `themes/dracula/theme-config.json`
+- `themes/dracula/shared/base.css`
+- `themes/dracula/shared/common.js`
+
+### Opção 2: Manual
+
+1. Copie `.templates/theme-structure/` para `themes/seu-tema/`
+2. Edite `theme-config.json` com suas cores e variáveis
+3. Ajuste `shared/base.css` com as CSS variables
+4. Atualize `src/loader.js`: `const theme = 'seu-tema';`
+
+---
+
+## 📝 Como Adicionar Suporte para Nova URL
+
+### Passo 1: Adicione o Pattern no `src/loader.js`
+
+```javascript
+const URL_PATTERNS = [
+  // ... patterns existentes ...
+  { pattern: /^\/nova\/url$/, folder: 'nova-url', host: 'ankiweb.net' },
+];
+```
+
+### Passo 2: Crie os Arquivos do Tema
+
+**Opção A: Com Script**
+```bash
+cd .templates/scripts
+./add-url-support.sh "neumorphism" "nova-url" "/nova/url"
+```
+
+**Opção B: Manual**
+```bash
+mkdir themes/neumorphism/nova-url
+cp .templates/theme-structure/url-template/styles.css themes/neumorphism/nova-url/
+cp .templates/theme-structure/url-template/logic.js themes/neumorphism/nova-url/
+```
+
+### Passo 3: Customize
+
+Edite `logic.js` e `styles.css` com sua lógica específica.
+
+---
+
+## 🎯 URLs Suportadas (Mapeadas)
+
+### ankiweb.net
+- `/decks` → `decks/` ✅ (implementado)
+- `/decks/share/:id` → `decks-share-id/`
+- `/account/login` → `account-login/`
+- `/account/media` → `account-media/`
+- `/account/remove-account` → `account-remove-account/`
+- `/account/reset-password` → `account-reset-password/`
+- `/account/settings` → `account-settings/`
+- `/account/signup` → `account-signup/`
+- `/search` → `search/`
+- `/shared/decks` → `shared-decks/`
+- `/shared/mine` → `shared-mine/`
+
+### ankiuser.net
+- `/study` → `study/`
+- `/study/options` → `study-options/`
+- `/edit/:id` → `edit-id/`
+- `/add` → `add/`
+
+---
+
+## 🔧 Arquitetura Técnica
+
+### Sistema de Roteamento (`loader.js`)
+
+1. Monitora mudanças de URL (SPA navigation)
+2. Faz match do pathname com `URL_PATTERNS` (regex)
+3. Remove CSS do tema anterior
+4. Injeta CSS + JS da nova pasta
+5. Cada tema gerencia seu próprio lifecycle
+
+### Isolamento por URL
+
+Cada `logic.js`:
+- ✅ Encapsulado em IIFE (evita conflitos globais)
+- ✅ Verifica URL antes de executar
+- ✅ Monitor que limpa ao sair da URL (`clearInterval`)
+- ✅ Remove elementos DOM no cleanup
+
+### Variáveis Compartilhadas
+
+- **CSS:** `shared/base.css` com CSS custom properties
+- **JS:** `shared/common.js` com funções utilitárias via `window.AnkiModernShared`
+
+---
+
+## 🛠️ Desenvolvimento
+
+### Instalar
+
+1. Clone o repositório
+2. Abra Chrome: `chrome://extensions/`
+3. Ative "Modo do desenvolvedor"
+4. Clique "Carregar sem compactação"
+5. Selecione a pasta do projeto
+
+### Testar
+
+1. Acesse https://ankiweb.net/decks
+2. O tema deve aplicar automaticamente
+3. Navegue para outra URL → tema deve limpar
+4. Volte para /decks → tema deve reaplicar
+
+### Debug
+
+Console do Chrome mostra:
+```
+LOADER INJETADO
+URL ankiweb.net/decks → tema: decks
+[Neumorphism] Carregando tema para decks...
+[Neumorphism] ✓ Tema decks aplicado com sucesso!
+```
+
+---
+
+## 📚 Recursos Úteis
+
+- **Templates:** Ver `.templates/README.md`
+- **Criar Tema:** `.templates/scripts/create-theme.sh`
+- **Adicionar URL:** `.templates/scripts/add-url-support.sh`
+
+---
+
+## 🤝 Contribuindo
+
+1. Crie um novo tema usando os templates
+2. Adicione suporte para novas URLs
+3. Documente suas mudanças
+4. Faça um pull request
+
+---
+
+## 📄 Licença
+
+MIT
+
+---
+
+## 👤 Autor
+
+**Davi Azevedo**  
+GitHub: [@daviazev](https://github.com/daviazev)
+
+---
+
+**Versão:** 1.0.0  
+**Última atualização:** 23 de novembro de 2025
+
+
+===== export-project.js =====
+import { readdirSync, readFileSync, writeFileSync } from "fs";
+import { join, extname } from "path";
+
+// Diretórios que nunca devem ser lidos
+const IGNORE_DIRS = ["node_modules", ".git", ".next"];
+
+// Arquivos que devem ser ignorados totalmente
+const IGNORE_FILES = ["package-lock.json", ".env"];
+
+// Extensões de arquivos binários ou irrelevantes
+const BINARY_EXT = [
+  ".ico", ".png", ".jpg", ".jpeg", ".gif",
+  ".webp", ".bmp", ".txt"
+];
+
+// Extensões que devem aparecer na lista,
+// mas cujo conteúdo NÃO deve ser exportado
+const LIST_ONLY_EXT = [".svg"];
+
+// Função para percorrer tudo
+function walk(currentPath) {
+  const items = readdirSync(currentPath, { withFileTypes: true });
+  let results = [];
+
+  for (const item of items) {
+    const fullPath = join(currentPath, item.name);
+
+    // Ignorar pastas inteiras
+    if (item.isDirectory() && IGNORE_DIRS.includes(item.name)) {
+      continue;
+    }
+
+    if (item.isDirectory()) {
+      results.push({ type: "dir", path: fullPath });
+      results = results.concat(walk(fullPath));
+    } else {
+      // Ignorar arquivos explícitos
+      if (IGNORE_FILES.includes(item.name)) {
+        continue;
+      }
+
+      const ext = extname(item.name).toLowerCase();
+
+      // Ignorar completamente arquivos binários irrelevantes
+      if (BINARY_EXT.includes(ext)) {
+        continue;
+      }
+
+      // SVGs devem aparecer mas sem conteúdo
+      if (LIST_ONLY_EXT.includes(ext)) {
+        results.push({ type: "svg", path: fullPath });
+        continue;
+      }
+
+      // Arquivo normal de texto
+      results.push({ type: "file", path: fullPath });
+    }
+  }
+
+  return results;
+}
+
+const entries = walk(".");
+
+// Construindo o output final
+let output = "===== PROJECT STRUCTURE =====\n\n";
+
+entries.forEach((item) => {
+  output += item.path + "\n";
+});
+
+output += "\n\n===== FILE CONTENTS =====\n\n";
+
+entries.forEach((item) => {
+  if (item.type === "file") {
+    output += `\n===== ${item.path} =====\n`;
+    output += readFileSync(item.path, "utf8");
+    output += "\n";
+  }
+
+  if (item.type === "svg") {
+    output += `\n===== ${item.path} (conteúdo ignorado — arquivo SVG) =====\n\n`;
+  }
+});
+
+writeFileSync("projeto_completo.txt", output);
+
+
+===== manifest.json =====
+{
+  "manifest_version": 3,
+  "name": "Anki Modern Extension",
+  "version": "1.0.0",
+  "description": "Modifica o layout e funcionalidades do AnkiWeb com temas modernos.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "https://ankiweb.net/*",
+    "https://ankiuser.net/*"
+  ],
+  "action": {
+    "default_popup": "popup/index.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "32": "icon32.png",
+      "48": "icon48.png",
+      "128": "icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "src/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://ankiweb.net/*",
+        "https://ankiuser.net/*"
+      ],
+      "js": ["src/loader.js"],
+      "run_at": "document_end"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "themes/*/*/*.js",
+        "themes/*/*/*.css"
+      ],
+      "matches": ["https://ankiweb.net/*"]
+    }
+  ]
+}
+
+
+===== popup/index.html =====
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anki Modern Extension</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      min-width: 260px;
+      min-height: 160px;
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', system-ui, sans-serif;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(76,110,245,0.08);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 320px;
+    }
+    .title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #4C6EF5;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 28px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #e9ecef;
+      border-radius: 34px;
+      transition: .3s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(76,110,245,0.10);
+      transition: .3s;
+    }
+    input:checked + .slider {
+      background: #4C6EF5;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background: #fff;
+    }
+    .label {
+      font-size: 1rem;
+      color: #212529;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Anki Modern Extension</div>
+    <div class="toggle-switch">
+      <span class="label">Ativar</span>
+      <label class="switch">
+        <input type="checkbox" id="toggleActive">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
+
+
+===== popup/popup.js =====
+const toggle = document.getElementById('toggleActive');
+chrome.storage.local.get(['ankiModernActive'], (result) => {
+  toggle.checked = !!result.ankiModernActive;
+});
+toggle.addEventListener('change', () => {
+  const isActive = toggle.checked;
+  chrome.storage.local.set({ ankiModernActive: isActive }, () => {
+    // Recarrega as abas do AnkiWeb para aplicar/remover a extensão
+    chrome.tabs.query({ url: 'https://ankiweb.net/*' }, (tabs) => {
+      tabs.forEach(tab => chrome.tabs.reload(tab.id));
+    });
+  });
+});
+
+
+===== src/background.js =====
+// Background vazio (requerido para service_worker no Manifest V3)
+
+
+===== src/loader.js =====
+// Loader principal da extensão: injeta JS/CSS do tema correto por URL, se ativado no storage
+(async function() {
+  console.log("LOADER INJETADO");
+  
+  // Checa se a extensão está ativada
+  const isActive = await new Promise(resolve => {
+    chrome.storage.local.get(['ankiModernActive'], (result) => {
+      resolve(!!result.ankiModernActive);
+    });
+  });
+  if (!isActive) {
+    console.log("Extensão desativada, não injeta temas");
+    return;
+  }
+
+  const theme = 'neumorphism';
+  let lastInjectedFolder = null;
+
+  // Mapeia padrões de URL para pastas de tema
+  // IMPORTANTE: Ordem importa! Patterns mais específicos primeiro (com IDs antes de genéricos)
+  // NOTA: Sistema genérico que converte /path/to/page → path-to-page automaticamente
+  const URL_PATTERNS = [
+    // ===== ankiweb.net =====
+    { pattern: /^\/decks\/share\/\d+$/, folder: 'decks-share-id', host: 'ankiweb.net' },
+    { pattern: /^\/decks$/, folder: 'decks', host: 'ankiweb.net' },
+    { pattern: /^\/account\/login$/, folder: 'account-login', host: 'ankiweb.net' },
+    { pattern: /^\/account\/media$/, folder: 'account-media', host: 'ankiweb.net' },
+    { pattern: /^\/account\/remove-account$/, folder: 'account-remove-account', host: 'ankiweb.net' },
+    { pattern: /^\/account\/reset-password$/, folder: 'account-reset-password', host: 'ankiweb.net' },
+    { pattern: /^\/account\/settings$/, folder: 'account-settings', host: 'ankiweb.net' },
+    { pattern: /^\/account\/signup$/, folder: 'account-signup', host: 'ankiweb.net' },
+    { pattern: /^\/search$/, folder: 'search', host: 'ankiweb.net' },
+    { pattern: /^\/shared\/decks$/, folder: 'shared-decks', host: 'ankiweb.net' },
+    { pattern: /^\/shared\/mine$/, folder: 'shared-mine', host: 'ankiweb.net' },
+    
+    // ===== ankiuser.net =====
+    { pattern: /^\/edit\/\d+$/, folder: 'edit-id', host: 'ankiuser.net' },
+    { pattern: /^\/study\/options$/, folder: 'study-options', host: 'ankiuser.net' },
+    { pattern: /^\/study$/, folder: 'study', host: 'ankiuser.net' },
+    { pattern: /^\/add$/, folder: 'add', host: 'ankiuser.net' },
+  ];
+
+  // Função que encontra a pasta do tema baseado na URL e host
+  function getThemeFolderForPath(path) {
+    const currentHost = window.location.hostname;
+    
+    for (const { pattern, folder, host } of URL_PATTERNS) {
+      // Verifica se o host é compatível (se especificado)
+      if (host && currentHost !== host) {
+        continue;
+      }
+      
+      if (pattern.test(path)) {
+        console.log(`URL ${currentHost}${path} → tema: ${folder}`);
+        return folder;
+      }
+    }
+    
+    console.log(`Nenhum tema configurado para ${currentHost}${path}`);
+    return null;
+  }
+
+  // Função genérica que injeta CSS e JS para uma URL específica
+  function injectThemeForPath(path) {
+    const currentFolder = getThemeFolderForPath(path);
+
+    // Remove CSS do tema anterior se mudou de pasta
+    if (lastInjectedFolder && lastInjectedFolder !== currentFolder) {
+      console.log(`Saiu de ${lastInjectedFolder}, removendo CSS...`);
+      const oldCssId = `anki-modern-${lastInjectedFolder}-css`;
+      const oldCSS = document.getElementById(oldCssId);
+      if (oldCSS) {
+        oldCSS.remove();
+        console.log(`CSS do tema ${lastInjectedFolder} removido`);
+      }
+    }
+
+    // Se não há tema para esta URL, apenas atualiza lastInjectedFolder e retorna
+    if (!currentFolder) {
+      console.log(`Nenhum tema configurado para ${path}`);
+      lastInjectedFolder = null;
+      return;
+    }
+
+    // Previne injeção duplicada
+    if (lastInjectedFolder === currentFolder) {
+      console.log(`Tema já injetado para ${currentFolder}, pulando...`);
+      return;
+    }
+
+    console.log(`Injetando tema ${theme}/${currentFolder} para ${path}...`);
+
+    // Injeta CSS (usa ID único por pasta para evitar duplicação)
+    const cssId = `anki-modern-${currentFolder}-css`;
+    let styleEl = document.getElementById(cssId);
+    if (!styleEl) {
+      const cssPath = chrome.runtime.getURL(`themes/${theme}/${currentFolder}/styles.css`);
+      styleEl = document.createElement('link');
+      styleEl.id = cssId;
+      styleEl.rel = 'stylesheet';
+      styleEl.type = 'text/css';
+      styleEl.href = cssPath;
+      document.head.appendChild(styleEl);
+    }
+
+    // Injeta a lógica JS do tema via script src (contorna CSP)
+    // IMPORTANTE: Injeta SEMPRE porque precisamos reinicializar ao voltar
+    const jsPath = chrome.runtime.getURL(`themes/${theme}/${currentFolder}/logic.js`);
+    const scriptEl = document.createElement('script');
+    scriptEl.src = jsPath;
+    scriptEl.type = 'text/javascript';
+    scriptEl.onload = () => {
+      console.log(`Lógica do tema ${currentFolder} carregada/reinjetada com sucesso!`);
+      scriptEl.remove();
+    };
+    scriptEl.onerror = (err) => console.error(`Erro ao carregar lógica do tema ${currentFolder}:`, err);
+    (document.head || document.documentElement).appendChild(scriptEl);
+
+    lastInjectedFolder = currentFolder;
+  }
+
+  // Injeta para a URL atual
+  injectThemeForPath(window.location.pathname);
+
+  // Monitora mudanças de URL (para navegação SPA)
+  let lastPathname = window.location.pathname;
+  setInterval(() => {
+    const currentPathname = window.location.pathname;
+    if (currentPathname !== lastPathname) {
+      console.log(`URL mudou de ${lastPathname} para ${currentPathname}`);
+      lastPathname = currentPathname;
+      injectThemeForPath(currentPathname);
+    }
+  }, 300);
+})();
+
+
+===== themes/neumorphism/decks/logic.js =====
+// IIFE para evitar conflito de variáveis ao reinjetar o script
+(function() {
+  'use strict';
+  
+  console.log("Aplicando tema 'Neumorphism Pro' com Fixes de Funcionalidade...");
+
+  // Função principal que aplica o tema
+  function init() {
+  // CRÍTICO: Verifica se está na URL correta ANTES de fazer qualquer coisa
+  if (window.location.pathname !== '/decks') {
+    console.log('Tema Neumorphism Decks: URL incorreta, abortando...', window.location.pathname);
+    return;
+  }
+
+  // Aguarda um pequeno delay para garantir que o DOM do AnkiWeb está completamente renderizado
+  setTimeout(() => {
+    // Double-check: verifica novamente a URL (caso tenha mudado durante o setTimeout)
+    if (window.location.pathname !== '/decks') {
+      console.log('Tema Neumorphism Decks: URL mudou durante carregamento, abortando...');
+      return;
+    }
+
+    // Encontra o container principal
+    const main = document.querySelector('main.container');
+  
+  if (!main) {
+    console.error('main.container não encontrado!');
+    return;
+  }
+
+  // IMPORTANTE: Remove TODAS as rows originais do AnkiWeb antes de criar a interface customizada
+  const originalRows = main.querySelectorAll('.row.light-bottom-border, .row.mt-3, .row:not(#custom-interface *)');
+  originalRows.forEach(row => {
+    if (!row.closest('#custom-interface')) {
+      row.style.display = 'none'; // Oculta as rows originais
+    }
+  });
+
+  // Cria ou reutiliza o container da interface customizada
+  let customInterface = document.getElementById('custom-interface');
+  if (!customInterface) {
+    customInterface = document.createElement('div');
+    customInterface.id = 'custom-interface';
+    main.appendChild(customInterface);
+  }
+function buildUI() {
+    customInterface.innerHTML = '';
+    const header = document.createElement('div');
+    header.innerHTML = '<h1 class="page-title">Meus Estudos</h1>';
+    customInterface.appendChild(header);
+    const rows = Array.from(main.querySelectorAll('.row.light-bottom-border'));
+    let root = { level: -1, children: [] };
+    let stack = [root];
+    rows.forEach(row => {
+        const nameBtn = row.querySelector('button.btn-link.pl-0');
+        const nbsp = (nameBtn.innerHTML.match(/&nbsp;/g) || []).length;
+        const level = nbsp / 3;
+        const due = parseInt(row.querySelector('.number.due')?.innerText) || 0;
+        const newC = parseInt(row.querySelector('.number.new')?.innerText) || 0;
+        const dropdown = row.querySelector('.dropdown-menu');
+        const node = {
+            level: level,
+            name: nameBtn.innerText.trim(),
+            due: due,
+            new: newC,
+            originalBtn: nameBtn,
+            originalDropdown: dropdown,
+            children: []
+        };
+        while (stack.length > 1 && stack[stack.length - 1].level >= level) stack.pop();
+        stack[stack.length - 1].children.push(node);
+        stack.push(node);
+    });
+    const treeContainer = document.createElement('div');
+    treeContainer.style.display = "flex";
+    treeContainer.style.flexDirection = "column";
+    function createNode(node, isRoot) {
+        const container = document.createElement('div');
+        container.className = isRoot ? 'deck-card' : 'child-wrapper';
+        const content = document.createElement('div');
+        content.className = isRoot ? 'card-content' : 'child-row';
+        content.onclick = (e) => {
+            if (e.target.closest('.dropdown-wrapper') || e.target.closest('.toggle-arrow')) return;
+            if (node.children.length > 0) {
+                const arrow = rightArea.querySelector('.toggle-arrow');
+                if (arrow) arrow.click();
+            } else {
+                node.originalBtn.click();
+            }
+        };
+        if (!isRoot && node.level > 1) {
+            content.style.paddingLeft = `${32 + (node.level * 20)}px`;
+        }
+        const icon = document.createElement('div');
+        icon.className = 'deck-icon';
+        icon.innerHTML = isRoot 
+            ? `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`
+            : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
+        content.appendChild(icon);
+        const name = document.createElement('div');
+        name.className = 'deck-name';
+        name.innerText = node.name;
+        content.appendChild(name);
+        const rightArea = document.createElement('div');
+        rightArea.className = 'right-area';
+        const pDue = document.createElement('span');
+        pDue.className = `stats-pill ${node.due > 0 ? 'pill-due' : 'pill-zero'}`;
+        pDue.innerText = node.due;
+        const pNew = document.createElement('span');
+        pNew.className = `stats-pill ${node.new > 0 ? 'pill-new' : 'pill-zero'}`;
+        pNew.innerText = node.new;
+        rightArea.appendChild(pDue);
+        rightArea.appendChild(pNew);
+        if (node.originalDropdown) {
+            const dropdownWrapper = document.createElement('div');
+            dropdownWrapper.className = 'dropdown-wrapper';
+            dropdownWrapper.style.position = 'relative';
+            const actionsBtn = document.createElement('div');
+            actionsBtn.className = 'custom-actions-btn';
+            actionsBtn.innerText = 'Actions';
+            const customMenu = document.createElement('div');
+            customMenu.className = 'custom-dropdown-menu';
+            const originalItems = node.originalDropdown.querySelectorAll('button, a');
+            originalItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'custom-dropdown-item';
+                menuItem.innerText = item.innerText;
+                menuItem.onclick = (e) => {
+                    e.stopPropagation();
+                    customMenu.classList.remove('show');
+                    actionsBtn.classList.remove('active');
+                    item.click();
+                };
+                customMenu.appendChild(menuItem);
+            });
+            actionsBtn.onclick = (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-dropdown-menu').forEach(m => {
+                    if (m !== customMenu) m.classList.remove('show');
+                });
+                const isVisible = customMenu.classList.contains('show');
+                isVisible ? customMenu.classList.remove('show') : customMenu.classList.add('show');
+                isVisible ? actionsBtn.classList.remove('active') : actionsBtn.classList.add('active');
+            };
+            dropdownWrapper.appendChild(actionsBtn);
+            dropdownWrapper.appendChild(customMenu);
+            rightArea.appendChild(dropdownWrapper);
+        }
+        if (node.children.length > 0) {
+            const arrow = document.createElement('div');
+            arrow.className = 'toggle-arrow';
+            arrow.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+            arrow.onclick = (e) => {
+                e.stopPropagation();
+                const childBlock = container.querySelector('.children-block');
+                if (childBlock) {
+                    const isOpen = childBlock.classList.contains('open');
+                    isOpen ? childBlock.classList.remove('open') : childBlock.classList.add('open');
+                    isOpen ? arrow.classList.remove('rotated') : arrow.classList.add('rotated');
+                }
+            };
+            rightArea.appendChild(arrow);
+        } else {
+            const spacer = document.createElement('div');
+            spacer.style.width = '32px';
+            rightArea.appendChild(spacer);
+        }
+        content.appendChild(rightArea);
+        container.appendChild(content);
+        if (node.children.length > 0) {
+            const childBlock = document.createElement('div');
+            childBlock.className = 'children-block';
+            node.children.forEach(child => {
+                childBlock.appendChild(createNode(child, false));
+            });
+            container.appendChild(childBlock);
+        }
+        return container;
+    }
+    root.children.forEach(child => {
+        treeContainer.appendChild(createNode(child, true));
+    });
+    customInterface.appendChild(treeContainer);
+    buildFooter();
+}
+function buildFooter() {
+    const footer = document.createElement('div');
+    footer.className = 'footer-container';
+    const allLinks = Array.from(main.querySelectorAll('a'));
+    const collectionLink = allLinks.find(a => a.innerText.includes('MB') && !a.href.includes('media'));
+    const mediaLink = allLinks.find(a => a.href.includes('/account/media'));
+    const statsRow = document.createElement('div');
+    statsRow.className = 'footer-stats-row';
+    const colText = document.createElement('div');
+    colText.innerHTML = `Collection: `;
+    if (collectionLink) {
+        const span = document.createElement('span');
+        span.innerText = collectionLink.innerText;
+        span.onclick = () => collectionLink.click();
+        colText.appendChild(span);
+    } else { colText.innerHTML += "Unknown"; }
+    const medText = document.createElement('div');
+    medText.innerHTML = `Media: `;
+    if (mediaLink) {
+        const span = document.createElement('span');
+        span.innerText = mediaLink.innerText;
+        span.onclick = (e) => {
+            e.preventDefault();
+            mediaLink.click();
+        };
+        medText.appendChild(span);
+    }
+    statsRow.appendChild(colText);
+    statsRow.appendChild(medText);
+    const btnsRow = document.createElement('div');
+    btnsRow.className = 'footer-buttons-row';
+    const createBtn = (text, action, isPrimary = false) => {
+        const btn = document.createElement('button');
+        btn.innerText = text;
+        btn.className = isPrimary ? 'big-btn big-btn-primary' : 'big-btn';
+        btn.onclick = action;
+        return btn;
+    };
+    btnsRow.appendChild(createBtn('Get Shared Decks', () => location.href='/shared/decks/'));
+    btnsRow.appendChild(createBtn('My Shared Items', () => location.href='/shared/mine'));
+    btnsRow.appendChild(createBtn('Create Deck', () => {
+        const originalButtons = Array.from(document.querySelectorAll('button'));
+        const realCreateBtn = originalButtons.find(b => b.innerText.trim() === 'Create Deck');
+        if (realCreateBtn) {
+            realCreateBtn.click();
+        } else {
+            const addLink = document.querySelector('a[href*="/add"]');
+            if (addLink) addLink.click();
+            else alert("Botão original 'Create Deck' não encontrado.");
+        }
+    }, true));
+    footer.appendChild(statsRow);
+    footer.appendChild(btnsRow);
+    customInterface.appendChild(footer);
+}
+buildUI();
+const observer = new MutationObserver((mutations) => {
+    let shouldRebuild = false;
+    mutations.forEach(m => {
+        if (m.target === main || m.target.classList?.contains('row')) {
+            const isCustomChange = Array.from(m.addedNodes).some(n => n.id === 'custom-interface') ||
+                                   Array.from(m.removedNodes).some(n => n.id === 'custom-interface');
+            if (!isCustomChange) {
+                shouldRebuild = true;
+            }
+        }
+    });
+    if (shouldRebuild) {
+        if (window.rebuildTimeout) clearTimeout(window.rebuildTimeout);
+        window.rebuildTimeout = setTimeout(buildUI, 50);
+    }
+});
+observer.observe(main, { childList: true, subtree: true });
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-wrapper')) {
+        document.querySelectorAll('.custom-dropdown-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.custom-actions-btn').forEach(b => b.classList.remove('active'));
+    }
+});
+console.log("Tema aplicado e funcional!");
+  }, 300); // Aguarda 300ms para o DOM estar completamente pronto
+}
+
+// Executa a inicialização APENAS se está em /decks
+if (window.location.pathname === '/decks') {
+  init();
+}
+
+// SEGURANÇA: Monitora mudanças de URL e DESLIGA completamente o tema ao sair de /decks
+let lastPathname = window.location.pathname;
+let isThemeApplied = (lastPathname === '/decks');
+let monitorInterval = null;
+
+// Função para limpar TUDO relacionado ao tema
+function cleanupTheme() {
+  console.log('Tema Neumorphism Decks: Limpeza completa...');
+  
+  // Remove a interface customizada
+  const customInterface = document.getElementById('custom-interface');
+  if (customInterface) {
+    customInterface.remove();
+  }
+  
+  // Para o monitor de URL
+  if (monitorInterval) {
+    clearInterval(monitorInterval);
+    monitorInterval = null;
+  }
+  
+  isThemeApplied = false;
+  console.log('Tema Neumorphism Decks: DESATIVADO');
+}
+
+// Monitor de URL - SÓ roda se começou em /decks
+if (window.location.pathname === '/decks') {
+  monitorInterval = setInterval(() => {
+    const currentPathname = window.location.pathname;
+    
+    // Se SAIU de /decks, limpa TUDO e para o monitor
+    if (currentPathname !== '/decks') {
+      console.log('Tema Neumorphism Decks: Saiu de /decks, desativando...');
+      cleanupTheme();
+      return; // Para de executar
+    }
+    
+    // Se ESTÁ em /decks mas o tema não foi aplicado, aplica
+    if (currentPathname === '/decks' && !document.getElementById('custom-interface')) {
+      console.log('Tema Neumorphism Decks: Reaplicando tema...');
+      init();
+    }
+  }, 500);
+}
+
+})(); // Fim da IIFE
+
+
+===== themes/neumorphism/decks/styles.css =====
+:root {
+    --primary: #4C6EF5;
+    --primary-hover: #364fc7;
+    --bg-body: #F0F2F5;
+    --surface: #FFFFFF;
+    --text-main: #212529;
+    --text-muted: #868e96;
+    --shadow-card: 6px 6px 20px rgba(0,0,0,0.06), -6px -6px 20px rgba(255,255,255,0.9);
+    --shadow-hover: 8px 8px 24px rgba(0,0,0,0.08), -8px -8px 24px rgba(255,255,255,1);
+    --shadow-floating: 0 10px 40px rgba(0,0,0,0.12);
+}
+body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-main) !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+}
+main.container > .row {
+    display: none !important;
+}
+#custom-interface {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 40px 0 2rem 0;
+    text-align: center;
+}
+.deck-card {
+    background: var(--surface);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+}
+.deck-card:hover {
+    transform: translateY(-3px) scale(1.005);
+    box-shadow: var(--shadow-hover);
+    z-index: 5;
+}
+.card-content {
+    display: flex;
+    align-items: center;
+    padding: 24px 32px;
+    cursor: pointer;
+}
+.deck-icon {
+    color: var(--primary);
+    margin-right: 24px;
+    transform: scale(1.2);
+    display: flex;
+    align-items: center;
+}
+.deck-name {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+.right-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.stats-pill {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-width: 40px;
+    text-align: center;
+}
+.pill-due { background: #FFE3E3; color: #C92A2A; }
+.pill-new { background: #D3F9D8; color: #2B8A3E; }
+.pill-zero { background: #F1F3F5; color: #ADB5BD; }
+.custom-actions-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.custom-actions-btn:hover, .custom-actions-btn.active {
+    background: #E7F5FF;
+    color: var(--primary);
+}
+.custom-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow-floating);
+    padding: 12px;
+    min-width: 200px;
+    margin-top: 12px;
+    display: none;
+    z-index: 100;
+    animation: fadeIn 0.15s ease-out;
+}
+.custom-dropdown-menu.show { display: block; }
+.custom-dropdown-item {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: var(--text-main);
+    display: block;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.custom-dropdown-item:hover { background: var(--bg-body); color: var(--primary); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.children-block {
+    display: none;
+    background: #FAFAFA;
+    border-top: 1px solid #eee;
+    border-radius: 0 0 20px 20px;
+    padding: 10px 0;
+    overflow: hidden;
+}
+.children-block.open { display: block; }
+.child-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 32px 16px 64px;
+    position: relative;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.child-row:hover { background: #F1F3F5; }
+.child-row::before {
+    content: '';
+    position: absolute;
+    left: 42px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #E9ECEF;
+}
+.child-row .deck-name { font-size: 1rem; }
+.toggle-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    color: var(--text-muted);
+}
+.toggle-arrow:hover { background: #E9ECEF; color: var(--primary); }
+.toggle-arrow.rotated { transform: rotate(90deg); color: var(--primary); background: #E7F5FF; }
+.footer-container {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+.footer-stats-row {
+    display: flex;
+    gap: 32px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    background: var(--surface);
+    padding: 12px 32px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.footer-stats-row span { color: var(--primary); font-weight: 700; cursor: pointer; }
+.footer-buttons-row {
+    display: flex;
+    gap: 20px;
+}
+.big-btn {
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    background: var(--surface);
+    color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+.big-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+.big-btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(76, 110, 245, 0.3);
+}
+.big-btn-primary:hover { background: var(--primary-hover); box-shadow: 0 8px 25px rgba(76, 110, 245, 0.4); }
+

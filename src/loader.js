@@ -2,76 +2,124 @@
 (async function() {
   console.log("LOADER INJETADO");
   
-  // Checa se a extensão está ativada
-  const isActive = await new Promise(resolve => {
-    chrome.storage.local.get(['ankiModernActive'], (result) => {
-      resolve(!!result.ankiModernActive);
+  // Checa se a extensão está ativada E qual tema usar
+  const storage = await new Promise(resolve => {
+    chrome.storage.local.get(['ankiModernActive', 'ankiModernTheme'], (result) => {
+      resolve(result);
     });
   });
-  if (!isActive) {
+  
+  if (!storage.ankiModernActive) {
     console.log("Extensão desativada, não injeta temas");
     return;
   }
 
-  const theme = 'neumorphism';
-  let lastInjectedPath = null;
+  // Usa o tema salvo no storage (padrão: neumorphism)
+  const theme = storage.ankiModernTheme || 'neumorphism';
+  console.log(`Tema ativo: ${theme}`);
+  let lastInjectedFolder = null;
 
-  // Função que injeta CSS e JS para uma URL específica
-  function injectThemeForPath(path) {
-    // Remove CSS de temas anteriores quando muda de página
-    if (lastInjectedPath && lastInjectedPath !== path) {
-      console.log(`Saiu de ${lastInjectedPath}, removendo CSS...`);
+  // Mapeia padrões de URL para pastas de tema
+  // IMPORTANTE: Ordem importa! Patterns mais específicos primeiro (com IDs antes de genéricos)
+  // NOTA: Sistema genérico que converte /path/to/page → path-to-page automaticamente
+  const URL_PATTERNS = [
+    // ===== ankiweb.net =====
+    { pattern: /^\/decks\/share\/\d+$/, folder: 'decks-share-id', host: 'ankiweb.net' },
+    { pattern: /^\/decks$/, folder: 'decks', host: 'ankiweb.net' },
+    { pattern: /^\/account\/login$/, folder: 'account-login', host: 'ankiweb.net' },
+    { pattern: /^\/account\/media$/, folder: 'account-media', host: 'ankiweb.net' },
+    { pattern: /^\/account\/remove-account$/, folder: 'account-remove-account', host: 'ankiweb.net' },
+    { pattern: /^\/account\/reset-password$/, folder: 'account-reset-password', host: 'ankiweb.net' },
+    { pattern: /^\/account\/settings$/, folder: 'account-settings', host: 'ankiweb.net' },
+    { pattern: /^\/account\/signup$/, folder: 'account-signup', host: 'ankiweb.net' },
+    { pattern: /^\/search$/, folder: 'search', host: 'ankiweb.net' },
+    { pattern: /^\/shared\/decks$/, folder: 'shared-decks', host: 'ankiweb.net' },
+    { pattern: /^\/shared\/mine$/, folder: 'shared-mine', host: 'ankiweb.net' },
+    
+    // ===== ankiuser.net =====
+    { pattern: /^\/edit\/\d+$/, folder: 'edit-id', host: 'ankiuser.net' },
+    { pattern: /^\/study\/options$/, folder: 'study-options', host: 'ankiuser.net' },
+    { pattern: /^\/study$/, folder: 'study', host: 'ankiuser.net' },
+    { pattern: /^\/add$/, folder: 'add', host: 'ankiuser.net' },
+  ];
+
+  // Função que encontra a pasta do tema baseado na URL e host
+  function getThemeFolderForPath(path) {
+    const currentHost = window.location.hostname;
+    
+    for (const { pattern, folder, host } of URL_PATTERNS) {
+      // Verifica se o host é compatível (se especificado)
+      if (host && currentHost !== host) {
+        continue;
+      }
       
-      // Remove CSS do tema /decks
-      if (lastInjectedPath === '/decks') {
-        const decksCSS = document.getElementById('anki-modern-decks-css');
-        if (decksCSS) {
-          decksCSS.remove();
-          console.log('CSS do tema /decks removido');
-        }
+      if (pattern.test(path)) {
+        console.log(`URL ${currentHost}${path} → tema: ${folder}`);
+        return folder;
+      }
+    }
+    
+    console.log(`Nenhum tema configurado para ${currentHost}${path}`);
+    return null;
+  }
+
+  // Função genérica que injeta CSS e JS para uma URL específica
+  function injectThemeForPath(path) {
+    const currentFolder = getThemeFolderForPath(path);
+
+    // Remove CSS do tema anterior se mudou de pasta
+    if (lastInjectedFolder && lastInjectedFolder !== currentFolder) {
+      console.log(`Saiu de ${lastInjectedFolder}, removendo CSS...`);
+      const oldCssId = `anki-modern-${lastInjectedFolder}-css`;
+      const oldCSS = document.getElementById(oldCssId);
+      if (oldCSS) {
+        oldCSS.remove();
+        console.log(`CSS do tema ${lastInjectedFolder} removido`);
       }
     }
 
-    // Previne injeção duplicada
-    if (lastInjectedPath === path) {
-      console.log(`Tema já injetado para ${path}, pulando...`);
+    // Se não há tema para esta URL, apenas atualiza lastInjectedFolder e retorna
+    if (!currentFolder) {
+      console.log(`Nenhum tema configurado para ${path}`);
+      lastInjectedFolder = null;
       return;
     }
 
-    // Decks
-    if (path === '/decks') {
-      console.log('Injetando tema Neumorphism para /decks...');
-      
-      // Injeta CSS (usa ID para evitar duplicação)
-      let styleEl = document.getElementById('anki-modern-decks-css');
-      if (!styleEl) {
-        const cssPath = chrome.runtime.getURL(`themes/${theme}/decks/styles.css`);
-        styleEl = document.createElement('link');
-        styleEl.id = 'anki-modern-decks-css';
-        styleEl.rel = 'stylesheet';
-        styleEl.type = 'text/css';
-        styleEl.href = cssPath;
-        document.head.appendChild(styleEl);
-      }
-      
-      // Injeta a lógica JS do tema via script src (contorna CSP)
-      // IMPORTANTE: Injeta SEMPRE porque precisamos reinicializar ao voltar para /decks
-      const jsPath = chrome.runtime.getURL(`themes/${theme}/decks/logic.js`);
-      const scriptEl = document.createElement('script');
-      scriptEl.src = jsPath;
-      scriptEl.type = 'text/javascript';
-      scriptEl.onload = () => {
-        console.log('Lógica do tema carregada/reinjetada com sucesso!');
-        scriptEl.remove(); // Remove após execução
-      };
-      scriptEl.onerror = (err) => console.error('Erro ao carregar lógica do tema:', err);
-      (document.head || document.documentElement).appendChild(scriptEl);
-      
-      lastInjectedPath = path;
-    } else {
-      // Se não está em nenhuma URL com tema, limpa lastInjectedPath
-      lastInjectedPath = null;
+    // Previne injeção duplicada
+    if (lastInjectedFolder === currentFolder) {
+      console.log(`Tema já injetado para ${currentFolder}, pulando...`);
+      return;
     }
+
+    console.log(`Injetando tema ${theme}/${currentFolder} para ${path}...`);
+
+    // Injeta CSS (usa ID único por pasta para evitar duplicação)
+    const cssId = `anki-modern-${currentFolder}-css`;
+    let styleEl = document.getElementById(cssId);
+    if (!styleEl) {
+      const cssPath = chrome.runtime.getURL(`themes/${theme}/${currentFolder}/styles.css`);
+      styleEl = document.createElement('link');
+      styleEl.id = cssId;
+      styleEl.rel = 'stylesheet';
+      styleEl.type = 'text/css';
+      styleEl.href = cssPath;
+      document.head.appendChild(styleEl);
+    }
+
+    // Injeta a lógica JS do tema via script src (contorna CSP)
+    // IMPORTANTE: Injeta SEMPRE porque precisamos reinicializar ao voltar
+    const jsPath = chrome.runtime.getURL(`themes/${theme}/${currentFolder}/logic.js`);
+    const scriptEl = document.createElement('script');
+    scriptEl.src = jsPath;
+    scriptEl.type = 'text/javascript';
+    scriptEl.onload = () => {
+      console.log(`Lógica do tema ${currentFolder} carregada/reinjetada com sucesso!`);
+      scriptEl.remove();
+    };
+    scriptEl.onerror = (err) => console.error(`Erro ao carregar lógica do tema ${currentFolder}:`, err);
+    (document.head || document.documentElement).appendChild(scriptEl);
+
+    lastInjectedFolder = currentFolder;
   }
 
   // Injeta para a URL atual

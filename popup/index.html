@@ -83,17 +83,64 @@
       color: #212529;
       font-weight: 500;
     }
+    .theme-selector {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .theme-label {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .theme-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      background: #fff;
+      color: #212529;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .theme-select:hover {
+      border-color: #4C6EF5;
+    }
+    .theme-select:focus {
+      border-color: #4C6EF5;
+      box-shadow: 0 0 0 3px rgba(76,110,245,0.1);
+    }
+    .theme-select option {
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="title">Anki Modern Extension</div>
+    
     <div class="toggle-switch">
       <span class="label">Ativar</span>
       <label class="switch">
         <input type="checkbox" id="toggleActive">
         <span class="slider"></span>
       </label>
+    </div>
+
+    <div class="theme-selector" id="themeSelectorContainer" style="display: none;">
+      <label class="theme-label" for="themeSelect">Tema</label>
+      <select id="themeSelect" class="theme-select">
+        <option value="neumorphism">Neumorphism</option>
+        <!-- Outros temas serão adicionados dinamicamente -->
+      </select>
     </div>
   </div>
   <script src="popup.js"></script>
