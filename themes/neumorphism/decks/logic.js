@@ -2,8 +2,20 @@ console.log("Aplicando tema 'Neumorphism Pro' com Fixes de Funcionalidade...");
 
 // Função principal que aplica o tema
 function init() {
+  // CRÍTICO: Verifica se está na URL correta ANTES de fazer qualquer coisa
+  if (window.location.pathname !== '/decks') {
+    console.log('Tema Neumorphism Decks: URL incorreta, abortando...', window.location.pathname);
+    return;
+  }
+
   // Aguarda um pequeno delay para garantir que o DOM do AnkiWeb está completamente renderizado
   setTimeout(() => {
+    // Double-check: verifica novamente a URL (caso tenha mudado durante o setTimeout)
+    if (window.location.pathname !== '/decks') {
+      console.log('Tema Neumorphism Decks: URL mudou durante carregamento, abortando...');
+      return;
+    }
+
     // Encontra o container principal
     const main = document.querySelector('main.container');
   
@@ -252,3 +264,22 @@ console.log("Tema aplicado e funcional!");
 
 // Executa a inicialização
 init();
+
+// SEGURANÇA: Monitora mudanças de URL e remove o tema se sair de /decks
+let lastPathname = window.location.pathname;
+setInterval(() => {
+  const currentPathname = window.location.pathname;
+  if (currentPathname !== lastPathname) {
+    console.log('Tema Neumorphism Decks: URL mudou de', lastPathname, 'para', currentPathname);
+    lastPathname = currentPathname;
+    
+    // Se saiu de /decks, remove a interface customizada
+    if (currentPathname !== '/decks') {
+      const customInterface = document.getElementById('custom-interface');
+      if (customInterface) {
+        console.log('Tema Neumorphism Decks: Removendo interface customizada...');
+        customInterface.remove();
+      }
+    }
+  }
+}, 500); // Verifica a cada 500ms
