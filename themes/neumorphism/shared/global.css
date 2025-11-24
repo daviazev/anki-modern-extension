@@ -45,14 +45,6 @@ main {
   color: var(--text-main, #2d3748) !important;
 }
 
-.logo-container {
-  background: linear-gradient(145deg, #ffffff, #e6e9ed) !important;
-  border-radius: 8px !important;
-  padding: 0.25rem !important;
-  box-shadow: 3px 3px 6px rgba(163, 177, 198, 0.4),
-              -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
-}
-
 /* Nav items */
 .navbar .nav-link {
   color: var(--text-main, #2d3748) !important;
