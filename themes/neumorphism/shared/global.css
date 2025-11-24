@@ -3,6 +3,21 @@
    Header e Footer para todas as páginas
    =================================== */
 
+/* Layout para garantir footer no final */
+html {
+  height: 100% !important;
+}
+
+body {
+  min-height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+main {
+  flex: 1 !important;
+}
+
 /* ===================================
    HEADER/NAVBAR
    =================================== */
@@ -78,8 +93,8 @@
   border-top: none !important;
   box-shadow: 0 -4px 12px rgba(163, 177, 198, 0.3),
               0 -2px 4px rgba(255, 255, 255, 0.5) !important;
-  padding: 1.5rem 0 !important;
-  margin-top: 3rem !important;
+  padding: 2rem 0 !important;
+  margin-top: auto !important;
 }
 
 .container-fluid.bg-gray .nav {
