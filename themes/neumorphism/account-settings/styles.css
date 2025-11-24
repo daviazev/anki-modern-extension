@@ -1,0 +1,267 @@
+/* ===================================
+   Neumorphism Theme - Account Settings Page
+   =================================== */
+
+/* Variáveis do tema */
+body.anki-modern-account-settings {
+  --bg-body: #f0f2f5;
+  --bg-surface: #e8ebef;
+  --bg-field: #f0f2f5;
+  --text-main: #2d3748;
+  --text-secondary: #718096;
+  --text-light: #a0aec0;
+  --primary: #5e72e4;
+  --primary-hover: #4c5fd4;
+  --danger: #f56565;
+  --danger-hover: #e53e3e;
+  --border-color: #cbd5e0;
+  --shadow-neumorphic: 6px 6px 12px rgba(163, 177, 198, 0.5), 
+                       -6px -6px 12px rgba(255, 255, 255, 0.9);
+  --shadow-neumorphic-inset: inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+                             inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Background do body */
+body.anki-modern-account-settings {
+  background: var(--bg-body) !important;
+}
+
+/* Container principal */
+body.anki-modern-account-settings main.container {
+  background: var(--bg-body) !important;
+  padding: 2rem 1rem !important;
+  max-width: 900px !important;
+}
+
+/* Título */
+body.anki-modern-account-settings h1 {
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+  font-size: 2rem !important;
+  margin-bottom: 2rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* Link "Remove Account" */
+body.anki-modern-account-settings .delete-link {
+  text-align: right !important;
+  margin-bottom: 1rem !important;
+}
+
+body.anki-modern-account-settings .delete-link a {
+  color: var(--danger) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  text-decoration: none !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  display: inline-block !important;
+}
+
+body.anki-modern-account-settings .delete-link a:hover {
+  background: rgba(245, 101, 101, 0.1) !important;
+  box-shadow: inset 2px 2px 4px rgba(245, 101, 101, 0.2),
+              inset -2px -2px 4px rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Container com abas e conteúdo */
+body.anki-modern-account-settings .d-flex.align-items-start {
+  gap: 2rem !important;
+}
+
+/* ===================================
+   NAV PILLS (Abas laterais)
+   =================================== */
+
+body.anki-modern-account-settings .nav-pills {
+  min-width: 180px !important;
+  background: var(--bg-body) !important;
+  padding: 0.5rem !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+}
+
+body.anki-modern-account-settings .nav-pills .nav-item {
+  margin-bottom: 0.5rem !important;
+}
+
+body.anki-modern-account-settings .nav-pills .nav-item:last-child {
+  margin-bottom: 0 !important;
+}
+
+body.anki-modern-account-settings .nav-pills .nav-link {
+  color: var(--text-secondary) !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.75rem 1rem !important;
+  border-radius: 8px !important;
+  transition: all 0.3s ease !important;
+  text-align: left !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+body.anki-modern-account-settings .nav-pills .nav-link:hover {
+  color: var(--primary) !important;
+  background: rgba(94, 114, 228, 0.08) !important;
+}
+
+body.anki-modern-account-settings .nav-pills .nav-link.active {
+  color: white !important;
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  box-shadow: 3px 3px 6px rgba(163, 177, 198, 0.4),
+              -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
+}
+
+/* ===================================
+   TAB CONTENT (Formulários)
+   =================================== */
+
+body.anki-modern-account-settings .tab-content {
+  background: var(--bg-body) !important;
+  padding: 2rem !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+}
+
+body.anki-modern-account-settings .tab-pane {
+  animation: fadeIn 0.3s ease !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===================================
+   INPUTS
+   =================================== */
+
+body.anki-modern-account-settings .form-floating {
+  margin-bottom: 1.5rem !important;
+}
+
+body.anki-modern-account-settings .form-floating input.form-control {
+  background: var(--bg-field) !important;
+  border: none !important;
+  color: var(--text-main) !important;
+  font-size: 1rem !important;
+  padding: 1.5rem 1rem !important;
+  height: 60px !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-account-settings .form-floating input.form-control:focus {
+  outline: none !important;
+  box-shadow: var(--shadow-neumorphic-inset),
+              0 0 0 3px rgba(94, 114, 228, 0.2) !important;
+}
+
+body.anki-modern-account-settings .form-floating input.form-control::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* Labels - Ocultar para evitar conflito visual */
+body.anki-modern-account-settings .form-floating label {
+  display: none !important;
+}
+
+/* ===================================
+   BOTÃO UPDATE
+   =================================== */
+
+body.anki-modern-account-settings .btn-primary {
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 1rem 2.5rem !important;
+  height: 60px !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+}
+
+body.anki-modern-account-settings .btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.6),
+              -8px -8px 16px rgba(255, 255, 255, 1) !important;
+}
+
+body.anki-modern-account-settings .btn-primary:active:not(:disabled) {
+  transform: translateY(0) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+}
+
+body.anki-modern-account-settings .btn-primary:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+}
+
+/* ===================================
+   TEXTO AUXILIAR
+   =================================== */
+
+body.anki-modern-account-settings .form-group small {
+  color: var(--text-secondary) !important;
+  font-size: 0.875rem !important;
+}
+
+body.anki-modern-account-settings .form-group small a {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
+
+body.anki-modern-account-settings .form-group small a:hover {
+  text-decoration: underline !important;
+}
+
+/* ===================================
+   RESPONSIVIDADE
+   =================================== */
+
+@media (max-width: 768px) {
+  body.anki-modern-account-settings .d-flex.align-items-start {
+    flex-direction: column !important;
+  }
+
+  body.anki-modern-account-settings .nav-pills {
+    width: 100% !important;
+    min-width: auto !important;
+    flex-direction: row !important;
+    margin-bottom: 1rem !important;
+  }
+
+  body.anki-modern-account-settings .nav-pills .nav-item {
+    flex: 1 !important;
+    margin-bottom: 0 !important;
+    margin-right: 0.5rem !important;
+  }
+
+  body.anki-modern-account-settings .nav-pills .nav-item:last-child {
+    margin-right: 0 !important;
+  }
+
+  body.anki-modern-account-settings .tab-content {
+    padding: 1.5rem !important;
+  }
+
+  body.anki-modern-account-settings h1 {
+    font-size: 1.5rem !important;
+  }
+}
