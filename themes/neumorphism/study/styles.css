@@ -23,11 +23,14 @@ body.anki-modern-study {
   background: var(--bg-body) !important;
 }
 
-/* Container principal */
+/* Container principal - centralizado entre header e footer */
 body.anki-modern-study main.container {
   background: var(--bg-body) !important;
   padding: 2rem 1rem !important;
   max-width: 1200px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
 }
 
 /* Remove espaço extra do form-group vazio no final */
