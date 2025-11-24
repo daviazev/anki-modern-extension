@@ -14,6 +14,7 @@
 .templates/theme-structure/url-template/logic.js
 .templates/theme-structure/url-template/styles.css
 README.md
+TUTORIAL-CRIAR-TEMA.md
 export-project.js
 manifest.json
 popup
@@ -23,6 +24,14 @@ src
 src/background.js
 src/loader.js
 themes
+themes/dracula
+themes/dracula/decks
+themes/dracula/decks/logic.js
+themes/dracula/decks/styles.css
+themes/dracula/shared
+themes/dracula/shared/base.css
+themes/dracula/shared/common.js
+themes/dracula/theme-config.json
 themes/neumorphism
 themes/neumorphism/decks
 themes/neumorphism/decks/logic.js
@@ -1046,24 +1055,36 @@ anki-modern-extension/
 
 ## 🚀 Como Criar um Novo Tema
 
+### 📘 Tutorial Completo com Exemplo Prático
+
+**Ver:** [TUTORIAL-CRIAR-TEMA.md](./TUTORIAL-CRIAR-TEMA.md)
+
+Este tutorial mostra **passo a passo detalhado** de como foi criado o tema **Dracula**, incluindo:
+- ✅ Como usar os scripts de automação
+- ✅ Como configurar cores e variáveis
+- ✅ Como adaptar estilos existentes
+- ✅ Como registrar no popup
+- ✅ Comparação Neumorphism vs Dracula
+- ✅ Troubleshooting e boas práticas
+
 ### Opção 1: Com Script (Recomendado)
 
 ```bash
 cd .templates/scripts
-./create-theme.sh "dracula" "Seu Nome"
+./create-theme.sh "meu-tema" "Seu Nome"
 ```
 
 Isso cria automaticamente:
-- `themes/dracula/theme-config.json`
-- `themes/dracula/shared/base.css`
-- `themes/dracula/shared/common.js`
+- `themes/meu-tema/theme-config.json`
+- `themes/meu-tema/shared/base.css`
+- `themes/meu-tema/shared/common.js`
 
 ### Opção 2: Manual
 
 1. Copie `.templates/theme-structure/` para `themes/seu-tema/`
 2. Edite `theme-config.json` com suas cores e variáveis
 3. Ajuste `shared/base.css` com as CSS variables
-4. Atualize `src/loader.js`: `const theme = 'seu-tema';`
+4. Registre em `popup/popup.js`
 
 ---
 
@@ -1208,6 +1229,481 @@ GitHub: [@daviazev](https://github.com/daviazev)
 
 **Versão:** 1.0.0  
 **Última atualização:** 23 de novembro de 2025
+
+
+===== TUTORIAL-CRIAR-TEMA.md =====
+# 📘 Tutorial: Como Criar um Novo Tema (Exemplo: Dracula)
+
+Este documento mostra **passo a passo COMPLETO** de como foi criado o tema **Dracula** para a extensão Anki Modern, servindo como exemplo prático de como adicionar novos temas ao projeto.
+
+---
+
+## 🎯 Objetivo
+
+Criar um tema completo chamado **Dracula** com:
+- Paleta de cores escuras (dark mode)
+- Suporte para a URL `/decks`
+- Sistema de cards, botões e dropdowns estilizados
+- Integração com o seletor de temas do popup
+
+---
+
+## 📋 Pré-requisitos
+
+- Estrutura de templates em `.templates/` já criada
+- Scripts `create-theme.sh` e `add-url-support.sh` funcionando
+- Tema Neumorphism como referência
+
+---
+
+## 🚀 Passo 1: Criar Estrutura Base do Tema
+
+### 1.1 - Executar script de criação
+
+```bash
+cd .templates/scripts
+./create-theme.sh "dracula" "Davi Azevedo"
+```
+
+**Resultado:**
+```
+🎨 Criando novo tema: dracula
+📁 Criando estrutura de pastas...
+📄 Copiando arquivos template...
+✏️  Personalizando arquivos...
+✓ Tema 'dracula' criado com sucesso!
+```
+
+**O que foi criado:**
+```
+themes/dracula/
+├── theme-config.json
+└── shared/
+    ├── base.css
+    └── common.js
+```
+
+---
+
+## 🎨 Passo 2: Configurar Paleta de Cores
+
+### 2.1 - Editar `themes/dracula/theme-config.json`
+
+Substituir as cores padrão pela **paleta oficial do Dracula**:
+
+```json
+{
+  "name": "dracula",
+  "version": "1.0.0",
+  "description": "Tema dracula para AnkiWeb",
+  "author": "Davi Azevedo",
+  
+  "colors": {
+    "primary": "#282a36",        // Background escuro
+    "secondary": "#44475a",      // Surface (cards, menus)
+    "textPrimary": "#f8f8f2",    // Texto claro
+    "textSecondary": "#6272a4",  // Texto secundário (cinza-azulado)
+    "accent": "#bd93f9",         // Roxo principal
+    "accentHover": "#a97fe0",    // Roxo escuro (hover)
+    "shadowLight": "#383a4a",    // Sombra clara (dark mode)
+    "shadowDark": "#191a21",     // Sombra escura
+    "success": "#50fa7b",        // Verde
+    "warning": "#f1fa8c",        // Amarelo
+    "danger": "#ff5555",         // Vermelho
+    "pink": "#ff79c6",           // Rosa
+    "cyan": "#8be9fd",           // Ciano
+    "green": "#50fa7b",          // Verde
+    "orange": "#ffb86c",         // Laranja
+    "purple": "#bd93f9",         // Roxo
+    "red": "#ff5555",            // Vermelho
+    "yellow": "#f1fa8c"          // Amarelo
+  }
+}
+```
+
+### 2.2 - Atualizar sombras para dark mode
+
+```json
+"shadows": {
+  "raised": "0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3)",
+  "pressed": "inset 0 2px 6px rgba(0, 0, 0, 0.4)",
+  "hover": "0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4)",
+  "subtle": "0 2px 8px rgba(0, 0, 0, 0.3)",
+  "glow": "0 0 20px rgba(189, 147, 249, 0.4)"
+}
+```
+
+---
+
+## 🌈 Passo 3: Personalizar CSS Base
+
+### 3.1 - Editar `themes/dracula/shared/base.css`
+
+Atualizar as **CSS custom properties** com a paleta Dracula:
+
+```css
+:root {
+  /* ===== Cores Principais - Dracula Theme ===== */
+  --theme-bg-primary: #282a36;
+  --theme-bg-secondary: #44475a;
+  --theme-text-primary: #f8f8f2;
+  --theme-text-secondary: #6272a4;
+  --theme-accent: #bd93f9;
+  --theme-accent-hover: #a97fe0;
+  
+  /* ===== Sombras (Dark Mode) ===== */
+  --theme-shadow-light: #383a4a;
+  --theme-shadow-dark: #191a21;
+  --theme-shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --theme-shadow-hover: 0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+  --theme-shadow-glow: 0 0 20px rgba(189, 147, 249, 0.4);
+  
+  /* ===== Dracula Accent Colors ===== */
+  --theme-pink: #ff79c6;
+  --theme-cyan: #8be9fd;
+  --theme-green: #50fa7b;
+  --theme-orange: #ffb86c;
+  --theme-purple: #bd93f9;
+  --theme-red: #ff5555;
+  --theme-yellow: #f1fa8c;
+}
+```
+
+### 3.2 - Personalizar scrollbar
+
+```css
+::-webkit-scrollbar-thumb {
+  background: var(--theme-bg-secondary);
+  border-radius: 6px;
+  border: 2px solid var(--theme-bg-primary);
+  transition: background var(--theme-transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-accent);
+  box-shadow: var(--theme-shadow-glow);
+}
+```
+
+---
+
+## 🔧 Passo 4: Adicionar Suporte para URL /decks
+
+### 4.1 - Executar script de URL
+
+```bash
+cd .templates/scripts
+./add-url-support.sh "dracula" "decks" "/decks"
+```
+
+**Resultado:**
+```
+🔧 Adicionando suporte para URL: decks
+📁 Criando pasta decks...
+📄 Copiando templates...
+✏️  Personalizando arquivos...
+✓ Suporte para decks adicionado com sucesso!
+```
+
+**O que foi criado:**
+```
+themes/dracula/decks/
+├── styles.css
+└── logic.js
+```
+
+---
+
+## 📝 Passo 5: Implementar Estilos Específicos
+
+### 5.1 - Copiar base do Neumorphism
+
+Como a estrutura HTML é a mesma, copiamos os arquivos do Neumorphism e adaptamos:
+
+```bash
+cp themes/neumorphism/decks/styles.css themes/dracula/decks/styles.css
+cp themes/neumorphism/decks/logic.js themes/dracula/decks/logic.js
+```
+
+### 5.2 - Adaptar variáveis CSS em `themes/dracula/decks/styles.css`
+
+**Antes (Neumorphism):**
+```css
+:root {
+    --primary: #4C6EF5;
+    --bg-body: #F0F2F5;
+    --surface: #FFFFFF;
+    --text-main: #212529;
+}
+```
+
+**Depois (Dracula):**
+```css
+:root {
+    --primary: #bd93f9;
+    --primary-hover: #a97fe0;
+    --bg-body: #282a36;
+    --surface: #44475a;
+    --text-main: #f8f8f2;
+    --text-muted: #6272a4;
+    --accent-pink: #ff79c6;
+    --accent-cyan: #8be9fd;
+    --accent-green: #50fa7b;
+    --accent-orange: #ffb86c;
+    --accent-red: #ff5555;
+    --accent-yellow: #f1fa8c;
+}
+```
+
+### 5.3 - Adaptar pills de estatísticas
+
+**Antes:**
+```css
+.pill-due { background: #FFE3E3; color: #C92A2A; }
+.pill-new { background: #D3F9D8; color: #2B8A3E; }
+```
+
+**Depois (com transparência e bordas):**
+```css
+.pill-due { 
+  background: rgba(255, 85, 85, 0.2); 
+  color: var(--accent-red); 
+  border: 1px solid var(--accent-red); 
+}
+.pill-new { 
+  background: rgba(80, 250, 123, 0.2); 
+  color: var(--accent-green); 
+  border: 1px solid var(--accent-green); 
+}
+```
+
+### 5.4 - Adaptar botões e hovers
+
+```css
+.custom-actions-btn:hover {
+    background: rgba(189, 147, 249, 0.2);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.child-row:hover { 
+  background: rgba(189, 147, 249, 0.1); 
+}
+
+.footer-stats-row span { 
+  color: var(--accent-cyan); 
+}
+.footer-stats-row span:hover { 
+  color: var(--primary); 
+}
+```
+
+### 5.5 - Atualizar sombras
+
+```css
+.deck-card {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.deck-card:hover {
+    box-shadow: 0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+```
+
+---
+
+## 💻 Passo 6: Adaptar Lógica JavaScript
+
+### 6.1 - Atualizar `themes/dracula/decks/logic.js`
+
+Apenas mudar a mensagem de log:
+
+```javascript
+console.log("Aplicando tema 'Dracula' para /decks...");
+```
+
+**Nota:** O resto da lógica permanece igual, pois:
+- A estrutura HTML é a mesma
+- Os seletores CSS são os mesmos
+- A funcionalidade é idêntica
+- **Apenas as cores/sombras mudam!**
+
+---
+
+## 🎨 Passo 7: Registrar Tema no Popup
+
+### 7.1 - Editar `popup/popup.js`
+
+Adicionar o tema na lista de disponíveis:
+
+```javascript
+const AVAILABLE_THEMES = [
+  { value: 'neumorphism', label: 'Neumorphism' },
+  { value: 'dracula', label: 'Dracula' }, // ← ADICIONADO
+];
+```
+
+**Resultado:** O dropdown no popup agora mostra:
+```
+┌──────────────────────┐
+│ Tema                 │
+├──────────────────────┤
+│ Neumorphism          │
+│ Dracula         ◀──  │ (novo!)
+└──────────────────────┘
+```
+
+---
+
+## ✅ Passo 8: Testar a Extensão
+
+### 8.1 - Recarregar extensão
+
+1. Abra `chrome://extensions/`
+2. Clique no ícone de **reload** da extensão
+3. Vá para https://ankiweb.net/decks
+
+### 8.2 - Selecionar tema Dracula
+
+1. Clique no ícone da extensão
+2. Marque "Ativar"
+3. Selecione "Dracula" no dropdown
+4. A página recarrega automaticamente
+
+### 8.3 - Verificar no console
+
+Deveria aparecer:
+```
+LOADER INJETADO
+Tema ativo: dracula
+URL ankiweb.net/decks → tema: decks
+Aplicando tema 'Dracula' para /decks...
+Tema aplicado e funcional!
+```
+
+---
+
+## 🎉 Resultado Final
+
+### ✨ O que foi criado:
+
+```
+themes/dracula/
+├── theme-config.json        # Cores e variáveis do Dracula
+├── shared/
+│   ├── base.css            # CSS variables com paleta Dracula
+│   └── common.js           # Funções compartilhadas (não modificado)
+└── decks/
+    ├── styles.css          # Estilos específicos para /decks
+    └── logic.js            # Lógica de criação da interface
+```
+
+### 🎨 Características do tema:
+
+- ✅ **Background:** #282a36 (escuro)
+- ✅ **Accent:** #bd93f9 (roxo vibrante)
+- ✅ **Pills:** Verde (#50fa7b) para novos, Vermelho (#ff5555) para devidos
+- ✅ **Sombras:** Adaptadas para dark mode
+- ✅ **Hover effects:** Glow roxo nos elementos interativos
+- ✅ **Scrollbar:** Customizada com cores do Dracula
+
+---
+
+## 📊 Comparação: Neumorphism vs Dracula
+
+| Aspecto | Neumorphism | Dracula |
+|---------|-------------|---------|
+| **Background** | #F0F2F5 (claro) | #282a36 (escuro) |
+| **Surface** | #FFFFFF (branco) | #44475a (cinza escuro) |
+| **Texto** | #212529 (preto) | #f8f8f2 (branco) |
+| **Accent** | #4C6EF5 (azul) | #bd93f9 (roxo) |
+| **Sombras** | Neumorphism soft | Box shadows com glow |
+| **Estilo** | Soft UI, minimalista | Dark, vibrante, cyberpunk |
+
+---
+
+## 🚀 Para Criar Outros Temas
+
+Basta seguir o mesmo processo:
+
+```bash
+# 1. Criar tema
+./create-theme.sh "nord" "Seu Nome"
+
+# 2. Editar cores em:
+# - themes/nord/theme-config.json
+# - themes/nord/shared/base.css
+
+# 3. Adicionar URL
+./add-url-support.sh "nord" "decks" "/decks"
+
+# 4. Copiar lógica do Neumorphism e adaptar cores
+cp themes/neumorphism/decks/*.* themes/nord/decks/
+
+# 5. Registrar no popup
+# Adicionar em popup/popup.js: { value: 'nord', label: 'Nord' }
+```
+
+---
+
+## 💡 Dicas e Boas Práticas
+
+### 1. Paletas de cores
+- Use ferramentas como [Coolors](https://coolors.co/) ou [Adobe Color](https://color.adobe.com/)
+- Mantenha consistência entre `theme-config.json` e `base.css`
+
+### 2. Contraste de texto
+- Dark themes: texto claro (#f8f8f2)
+- Light themes: texto escuro (#212529)
+- Teste com [WebAIM Contrast Checker](https://webaim.org/resources/contrastchecker/)
+
+### 3. Sombras
+- Light themes: sombras suaves (rgba(0,0,0,0.1))
+- Dark themes: sombras escuras + glows coloridos
+
+### 4. Testar em diferentes URLs
+```bash
+# Adicione suporte para outras URLs
+./add-url-support.sh "dracula" "account-settings" "/account/settings"
+./add-url-support.sh "dracula" "search" "/search"
+```
+
+### 5. Reutilizar estrutura
+- ✅ **Copie a lógica** do Neumorphism (já funciona!)
+- ✅ **Mude apenas as cores** (muito mais rápido!)
+- ❌ **Não reinvente** a estrutura HTML/JS
+
+---
+
+## 📚 Referências
+
+- **Dracula Theme:** https://draculatheme.com/
+- **Paleta oficial:** https://draculatheme.com/contribute
+- **Neumorphism:** https://neumorphism.io/
+
+---
+
+## 🐛 Troubleshooting
+
+### Tema não aparece no dropdown
+- ✅ Verificar se foi adicionado em `popup/popup.js`
+- ✅ Recarregar a extensão no Chrome
+
+### Cores não aplicam
+- ✅ Verificar se `base.css` foi editado
+- ✅ Confirmar que o CSS importa o base: `@import url('...')`
+- ✅ Inspecionar elemento e ver se variáveis estão definidas
+
+### JavaScript não executa
+- ✅ Verificar console do Chrome (F12)
+- ✅ Confirmar que `logic.js` está em IIFE
+- ✅ Ver se URL está correta no `loader.js`
+
+---
+
+**Criado por:** Davi Azevedo  
+**Data:** 23 de novembro de 2025  
+**Versão:** 1.0.0
 
 
 ===== export-project.js =====
@@ -1430,17 +1926,64 @@ writeFileSync("projeto_completo.txt", output);
       color: #212529;
       font-weight: 500;
     }
+    .theme-selector {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .theme-label {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .theme-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      background: #fff;
+      color: #212529;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .theme-select:hover {
+      border-color: #4C6EF5;
+    }
+    .theme-select:focus {
+      border-color: #4C6EF5;
+      box-shadow: 0 0 0 3px rgba(76,110,245,0.1);
+    }
+    .theme-select option {
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="title">Anki Modern Extension</div>
+    
     <div class="toggle-switch">
       <span class="label">Ativar</span>
       <label class="switch">
         <input type="checkbox" id="toggleActive">
         <span class="slider"></span>
       </label>
+    </div>
+
+    <div class="theme-selector" id="themeSelectorContainer" style="display: none;">
+      <label class="theme-label" for="themeSelect">Tema</label>
+      <select id="themeSelect" class="theme-select">
+        <option value="neumorphism">Neumorphism</option>
+        <!-- Outros temas serão adicionados dinamicamente -->
+      </select>
     </div>
   </div>
   <script src="popup.js"></script>
@@ -1449,19 +1992,81 @@ writeFileSync("projeto_completo.txt", output);
 
 
 ===== popup/popup.js =====
+// ===== Elementos do DOM =====
 const toggle = document.getElementById('toggleActive');
-chrome.storage.local.get(['ankiModernActive'], (result) => {
+const themeSelect = document.getElementById('themeSelect');
+const themeSelectorContainer = document.getElementById('themeSelectorContainer');
+
+// ===== Lista de Temas Disponíveis =====
+// NOTA: Adicione novos temas aqui quando criá-los
+const AVAILABLE_THEMES = [
+  { value: 'neumorphism', label: 'Neumorphism' },
+  { value: 'dracula', label: 'Dracula' },
+  // { value: 'nord', label: 'Nord' },
+  // Adicione mais temas conforme criar
+];
+
+// ===== Carrega Estado Inicial =====
+chrome.storage.local.get(['ankiModernActive', 'ankiModernTheme'], (result) => {
+  // Toggle
   toggle.checked = !!result.ankiModernActive;
+  
+  // Tema (padrão: neumorphism)
+  const currentTheme = result.ankiModernTheme || 'neumorphism';
+  themeSelect.value = currentTheme;
+  
+  // Mostra seletor de tema apenas se extensão estiver ativa
+  if (result.ankiModernActive) {
+    themeSelectorContainer.style.display = 'flex';
+  }
 });
+
+// ===== Popula Dropdown de Temas =====
+function populateThemeSelector() {
+  themeSelect.innerHTML = '';
+  AVAILABLE_THEMES.forEach(theme => {
+    const option = document.createElement('option');
+    option.value = theme.value;
+    option.textContent = theme.label;
+    themeSelect.appendChild(option);
+  });
+}
+populateThemeSelector();
+
+// ===== Event Listeners =====
+
+// Toggle on/off
 toggle.addEventListener('change', () => {
   const isActive = toggle.checked;
+  
   chrome.storage.local.set({ ankiModernActive: isActive }, () => {
-    // Recarrega as abas do AnkiWeb para aplicar/remover a extensão
-    chrome.tabs.query({ url: 'https://ankiweb.net/*' }, (tabs) => {
-      tabs.forEach(tab => chrome.tabs.reload(tab.id));
-    });
+    // Mostra/oculta seletor de tema
+    themeSelectorContainer.style.display = isActive ? 'flex' : 'none';
+    
+    // Recarrega as abas do AnkiWeb e AnkiUser
+    reloadAnkiTabs();
   });
 });
+
+// Seleção de tema
+themeSelect.addEventListener('change', () => {
+  const selectedTheme = themeSelect.value;
+  
+  chrome.storage.local.set({ ankiModernTheme: selectedTheme }, () => {
+    console.log(`Tema alterado para: ${selectedTheme}`);
+    
+    // Recarrega as abas para aplicar novo tema
+    reloadAnkiTabs();
+  });
+});
+
+// ===== Função Helper =====
+function reloadAnkiTabs() {
+  // Recarrega todas as abas do AnkiWeb e AnkiUser
+  chrome.tabs.query({ url: ['https://ankiweb.net/*', 'https://ankiuser.net/*'] }, (tabs) => {
+    tabs.forEach(tab => chrome.tabs.reload(tab.id));
+  });
+}
 
 
 ===== src/background.js =====
@@ -1473,18 +2078,21 @@ toggle.addEventListener('change', () => {
 (async function() {
   console.log("LOADER INJETADO");
   
-  // Checa se a extensão está ativada
-  const isActive = await new Promise(resolve => {
-    chrome.storage.local.get(['ankiModernActive'], (result) => {
-      resolve(!!result.ankiModernActive);
+  // Checa se a extensão está ativada E qual tema usar
+  const storage = await new Promise(resolve => {
+    chrome.storage.local.get(['ankiModernActive', 'ankiModernTheme'], (result) => {
+      resolve(result);
     });
   });
-  if (!isActive) {
+  
+  if (!storage.ankiModernActive) {
     console.log("Extensão desativada, não injeta temas");
     return;
   }
 
-  const theme = 'neumorphism';
+  // Usa o tema salvo no storage (padrão: neumorphism)
+  const theme = storage.ankiModernTheme || 'neumorphism';
+  console.log(`Tema ativo: ${theme}`);
   let lastInjectedFolder = null;
 
   // Mapeia padrões de URL para pastas de tema
@@ -1604,6 +2212,1045 @@ toggle.addEventListener('change', () => {
     }
   }, 300);
 })();
+
+
+===== themes/dracula/decks/logic.js =====
+// IIFE para evitar conflito de variáveis ao reinjetar o script
+(function() {
+  'use strict';
+  
+  console.log("Aplicando tema 'Dracula' para /decks...");
+
+  // Função principal que aplica o tema
+  function init() {
+  // CRÍTICO: Verifica se está na URL correta ANTES de fazer qualquer coisa
+  if (window.location.pathname !== '/decks') {
+    console.log('Tema Neumorphism Decks: URL incorreta, abortando...', window.location.pathname);
+    return;
+  }
+
+  // Aguarda um pequeno delay para garantir que o DOM do AnkiWeb está completamente renderizado
+  setTimeout(() => {
+    // Double-check: verifica novamente a URL (caso tenha mudado durante o setTimeout)
+    if (window.location.pathname !== '/decks') {
+      console.log('Tema Neumorphism Decks: URL mudou durante carregamento, abortando...');
+      return;
+    }
+
+    // Encontra o container principal
+    const main = document.querySelector('main.container');
+  
+  if (!main) {
+    console.error('main.container não encontrado!');
+    return;
+  }
+
+  // IMPORTANTE: Remove TODAS as rows originais do AnkiWeb antes de criar a interface customizada
+  const originalRows = main.querySelectorAll('.row.light-bottom-border, .row.mt-3, .row:not(#custom-interface *)');
+  originalRows.forEach(row => {
+    if (!row.closest('#custom-interface')) {
+      row.style.display = 'none'; // Oculta as rows originais
+    }
+  });
+
+  // Cria ou reutiliza o container da interface customizada
+  let customInterface = document.getElementById('custom-interface');
+  if (!customInterface) {
+    customInterface = document.createElement('div');
+    customInterface.id = 'custom-interface';
+    main.appendChild(customInterface);
+  }
+function buildUI() {
+    customInterface.innerHTML = '';
+    const header = document.createElement('div');
+    header.innerHTML = '<h1 class="page-title">Meus Estudos</h1>';
+    customInterface.appendChild(header);
+    const rows = Array.from(main.querySelectorAll('.row.light-bottom-border'));
+    let root = { level: -1, children: [] };
+    let stack = [root];
+    rows.forEach(row => {
+        const nameBtn = row.querySelector('button.btn-link.pl-0');
+        const nbsp = (nameBtn.innerHTML.match(/&nbsp;/g) || []).length;
+        const level = nbsp / 3;
+        const due = parseInt(row.querySelector('.number.due')?.innerText) || 0;
+        const newC = parseInt(row.querySelector('.number.new')?.innerText) || 0;
+        const dropdown = row.querySelector('.dropdown-menu');
+        const node = {
+            level: level,
+            name: nameBtn.innerText.trim(),
+            due: due,
+            new: newC,
+            originalBtn: nameBtn,
+            originalDropdown: dropdown,
+            children: []
+        };
+        while (stack.length > 1 && stack[stack.length - 1].level >= level) stack.pop();
+        stack[stack.length - 1].children.push(node);
+        stack.push(node);
+    });
+    const treeContainer = document.createElement('div');
+    treeContainer.style.display = "flex";
+    treeContainer.style.flexDirection = "column";
+    function createNode(node, isRoot) {
+        const container = document.createElement('div');
+        container.className = isRoot ? 'deck-card' : 'child-wrapper';
+        const content = document.createElement('div');
+        content.className = isRoot ? 'card-content' : 'child-row';
+        content.onclick = (e) => {
+            if (e.target.closest('.dropdown-wrapper') || e.target.closest('.toggle-arrow')) return;
+            if (node.children.length > 0) {
+                const arrow = rightArea.querySelector('.toggle-arrow');
+                if (arrow) arrow.click();
+            } else {
+                node.originalBtn.click();
+            }
+        };
+        if (!isRoot && node.level > 1) {
+            content.style.paddingLeft = `${32 + (node.level * 20)}px`;
+        }
+        const icon = document.createElement('div');
+        icon.className = 'deck-icon';
+        icon.innerHTML = isRoot 
+            ? `<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`
+            : `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>`;
+        content.appendChild(icon);
+        const name = document.createElement('div');
+        name.className = 'deck-name';
+        name.innerText = node.name;
+        content.appendChild(name);
+        const rightArea = document.createElement('div');
+        rightArea.className = 'right-area';
+        const pDue = document.createElement('span');
+        pDue.className = `stats-pill ${node.due > 0 ? 'pill-due' : 'pill-zero'}`;
+        pDue.innerText = node.due;
+        const pNew = document.createElement('span');
+        pNew.className = `stats-pill ${node.new > 0 ? 'pill-new' : 'pill-zero'}`;
+        pNew.innerText = node.new;
+        rightArea.appendChild(pDue);
+        rightArea.appendChild(pNew);
+        if (node.originalDropdown) {
+            const dropdownWrapper = document.createElement('div');
+            dropdownWrapper.className = 'dropdown-wrapper';
+            dropdownWrapper.style.position = 'relative';
+            const actionsBtn = document.createElement('div');
+            actionsBtn.className = 'custom-actions-btn';
+            actionsBtn.innerText = 'Actions';
+            const customMenu = document.createElement('div');
+            customMenu.className = 'custom-dropdown-menu';
+            const originalItems = node.originalDropdown.querySelectorAll('button, a');
+            originalItems.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'custom-dropdown-item';
+                menuItem.innerText = item.innerText;
+                menuItem.onclick = (e) => {
+                    e.stopPropagation();
+                    customMenu.classList.remove('show');
+                    actionsBtn.classList.remove('active');
+                    item.click();
+                };
+                customMenu.appendChild(menuItem);
+            });
+            actionsBtn.onclick = (e) => {
+                e.stopPropagation();
+                document.querySelectorAll('.custom-dropdown-menu').forEach(m => {
+                    if (m !== customMenu) m.classList.remove('show');
+                });
+                const isVisible = customMenu.classList.contains('show');
+                isVisible ? customMenu.classList.remove('show') : customMenu.classList.add('show');
+                isVisible ? actionsBtn.classList.remove('active') : actionsBtn.classList.add('active');
+            };
+            dropdownWrapper.appendChild(actionsBtn);
+            dropdownWrapper.appendChild(customMenu);
+            rightArea.appendChild(dropdownWrapper);
+        }
+        if (node.children.length > 0) {
+            const arrow = document.createElement('div');
+            arrow.className = 'toggle-arrow';
+            arrow.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>`;
+            arrow.onclick = (e) => {
+                e.stopPropagation();
+                const childBlock = container.querySelector('.children-block');
+                if (childBlock) {
+                    const isOpen = childBlock.classList.contains('open');
+                    isOpen ? childBlock.classList.remove('open') : childBlock.classList.add('open');
+                    isOpen ? arrow.classList.remove('rotated') : arrow.classList.add('rotated');
+                }
+            };
+            rightArea.appendChild(arrow);
+        } else {
+            const spacer = document.createElement('div');
+            spacer.style.width = '32px';
+            rightArea.appendChild(spacer);
+        }
+        content.appendChild(rightArea);
+        container.appendChild(content);
+        if (node.children.length > 0) {
+            const childBlock = document.createElement('div');
+            childBlock.className = 'children-block';
+            node.children.forEach(child => {
+                childBlock.appendChild(createNode(child, false));
+            });
+            container.appendChild(childBlock);
+        }
+        return container;
+    }
+    root.children.forEach(child => {
+        treeContainer.appendChild(createNode(child, true));
+    });
+    customInterface.appendChild(treeContainer);
+    buildFooter();
+}
+function buildFooter() {
+    const footer = document.createElement('div');
+    footer.className = 'footer-container';
+    const allLinks = Array.from(main.querySelectorAll('a'));
+    const collectionLink = allLinks.find(a => a.innerText.includes('MB') && !a.href.includes('media'));
+    const mediaLink = allLinks.find(a => a.href.includes('/account/media'));
+    const statsRow = document.createElement('div');
+    statsRow.className = 'footer-stats-row';
+    const colText = document.createElement('div');
+    colText.innerHTML = `Collection: `;
+    if (collectionLink) {
+        const span = document.createElement('span');
+        span.innerText = collectionLink.innerText;
+        span.onclick = () => collectionLink.click();
+        colText.appendChild(span);
+    } else { colText.innerHTML += "Unknown"; }
+    const medText = document.createElement('div');
+    medText.innerHTML = `Media: `;
+    if (mediaLink) {
+        const span = document.createElement('span');
+        span.innerText = mediaLink.innerText;
+        span.onclick = (e) => {
+            e.preventDefault();
+            mediaLink.click();
+        };
+        medText.appendChild(span);
+    }
+    statsRow.appendChild(colText);
+    statsRow.appendChild(medText);
+    const btnsRow = document.createElement('div');
+    btnsRow.className = 'footer-buttons-row';
+    const createBtn = (text, action, isPrimary = false) => {
+        const btn = document.createElement('button');
+        btn.innerText = text;
+        btn.className = isPrimary ? 'big-btn big-btn-primary' : 'big-btn';
+        btn.onclick = action;
+        return btn;
+    };
+    btnsRow.appendChild(createBtn('Get Shared Decks', () => location.href='/shared/decks/'));
+    btnsRow.appendChild(createBtn('My Shared Items', () => location.href='/shared/mine'));
+    btnsRow.appendChild(createBtn('Create Deck', () => {
+        const originalButtons = Array.from(document.querySelectorAll('button'));
+        const realCreateBtn = originalButtons.find(b => b.innerText.trim() === 'Create Deck');
+        if (realCreateBtn) {
+            realCreateBtn.click();
+        } else {
+            const addLink = document.querySelector('a[href*="/add"]');
+            if (addLink) addLink.click();
+            else alert("Botão original 'Create Deck' não encontrado.");
+        }
+    }, true));
+    footer.appendChild(statsRow);
+    footer.appendChild(btnsRow);
+    customInterface.appendChild(footer);
+}
+buildUI();
+const observer = new MutationObserver((mutations) => {
+    let shouldRebuild = false;
+    mutations.forEach(m => {
+        if (m.target === main || m.target.classList?.contains('row')) {
+            const isCustomChange = Array.from(m.addedNodes).some(n => n.id === 'custom-interface') ||
+                                   Array.from(m.removedNodes).some(n => n.id === 'custom-interface');
+            if (!isCustomChange) {
+                shouldRebuild = true;
+            }
+        }
+    });
+    if (shouldRebuild) {
+        if (window.rebuildTimeout) clearTimeout(window.rebuildTimeout);
+        window.rebuildTimeout = setTimeout(buildUI, 50);
+    }
+});
+observer.observe(main, { childList: true, subtree: true });
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.dropdown-wrapper')) {
+        document.querySelectorAll('.custom-dropdown-menu').forEach(m => m.classList.remove('show'));
+        document.querySelectorAll('.custom-actions-btn').forEach(b => b.classList.remove('active'));
+    }
+});
+console.log("Tema aplicado e funcional!");
+  }, 300); // Aguarda 300ms para o DOM estar completamente pronto
+}
+
+// Executa a inicialização APENAS se está em /decks
+if (window.location.pathname === '/decks') {
+  init();
+}
+
+// SEGURANÇA: Monitora mudanças de URL e DESLIGA completamente o tema ao sair de /decks
+let lastPathname = window.location.pathname;
+let isThemeApplied = (lastPathname === '/decks');
+let monitorInterval = null;
+
+// Função para limpar TUDO relacionado ao tema
+function cleanupTheme() {
+  console.log('Tema Neumorphism Decks: Limpeza completa...');
+  
+  // Remove a interface customizada
+  const customInterface = document.getElementById('custom-interface');
+  if (customInterface) {
+    customInterface.remove();
+  }
+  
+  // Para o monitor de URL
+  if (monitorInterval) {
+    clearInterval(monitorInterval);
+    monitorInterval = null;
+  }
+  
+  isThemeApplied = false;
+  console.log('Tema Neumorphism Decks: DESATIVADO');
+}
+
+// Monitor de URL - SÓ roda se começou em /decks
+if (window.location.pathname === '/decks') {
+  monitorInterval = setInterval(() => {
+    const currentPathname = window.location.pathname;
+    
+    // Se SAIU de /decks, limpa TUDO e para o monitor
+    if (currentPathname !== '/decks') {
+      console.log('Tema Neumorphism Decks: Saiu de /decks, desativando...');
+      cleanupTheme();
+      return; // Para de executar
+    }
+    
+    // Se ESTÁ em /decks mas o tema não foi aplicado, aplica
+    if (currentPathname === '/decks' && !document.getElementById('custom-interface')) {
+      console.log('Tema Neumorphism Decks: Reaplicando tema...');
+      init();
+    }
+  }, 500);
+}
+
+})(); // Fim da IIFE
+
+
+===== themes/dracula/decks/styles.css =====
+/* ===== Dracula Theme - Decks Page ===== */
+:root {
+    --primary: #bd93f9;
+    --primary-hover: #a97fe0;
+    --bg-body: #282a36;
+    --surface: #44475a;
+    --text-main: #f8f8f2;
+    --text-muted: #6272a4;
+    --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+    --shadow-hover: 0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+    --shadow-floating: 0 12px 48px rgba(189, 147, 249, 0.2);
+    --accent-pink: #ff79c6;
+    --accent-cyan: #8be9fd;
+    --accent-green: #50fa7b;
+    --accent-orange: #ffb86c;
+    --accent-red: #ff5555;
+    --accent-yellow: #f1fa8c;
+}
+body {
+    background-color: var(--bg-body) !important;
+    color: var(--text-main) !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+}
+main.container > .row {
+    display: none !important;
+}
+#custom-interface {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 100px;
+}
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-main);
+    margin: 40px 0 2rem 0;
+    text-align: center;
+}
+.deck-card {
+    background: var(--surface);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    position: relative;
+}
+.deck-card:hover {
+    transform: translateY(-3px) scale(1.005);
+    box-shadow: var(--shadow-hover);
+    z-index: 5;
+}
+.card-content {
+    display: flex;
+    align-items: center;
+    padding: 24px 32px;
+    cursor: pointer;
+}
+.deck-icon {
+    color: var(--primary);
+    margin-right: 24px;
+    transform: scale(1.2);
+    display: flex;
+    align-items: center;
+}
+.deck-name {
+    flex-grow: 1;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.01em;
+}
+.right-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.stats-pill {
+    padding: 8px 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    min-width: 40px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+.pill-due { background: rgba(255, 85, 85, 0.2); color: var(--accent-red); border: 1px solid var(--accent-red); }
+.pill-new { background: rgba(80, 250, 123, 0.2); color: var(--accent-green); border: 1px solid var(--accent-green); }
+.pill-zero { background: rgba(98, 114, 164, 0.2); color: var(--text-muted); border: 1px solid var(--text-muted); }
+.custom-actions-btn {
+    background: transparent;
+    border: 2px solid transparent;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.custom-actions-btn:hover, .custom-actions-btn.active {
+    background: rgba(189, 147, 249, 0.2);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+.custom-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background: var(--surface);
+    border-radius: 16px;
+    box-shadow: var(--shadow-floating);
+    padding: 12px;
+    min-width: 200px;
+    margin-top: 12px;
+    display: none;
+    z-index: 100;
+    animation: fadeIn 0.15s ease-out;
+}
+.custom-dropdown-menu.show { display: block; }
+.custom-dropdown-item {
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    color: var(--text-main);
+    display: block;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.custom-dropdown-item:hover { background: var(--bg-body); color: var(--primary); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+.children-block {
+    display: none;
+    background: rgba(40, 42, 54, 0.5);
+    border-top: 1px solid rgba(98, 114, 164, 0.3);
+    border-radius: 0 0 20px 20px;
+    padding: 10px 0;
+    overflow: hidden;
+}
+.children-block.open { display: block; }
+.child-row {
+    display: flex;
+    align-items: center;
+    padding: 16px 32px 16px 64px;
+    position: relative;
+    transition: background 0.2s;
+    cursor: pointer;
+}
+.child-row:hover { background: rgba(189, 147, 249, 0.1); }
+.child-row::before {
+    content: '';
+    position: absolute;
+    left: 42px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #E9ECEF;
+}
+.child-row .deck-name { font-size: 1rem; }
+.toggle-arrow {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    color: var(--text-muted);
+}
+.toggle-arrow:hover { background: rgba(189, 147, 249, 0.2); color: var(--primary); }
+.toggle-arrow.rotated { transform: rotate(90deg); color: var(--primary); background: rgba(189, 147, 249, 0.3); }
+.footer-container {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+}
+.footer-stats-row {
+    display: flex;
+    gap: 32px;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    background: var(--surface);
+    padding: 12px 32px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    border: 1px solid rgba(98, 114, 164, 0.3);
+}
+.footer-stats-row span { color: var(--accent-cyan); font-weight: 700; cursor: pointer; transition: color 0.2s; }
+.footer-stats-row span:hover { color: var(--primary); }
+.footer-buttons-row {
+    display: flex;
+    gap: 20px;
+}
+.big-btn {
+    padding: 14px 28px;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+    color: var(--text-main);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.big-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(189, 147, 249, 0.3); border-color: var(--primary); }
+.big-btn-primary {
+    background: var(--primary);
+    color: var(--bg-body);
+    box-shadow: 0 4px 15px rgba(189, 147, 249, 0.4);
+}
+.big-btn-primary:hover { background: var(--primary-hover); box-shadow: 0 8px 25px rgba(189, 147, 249, 0.6); }
+
+
+===== themes/dracula/shared/base.css =====
+/* ===================================
+   SHARED BASE - dracula
+   Estilos comuns entre todas as URLs
+   
+   INSTRUÇÕES:
+   1. Substitua dracula pelo nome do tema
+   2. Ajuste os valores das variáveis conforme theme-config.json
+   3. Este arquivo será importado em TODOS os styles.css de cada URL
+   =================================== */
+
+:root {
+  /* ===== Cores Principais - Dracula Theme ===== */
+  --theme-bg-primary: #282a36;
+  --theme-bg-secondary: #44475a;
+  --theme-text-primary: #f8f8f2;
+  --theme-text-secondary: #6272a4;
+  --theme-accent: #bd93f9;
+  --theme-accent-hover: #a97fe0;
+  
+  /* ===== Sombras (Dark Mode) ===== */
+  --theme-shadow-light: #383a4a;
+  --theme-shadow-dark: #191a21;
+  --theme-shadow-raised: 0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --theme-shadow-pressed: inset 0 2px 6px rgba(0, 0, 0, 0.4);
+  --theme-shadow-hover: 0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4);
+  --theme-shadow-subtle: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --theme-shadow-glow: 0 0 20px rgba(189, 147, 249, 0.4);
+  
+  /* ===== Dracula Accent Colors ===== */
+  --theme-pink: #ff79c6;
+  --theme-cyan: #8be9fd;
+  --theme-green: #50fa7b;
+  --theme-orange: #ffb86c;
+  --theme-purple: #bd93f9;
+  --theme-red: #ff5555;
+  --theme-yellow: #f1fa8c;
+  
+  /* ===== Status Colors ===== */
+  --theme-success: #50fa7b;
+  --theme-warning: #f1fa8c;
+  --theme-danger: #ff5555;
+  
+  /* ===== Espaçamentos ===== */
+  --theme-spacing-xs: 8px;
+  --theme-spacing-sm: 12px;
+  --theme-spacing-md: 16px;
+  --theme-spacing-lg: 24px;
+  --theme-spacing-xl: 32px;
+  --theme-spacing-xxl: 48px;
+  
+  /* ===== Bordas ===== */
+  --theme-radius-sm: 8px;
+  --theme-radius-md: 12px;
+  --theme-radius-lg: 16px;
+  --theme-radius-xl: 20px;
+  --theme-radius-round: 50%;
+  
+  /* ===== Fontes ===== */
+  --theme-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --theme-font-mono: 'Fira Code', 'Courier New', monospace;
+  --theme-font-size-xs: 10px;
+  --theme-font-size-sm: 12px;
+  --theme-font-size-md: 14px;
+  --theme-font-size-lg: 16px;
+  --theme-font-size-xl: 20px;
+  --theme-font-size-xxl: 24px;
+  --theme-font-size-xxxl: 32px;
+  
+  /* ===== Transições ===== */
+  --theme-transition-fast: 0.15s ease;
+  --theme-transition-normal: 0.3s ease;
+  --theme-transition-slow: 0.5s ease;
+}
+
+/* ===== Reset Básico ===== */
+body {
+  background: var(--theme-bg-primary) !important;
+  color: var(--theme-text-primary) !important;
+  font-family: var(--theme-font-primary) !important;
+  line-height: 1.6;
+}
+
+/* ===== Scrollbar Customizada (Dracula Style) ===== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-bg-secondary);
+  border-radius: 6px;
+  border: 2px solid var(--theme-bg-primary);
+  transition: background var(--theme-transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-accent);
+  box-shadow: var(--theme-shadow-glow);
+}
+
+/* ===== Utilitários Globais ===== */
+.theme-btn {
+  padding: var(--theme-spacing-sm) var(--theme-spacing-lg);
+  border-radius: var(--theme-radius-md);
+  border: none;
+  background: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  box-shadow: var(--theme-shadow-raised);
+  cursor: pointer;
+  transition: all var(--theme-transition-normal);
+  font-family: var(--theme-font-primary);
+  font-size: var(--theme-font-size-md);
+  font-weight: 500;
+}
+
+.theme-btn:hover {
+  box-shadow: var(--theme-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.theme-btn:active {
+  box-shadow: var(--theme-shadow-pressed);
+  transform: translateY(0);
+}
+
+.theme-btn-primary {
+  background: var(--theme-accent);
+  color: white;
+}
+
+.theme-btn-primary:hover {
+  background: var(--theme-accent-hover);
+}
+
+.theme-card {
+  background: var(--theme-bg-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-raised);
+  padding: var(--theme-spacing-lg);
+  transition: all var(--theme-transition-normal);
+}
+
+.theme-card:hover {
+  box-shadow: var(--theme-shadow-hover);
+}
+
+/* ===== Animações ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-fade-in {
+  animation: fadeIn var(--theme-transition-normal);
+}
+
+
+===== themes/dracula/shared/common.js =====
+// ===================================
+// SHARED COMMON - dracula
+// Funções utilitárias reutilizáveis
+//
+// INSTRUÇÕES:
+// 1. Substitua dracula pelo nome do tema
+// 2. Este arquivo é injetado ANTES dos logic.js específicos
+// 3. Todas as funções ficam disponíveis via window.AnkiModernShared
+// ===================================
+
+(function() {
+  'use strict';
+
+  // Namespace global para funções compartilhadas
+  window.AnkiModernShared = window.AnkiModernShared || {};
+
+  // ===== URL Helpers =====
+
+  /**
+   * Verifica se está na URL esperada
+   * @param {string|RegExp} expectedPath - Caminho ou pattern esperado
+   * @returns {boolean}
+   */
+  window.AnkiModernShared.isCorrectUrl = function(expectedPath) {
+    const currentPath = window.location.pathname;
+    if (expectedPath instanceof RegExp) {
+      return expectedPath.test(currentPath);
+    }
+    return currentPath === expectedPath;
+  };
+
+  /**
+   * Extrai ID da URL (ex: /edit/123456 → 123456)
+   * @param {RegExp} pattern - Pattern com grupo de captura
+   * @returns {string|null}
+   */
+  window.AnkiModernShared.extractIdFromUrl = function(pattern) {
+    const match = window.location.pathname.match(pattern);
+    return match ? match[1] : null;
+  };
+
+  // ===== DOM Helpers =====
+
+  /**
+   * Aguarda elemento aparecer no DOM
+   * @param {string} selector - Seletor CSS
+   * @param {number} timeout - Timeout em ms (padrão: 5000)
+   * @returns {Promise<Element>}
+   */
+  window.AnkiModernShared.waitForElement = function(selector, timeout = 5000) {
+    return new Promise((resolve, reject) => {
+      const element = document.querySelector(selector);
+      if (element) {
+        resolve(element);
+        return;
+      }
+
+      const observer = new MutationObserver(() => {
+        const element = document.querySelector(selector);
+        if (element) {
+          observer.disconnect();
+          resolve(element);
+        }
+      });
+
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+
+      setTimeout(() => {
+        observer.disconnect();
+        reject(new Error(`Elemento ${selector} não encontrado em ${timeout}ms`));
+      }, timeout);
+    });
+  };
+
+  /**
+   * Remove todos os elementos criados pelo tema
+   * @param {string} containerId - ID do container customizado
+   */
+  window.AnkiModernShared.cleanup = function(containerId) {
+    const container = document.getElementById(containerId);
+    if (container) {
+      container.remove();
+      console.log(`✓ Container ${containerId} removido`);
+    }
+  };
+
+  /**
+   * Oculta elementos originais do AnkiWeb
+   * @param {string} selector - Seletor CSS dos elementos a ocultar
+   */
+  window.AnkiModernShared.hideOriginalElements = function(selector) {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      el.style.display = 'none';
+    });
+    console.log(`✓ ${elements.length} elementos originais ocultados`);
+  };
+
+  // ===== Component Builders =====
+
+  /**
+   * Cria botão com estilo do tema
+   * @param {string} text - Texto do botão
+   * @param {Function} onClick - Callback do clique
+   * @param {boolean} isPrimary - Se é botão primário
+   * @returns {HTMLElement}
+   */
+  window.AnkiModernShared.createButton = function(text, onClick, isPrimary = false) {
+    const btn = document.createElement('button');
+    btn.innerText = text;
+    btn.className = isPrimary ? 'theme-btn theme-btn-primary' : 'theme-btn';
+    btn.onclick = onClick;
+    return btn;
+  };
+
+  /**
+   * Cria card com estilo do tema
+   * @returns {HTMLElement}
+   */
+  window.AnkiModernShared.createCard = function() {
+    const card = document.createElement('div');
+    card.className = 'theme-card theme-fade-in';
+    return card;
+  };
+
+  /**
+   * Cria dropdown customizado
+   * @param {string} buttonText - Texto do botão
+   * @param {Array<{text: string, onClick: Function}>} items - Itens do menu
+   * @returns {HTMLElement}
+   */
+  window.AnkiModernShared.createDropdown = function(buttonText, items) {
+    const wrapper = document.createElement('div');
+    wrapper.style.position = 'relative';
+    wrapper.style.display = 'inline-block';
+
+    const button = this.createButton(buttonText, () => {
+      menu.classList.toggle('show');
+    });
+    
+    const menu = document.createElement('div');
+    menu.className = 'theme-dropdown-menu';
+    menu.style.cssText = `
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 8px;
+      background: var(--theme-bg-primary);
+      border-radius: var(--theme-radius-md);
+      box-shadow: var(--theme-shadow-raised);
+      padding: var(--theme-spacing-xs);
+      min-width: 150px;
+      z-index: 1000;
+    `;
+
+    items.forEach(item => {
+      const menuItem = document.createElement('div');
+      menuItem.innerText = item.text;
+      menuItem.className = 'theme-dropdown-item';
+      menuItem.style.cssText = `
+        padding: var(--theme-spacing-sm);
+        cursor: pointer;
+        border-radius: var(--theme-radius-sm);
+        transition: all var(--theme-transition-fast);
+      `;
+      menuItem.onclick = (e) => {
+        e.stopPropagation();
+        menu.classList.remove('show');
+        item.onClick();
+      };
+      menuItem.onmouseenter = () => {
+        menuItem.style.background = 'var(--theme-bg-secondary)';
+      };
+      menuItem.onmouseleave = () => {
+        menuItem.style.background = 'transparent';
+      };
+      menu.appendChild(menuItem);
+    });
+
+    menu.classList.add('show');
+    menu.style.display = 'block';
+
+    wrapper.appendChild(button);
+    wrapper.appendChild(menu);
+
+    // Fecha ao clicar fora
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target)) {
+        menu.classList.remove('show');
+        menu.style.display = 'none';
+      }
+    });
+
+    return wrapper;
+  };
+
+  // ===== Lifecycle Management =====
+
+  /**
+   * Cria monitor de URL que limpa o tema ao sair
+   * @param {string} expectedUrl - URL esperada (string ou regex)
+   * @param {Function} cleanupCallback - Função de cleanup
+   * @returns {number} - ID do interval
+   */
+  window.AnkiModernShared.createUrlMonitor = function(expectedUrl, cleanupCallback) {
+    return setInterval(() => {
+      const isCorrect = this.isCorrectUrl(expectedUrl);
+      if (!isCorrect) {
+        console.log('✗ URL mudou, executando cleanup...');
+        cleanupCallback();
+      }
+    }, 500);
+  };
+
+  // ===== Debug Helpers =====
+
+  /**
+   * Log formatado para debug
+   * @param {string} themeName - Nome do tema
+   * @param {string} message - Mensagem
+   */
+  window.AnkiModernShared.log = function(themeName, message) {
+    console.log(`[${themeName}] ${message}`);
+  };
+
+  /**
+   * Log de erro formatado
+   * @param {string} themeName - Nome do tema
+   * @param {string} message - Mensagem de erro
+   */
+  window.AnkiModernShared.error = function(themeName, message) {
+    console.error(`[${themeName}] ✗ ${message}`);
+  };
+
+  console.log('✓ AnkiModern Shared utilities loaded');
+})();
+
+
+===== themes/dracula/theme-config.json =====
+{
+  "name": "dracula",
+  "version": "1.0.0",
+  "description": "Tema dracula para AnkiWeb",
+  "author": "Davi Azevedo",
+  
+  "colors": {
+    "primary": "#282a36",
+    "secondary": "#44475a",
+    "textPrimary": "#f8f8f2",
+    "textSecondary": "#6272a4",
+    "accent": "#bd93f9",
+    "accentHover": "#a97fe0",
+    "shadowLight": "#383a4a",
+    "shadowDark": "#191a21",
+    "success": "#50fa7b",
+    "warning": "#f1fa8c",
+    "danger": "#ff5555",
+    "pink": "#ff79c6",
+    "cyan": "#8be9fd",
+    "green": "#50fa7b",
+    "orange": "#ffb86c",
+    "purple": "#bd93f9",
+    "red": "#ff5555",
+    "yellow": "#f1fa8c"
+  },
+  
+  "shadows": {
+    "raised": "0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3)",
+    "pressed": "inset 0 2px 6px rgba(0, 0, 0, 0.4)",
+    "hover": "0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4)",
+    "subtle": "0 2px 8px rgba(0, 0, 0, 0.3)",
+    "glow": "0 0 20px rgba(189, 147, 249, 0.4)"
+  },
+  
+  "spacing": {
+    "xs": "8px",
+    "sm": "12px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "xxl": "48px"
+  },
+  
+  "borderRadius": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "20px",
+    "round": "50%"
+  },
+  
+  "fonts": {
+    "primary": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "monospace": "'Fira Code', 'Courier New', monospace",
+    "size": {
+      "xs": "10px",
+      "sm": "12px",
+      "md": "14px",
+      "lg": "16px",
+      "xl": "20px",
+      "xxl": "24px",
+      "xxxl": "32px"
+    },
+    "weight": {
+      "light": 300,
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  
+  "transitions": {
+    "fast": "0.15s ease",
+    "normal": "0.3s ease",
+    "slow": "0.5s ease"
+  },
+  
+  "breakpoints": {
+    "mobile": "768px",
+    "tablet": "1024px",
+    "desktop": "1440px"
+  }
+}
 
 
 ===== themes/neumorphism/decks/logic.js =====
