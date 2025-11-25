@@ -1,0 +1,201 @@
+/* ===================================
+   Neumorphism Theme - Account Login Page
+   =================================== */
+
+/* Variáveis do tema */
+body.anki-modern-account-login {
+  --bg-body: #f0f2f5;
+  --bg-surface: #e8ebef;
+  --bg-field: #f0f2f5;
+  --text-main: #2d3748;
+  --text-secondary: #718096;
+  --text-light: #a0aec0;
+  --primary: #5e72e4;
+  --primary-hover: #4c5fd4;
+  --border-color: #cbd5e0;
+  --shadow-neumorphic: 6px 6px 12px rgba(163, 177, 198, 0.5), 
+                       -6px -6px 12px rgba(255, 255, 255, 0.9);
+  --shadow-neumorphic-inset: inset 4px 4px 8px rgba(163, 177, 198, 0.4),
+                             inset -4px -4px 8px rgba(255, 255, 255, 0.8);
+}
+
+/* Background do body */
+body.anki-modern-account-login {
+  background: var(--bg-body) !important;
+}
+
+/* Container principal - centralizado verticalmente */
+body.anki-modern-account-login main.container {
+  background: var(--bg-body) !important;
+  padding: 2rem 1rem !important;
+  max-width: 500px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+}
+
+/* Título */
+body.anki-modern-account-login h1 {
+  color: var(--text-main) !important;
+  font-weight: 700 !important;
+  font-size: 2.5rem !important;
+  margin-bottom: 1rem !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+}
+
+/* Parágrafo descritivo */
+body.anki-modern-account-login main p {
+  color: var(--text-secondary) !important;
+  font-size: 1rem !important;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+}
+
+/* Formulário */
+body.anki-modern-account-login form {
+  background: var(--bg-body) !important;
+  padding: 2rem !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+}
+
+/* ===================================
+   INPUTS
+   =================================== */
+
+body.anki-modern-account-login .form-floating {
+  margin-bottom: 1.5rem !important;
+}
+
+body.anki-modern-account-login .form-floating input.form-control {
+  background: var(--bg-field) !important;
+  border: none !important;
+  color: var(--text-main) !important;
+  font-size: 1rem !important;
+  padding: 1.5rem 1rem !important;
+  height: 60px !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-account-login .form-floating input.form-control:focus {
+  outline: none !important;
+  box-shadow: var(--shadow-neumorphic-inset),
+              0 0 0 3px rgba(94, 114, 228, 0.2) !important;
+}
+
+body.anki-modern-account-login .form-floating input.form-control::placeholder {
+  color: var(--text-secondary) !important;
+}
+
+/* Labels - Ocultar para evitar conflito visual */
+body.anki-modern-account-login .form-floating label {
+  display: none !important;
+}
+
+/* ===================================
+   BOTÃO LOG IN
+   =================================== */
+
+body.anki-modern-account-login .btn-primary {
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 1rem 2.5rem !important;
+  height: 60px !important;
+  width: 100% !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  transition: all 0.3s ease !important;
+  cursor: pointer !important;
+  margin-bottom: 1rem !important;
+}
+
+body.anki-modern-account-login .btn-primary:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 8px 8px 16px rgba(163, 177, 198, 0.6),
+              -8px -8px 16px rgba(255, 255, 255, 1) !important;
+}
+
+body.anki-modern-account-login .btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+}
+
+/* ===================================
+   LINK RESET PASSWORD
+   =================================== */
+
+body.anki-modern-account-login .form-group.mt-2 {
+  text-align: center !important;
+  margin-top: 1rem !important;
+}
+
+body.anki-modern-account-login .form-group.mt-2 a {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  transition: all 0.3s ease !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 8px !important;
+  display: inline-block !important;
+}
+
+body.anki-modern-account-login .form-group.mt-2 a:hover {
+  background: rgba(94, 114, 228, 0.08) !important;
+  box-shadow: inset 2px 2px 4px rgba(163, 177, 198, 0.3),
+              inset -2px -2px 4px rgba(255, 255, 255, 0.7) !important;
+}
+
+/* ===================================
+   BOTÃO SIGN UP NO NAVBAR
+   =================================== */
+
+body.anki-modern-account-login .navbar .btn-primary {
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  border: none !important;
+  color: white !important;
+  font-weight: 600 !important;
+  font-size: 0.875rem !important;
+  padding: 0.5rem 1.5rem !important;
+  height: auto !important;
+  width: auto !important;
+  border-radius: 8px !important;
+  box-shadow: 3px 3px 6px rgba(163, 177, 198, 0.4),
+              -3px -3px 6px rgba(255, 255, 255, 0.9) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  margin-bottom: 0 !important;
+}
+
+body.anki-modern-account-login .navbar .btn-primary:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 4px 4px 8px rgba(163, 177, 198, 0.5),
+              -4px -4px 8px rgba(255, 255, 255, 1) !important;
+}
+
+/* ===================================
+   RESPONSIVIDADE
+   =================================== */
+
+@media (max-width: 768px) {
+  body.anki-modern-account-login main.container {
+    max-width: 100% !important;
+  }
+
+  body.anki-modern-account-login form {
+    padding: 1.5rem !important;
+  }
+
+  body.anki-modern-account-login h1 {
+    font-size: 2rem !important;
+  }
+}

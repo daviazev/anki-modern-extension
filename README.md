@@ -1,93 +1,227 @@
-# AnkiModern Extension
+# 🎨 Anki Modern Extension
 
-A beautiful, modern dark theme for AnkiWeb with customizable color schemes and sync capabilities.
+Extensão do Google Chrome (Manifest V3) que moderniza o layout e funcionalidades do **AnkiWeb** e **AnkiUser** com sistema de temas modular e reutilizável.
 
-## 🎯 Current Status: MVP Mode
+---
 
-**Authentication:** Mock (localStorage)  
-**Storage:** chrome.storage.sync  
-**Firebase:** Ready but not active (will be enabled post-MVP)
+## ✨ Características
 
-📖 See [MVP_SUMMARY.md](./MVP_SUMMARY.md) for complete information about MVP mode.
+- ✅ **Sistema de Temas Modular:** Crie novos temas apenas mudando variáveis
+- ✅ **Suporte Multi-URL:** Cada tela tem sua lógica e estilos separados
+- ✅ **Roteamento Inteligente:** Suporta URLs exatas, com IDs e aninhadas
+- ✅ **Dois Domínios:** ankiweb.net + ankiuser.net
+- ✅ **Isolamento Perfeito:** Nenhum elemento vaza para outras URLs
+- ✅ **Templates Prontos:** Scripts para criar temas e adicionar URLs rapidamente
 
-## 🚀 Quick Start
+---
 
-### Development
+## 📁 Estrutura do Projeto
 
-First, run the development server:
-
-```bash
-pnpm dev
-# or
-npm run dev
+```
+anki-modern-extension/
+├── manifest.json                 # Configuração da extensão
+├── src/
+│   ├── loader.js                # Sistema de roteamento (URL → Tema)
+│   └── background.js            # Service worker
+├── popup/
+│   ├── index.html               # Interface toggle on/off
+│   └── popup.js                 # Lógica do popup
+├── themes/
+│   └── neumorphism/             # Tema Neumorphism (padrão)
+│       ├── decks/               # Tema para /decks
+│       │   ├── styles.css
+│       │   └── logic.js
+│       └── ...                  # (outras URLs no futuro)
+└── .templates/                  # 🔧 Templates para criar temas
+    ├── README.md                # Documentação dos templates
+    ├── theme-structure/         # Estrutura completa de um tema
+    │   ├── theme-config.json
+    │   ├── shared/
+    │   │   ├── base.css
+    │   │   └── common.js
+    │   └── url-template/
+    │       ├── styles.css
+    │       └── logic.js
+    └── scripts/
+        ├── create-theme.sh      # Cria novo tema
+        └── add-url-support.sh   # Adiciona suporte para URL
 ```
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+---
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
+## 🚀 Como Criar um Novo Tema
 
-For further guidance, [visit Plasmo Documentation](https://docs.plasmo.com/)
+### 📘 Tutorial Completo com Exemplo Prático
 
-### Testing
+**Ver:** [TUTORIAL-CRIAR-TEMA.md](./TUTORIAL-CRIAR-TEMA.md)
 
-1. Build the extension: `pnpm build`
-2. Load `build/chrome-mv3-prod` in Chrome
-3. Click "Sign in with Google" (mock login)
-4. Navigate to ankiweb.net to see themes
+Este tutorial mostra **passo a passo detalhado** de como foi criado o tema **Dracula**, incluindo:
+- ✅ Como usar os scripts de automação
+- ✅ Como configurar cores e variáveis
+- ✅ Como adaptar estilos existentes
+- ✅ Como registrar no popup
+- ✅ Comparação Neumorphism vs Dracula
+- ✅ Troubleshooting e boas práticas
 
-📖 Full testing guide: [MVP_TESTING_GUIDE.md](./MVP_TESTING_GUIDE.md)
-
-## 📦 Production Build
-
-Run the following:
+### Opção 1: Com Script (Recomendado)
 
 ```bash
-pnpm build
-# or
-npm run build
+cd .templates/scripts
+./create-theme.sh "meu-tema" "Seu Nome"
 ```
 
-This creates a production bundle in `build/chrome-mv3-prod`.
+Isso cria automaticamente:
+- `themes/meu-tema/theme-config.json`
+- `themes/meu-tema/shared/base.css`
+- `themes/meu-tema/shared/common.js`
 
-## 📚 Documentation
+### Opção 2: Manual
 
-- **[MVP_SUMMARY.md](./MVP_SUMMARY.md)** - Overview of MVP mode and changes
-- **[MVP_TESTING_GUIDE.md](./MVP_TESTING_GUIDE.md)** - How to test the extension
-- **[FIREBASE_MIGRATION_PLAN.md](./FIREBASE_MIGRATION_PLAN.md)** - Future Firebase migration plan
-- **[OAUTH_SETUP.md](./OAUTH_SETUP.md)** - OAuth setup (for future use)
-- **[TROUBLESHOOTING.md](./TROUBLESHOOTING.md)** - Common issues and solutions
+1. Copie `.templates/theme-structure/` para `themes/seu-tema/`
+2. Edite `theme-config.json` com suas cores e variáveis
+3. Ajuste `shared/base.css` com as CSS variables
+4. Registre em `popup/popup.js`
 
-## 🏗️ Architecture
+---
 
-### MVP Mode (Current)
-- **Auth:** Mock login (localStorage)
-- **Storage:** chrome.storage.sync
-- **Sync:** Local only
+## 📝 Como Adicionar Suporte para Nova URL
 
-### Production Mode (Future)
-- **Auth:** Firebase Auth + Google OAuth
-- **Storage:** Firestore
-- **Sync:** Cloud + Multi-device
+### Passo 1: Adicione o Pattern no `src/loader.js`
 
-## 🔄 Migration to Firebase
+```javascript
+const URL_PATTERNS = [
+  // ... patterns existentes ...
+  { pattern: /^\/nova\/url$/, folder: 'nova-url', host: 'ankiweb.net' },
+];
+```
 
-When MVP is complete and tested:
+### Passo 2: Crie os Arquivos do Tema
 
-1. Publish extension to Chrome Web Store (get permanent Extension ID)
-2. Configure OAuth in Google Cloud Console
-3. Follow [FIREBASE_MIGRATION_PLAN.md](./FIREBASE_MIGRATION_PLAN.md)
+**Opção A: Com Script**
+```bash
+cd .templates/scripts
+./add-url-support.sh "neumorphism" "nova-url" "/nova/url"
+```
 
-## 🤝 Contributing
+**Opção B: Manual**
+```bash
+mkdir themes/neumorphism/nova-url
+cp .templates/theme-structure/url-template/styles.css themes/neumorphism/nova-url/
+cp .templates/theme-structure/url-template/logic.js themes/neumorphism/nova-url/
+```
 
-1. Fork the repository
-2. Create your feature branch
-3. Test thoroughly
-4. Submit a pull request
+### Passo 3: Customize
 
-## 📝 License
+Edite `logic.js` e `styles.css` com sua lógica específica.
 
-[Add your license here]
+---
 
-## 🙏 Acknowledgments
+## 🎯 URLs Suportadas (Mapeadas)
 
-Built with [Plasmo Framework](https://docs.plasmo.com/)
+### ankiweb.net
+- `/decks` → `decks/` ✅ (implementado)
+- `/decks/share/:id` → `decks-share-id/`
+- `/account/login` → `account-login/`
+- `/account/media` → `account-media/`
+- `/account/remove-account` → `account-remove-account/`
+- `/account/reset-password` → `account-reset-password/`
+- `/account/settings` → `account-settings/`
+- `/account/signup` → `account-signup/`
+- `/search` → `search/`
+- `/shared/decks` → `shared-decks/`
+- `/shared/mine` → `shared-mine/`
+
+### ankiuser.net
+- `/study` → `study/`
+- `/study/options` → `study-options/`
+- `/edit/:id` → `edit-id/`
+- `/add` → `add/`
+
+---
+
+## 🔧 Arquitetura Técnica
+
+### Sistema de Roteamento (`loader.js`)
+
+1. Monitora mudanças de URL (SPA navigation)
+2. Faz match do pathname com `URL_PATTERNS` (regex)
+3. Remove CSS do tema anterior
+4. Injeta CSS + JS da nova pasta
+5. Cada tema gerencia seu próprio lifecycle
+
+### Isolamento por URL
+
+Cada `logic.js`:
+- ✅ Encapsulado em IIFE (evita conflitos globais)
+- ✅ Verifica URL antes de executar
+- ✅ Monitor que limpa ao sair da URL (`clearInterval`)
+- ✅ Remove elementos DOM no cleanup
+
+### Variáveis Compartilhadas
+
+- **CSS:** `shared/base.css` com CSS custom properties
+- **JS:** `shared/common.js` com funções utilitárias via `window.AnkiModernShared`
+
+---
+
+## 🛠️ Desenvolvimento
+
+### Instalar
+
+1. Clone o repositório
+2. Abra Chrome: `chrome://extensions/`
+3. Ative "Modo do desenvolvedor"
+4. Clique "Carregar sem compactação"
+5. Selecione a pasta do projeto
+
+### Testar
+
+1. Acesse https://ankiweb.net/decks
+2. O tema deve aplicar automaticamente
+3. Navegue para outra URL → tema deve limpar
+4. Volte para /decks → tema deve reaplicar
+
+### Debug
+
+Console do Chrome mostra:
+```
+LOADER INJETADO
+URL ankiweb.net/decks → tema: decks
+[Neumorphism] Carregando tema para decks...
+[Neumorphism] ✓ Tema decks aplicado com sucesso!
+```
+
+---
+
+## 📚 Recursos Úteis
+
+- **Templates:** Ver `.templates/README.md`
+- **Criar Tema:** `.templates/scripts/create-theme.sh`
+- **Adicionar URL:** `.templates/scripts/add-url-support.sh`
+
+---
+
+## 🤝 Contribuindo
+
+1. Crie um novo tema usando os templates
+2. Adicione suporte para novas URLs
+3. Documente suas mudanças
+4. Faça um pull request
+
+---
+
+## 📄 Licença
+
+MIT
+
+---
+
+## 👤 Autor
+
+**Davi Azevedo**  
+GitHub: [@daviazev](https://github.com/daviazev)
+
+---
+
+**Versão:** 1.0.0  
+**Última atualização:** 23 de novembro de 2025

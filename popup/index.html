@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anki Modern Extension</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+    body {
+      min-width: 260px;
+      min-height: 160px;
+      background: #f0f2f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Inter', system-ui, sans-serif;
+      margin: 0;
+    }
+    .container {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(76,110,245,0.08);
+      padding: 32px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-width: 320px;
+    }
+    .title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #4C6EF5;
+      margin-bottom: 18px;
+      letter-spacing: -0.01em;
+    }
+    .toggle-switch {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 28px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: #e9ecef;
+      border-radius: 34px;
+      transition: .3s;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 22px;
+      width: 22px;
+      left: 3px;
+      bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(76,110,245,0.10);
+      transition: .3s;
+    }
+    input:checked + .slider {
+      background: #4C6EF5;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background: #fff;
+    }
+    .label {
+      font-size: 1rem;
+      color: #212529;
+      font-weight: 500;
+    }
+    .theme-selector {
+      width: 100%;
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .theme-label {
+      font-size: 0.85rem;
+      color: #6c757d;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .theme-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      background: #fff;
+      color: #212529;
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .theme-select:hover {
+      border-color: #4C6EF5;
+    }
+    .theme-select:focus {
+      border-color: #4C6EF5;
+      box-shadow: 0 0 0 3px rgba(76,110,245,0.1);
+    }
+    .theme-select option {
+      padding: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">Anki Modern Extension</div>
+    
+    <div class="toggle-switch">
+      <span class="label">Ativar</span>
+      <label class="switch">
+        <input type="checkbox" id="toggleActive">
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="theme-selector" id="themeSelectorContainer" style="display: none;">
+      <label class="theme-label" for="themeSelect">Tema</label>
+      <select id="themeSelect" class="theme-select">
+        <option value="neumorphism">Neumorphism</option>
+        <!-- Outros temas serão adicionados dinamicamente -->
+      </select>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

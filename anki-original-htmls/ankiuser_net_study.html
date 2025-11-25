@@ -1,0 +1,811 @@
+<body
+  data-sveltekit-preload-data="hover"
+  __processed_d15ac637-9fa3-4abb-b3ff-a96f699b7bd7__="true"
+  bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjMzIiwic2NvcmUiOjIwMDMzfV0="
+>
+  <noscript>JavaScript is required.</noscript>
+  <div style="display: contents" bis_skin_checked="1">
+    <script>
+      {
+        __sveltekit_o1gkj7 = {
+          base: "",
+        };
+
+        const element = document.currentScript.parentElement;
+
+        Promise.all([
+          import("/_app/immutable/entry/start.D5kXpQJE.mjs"),
+          import("/_app/immutable/entry/app.DcuJZdbn.mjs"),
+        ]).then(([kit, app]) => {
+          kit.start(app, element);
+        });
+      }
+    </script>
+    <nav
+      class="navbar navbar-expand-md navbar-light bg-gray sticky-top svelte-uhvvkf"
+      data-sveltekit-preload-data="hover"
+    >
+      <div class="container svelte-uhvvkf" bis_skin_checked="1">
+        <div class="navbar-brand" bis_skin_checked="1">
+          <span class="align-middle">AnkiWeb</span>
+          <div
+            class="logo-container align-middle svelte-uhvvkf"
+            bis_skin_checked="1"
+          >
+            <img
+              id="logo"
+              height="32"
+              width="32"
+              alt="logo"
+              src="/logo.png"
+              class="svelte-uhvvkf"
+            />
+          </div>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          bis_skin_checked="1"
+        >
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/decks"
+                class="nav-link svelte-lzss3o"
+                >Decks</a
+              >
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a href="/add" class="nav-link svelte-lzss3o">Add</a>
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/search"
+                class="nav-link svelte-lzss3o"
+                >Search</a
+              >
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/account/settings"
+                class="nav-link svelte-lzss3o"
+                >Account</a
+              >
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/account/logout"
+                class="nav-link svelte-lzss3o"
+                >Log Out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="container svelte-uhvvkf">
+      <div id="quiz" bis_skin_checked="1">
+        <div class="float-start" bis_skin_checked="1">
+          <a
+            class="btn btn-outline-primary"
+            href="/edit/1755741515884"
+            target="_blank"
+            >Edit</a
+          >
+          <a href="/study/options" class="btn btn-outline-primary">Limits</a>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            title="Bigger text"
+          >
+            +
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            title="Smaller text"
+          >
+            -
+          </button>
+        </div>
+        <div class="float-end" bis_skin_checked="1">
+          <span class="count new svelte-rf1f2f">0</span>
+          +
+          <span class="count learn svelte-rf1f2f">0</span>
+          +
+          <span class="count review svelte-rf1f2f active">1</span>
+        </div>
+        <div class="pt-1" style="clear: both" bis_skin_checked="1"></div>
+        <div id="qa_box" class="card card1 svelte-192a69y" bis_skin_checked="1">
+          <div id="qa" class="svelte-192a69y" bis_skin_checked="1">
+            <style>
+              /* === Estilo Global para Flashcards Banco do Brasil === */
+
+              .card {
+                font-family: "Segoe UI", sans-serif;
+                font-size: 16px;
+                background-color: #f0f0f0; /* Cinza claro */
+                color: #002776; /* Azul escuro */
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                max-width: 1000px;
+                margin: auto;
+              }
+
+              /* Container principal do flashcard */
+              .flashcard {
+                background-color: #ffffff; /* Branco */
+                border-radius: 12px;
+                padding: 16px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                box-sizing: border-box;
+              }
+
+              /* Frente da carta (pergunta) */
+              .pergunta {
+                background-color: #fcfc30; /* Amarelo institucional */
+                color: #002776; /* Azul escuro */
+                padding: 20px;
+                border-radius: 10px;
+                font-weight: 700;
+                font-size: 1.3em;
+                text-align: center;
+                user-select: none;
+                box-shadow: 0 2px 6px rgba(70, 94, 255, 0.3); /* azul institucional translúcido */
+              }
+
+              /* Verso da carta (resposta) */
+              .resposta {
+                background-color: #002776; /* Azul escuro */
+                color: #ffffff; /* Branco */
+                padding: 16px;
+                border-radius: 10px;
+                margin-top: 12px;
+                font-size: 1em;
+                line-height: 1.5;
+              }
+
+              /* === Classes para estruturar o conteúdo do verso === */
+
+              /* Exemplo destacado (bloco) */
+              .exemplo {
+                margin-top: 12px;
+                padding: 12px;
+                background-color: #003b99; /* Azul médio */
+                border-radius: 8px;
+                font-style: italic;
+                color: #fcfc30; /* Amarelo para contraste */
+                border: 1.5px solid #465eff; /* Azul institucional para destaque */
+                white-space: pre-wrap;
+                font-family: "Consolas", "Courier New", monospace;
+                font-size: 0.95em;
+                line-height: 1.6;
+              }
+
+              /* Alerta ou nota importante */
+              .nota-importante {
+                margin-top: 12px;
+                padding: 10px;
+                background-color: #fcfc30; /* Amarelo */
+                color: #002776;
+                border-radius: 8px;
+                font-weight: 700;
+                border: 2px solid #465eff;
+              }
+
+              /* Container para listas (ex.: dígrafos, operações) */
+              .lista-dados {
+                margin-top: 12px;
+                padding-left: 20px;
+                color: #ffffff;
+                font-size: 1em;
+                line-height: 1.4;
+              }
+
+              /* Itens de lista */
+              .lista-dados li {
+                margin-bottom: 5px;
+              }
+
+              /* Container para código ou trechos de programação */
+              .codigo-exemplo {
+                margin-top: 12px;
+                padding: 12px;
+                background-color: #003b99; /* Azul médio para diferenciar do fundo da resposta */
+                border-radius: 8px;
+                border: 1.5px solid #465eff;
+                overflow-x: auto;
+              }
+
+              /* Estiliza a tag <pre> dentro de .codigo-exemplo */
+              .codigo-exemplo pre {
+                margin: 0;
+                padding: 0;
+                background: none;
+                border: none;
+                color: #fcfc30; /* Amarelo para o texto do código */
+                font-family: "Consolas", "Courier New", monospace;
+                font-size: 0.95em;
+                white-space: pre-wrap;
+              }
+
+              /* Tabela de dados (para conhecimentos bancários, etc) */
+              .tabela-dados {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 12px;
+                font-size: 0.9em;
+              }
+
+              .tabela-dados th,
+              .tabela-dados td {
+                border: 1px solid #465eff; /* Azul institucional */
+                padding: 8px;
+                text-align: left;
+              }
+
+              .tabela-dados th {
+                background-color: #003b99; /* Azul médio */
+                color: #ffffff;
+                font-weight: 700;
+              }
+
+              .tabela-dados tr:nth-child(even) {
+                background-color: rgba(
+                  70,
+                  94,
+                  255,
+                  0.1
+                ); /* Linhas alternadas para legibilidade */
+              }
+
+              /* Imagem explicativa */
+              .imagem {
+                margin-top: 12px;
+                text-align: center;
+              }
+
+              .imagem img {
+                max-width: 100%;
+                border-radius: 8px;
+                border: 2px solid #fcfc30; /* Amarelo institucional */
+              }
+
+              /* Rodapé do cartão (para referências rápidas, fontes, etc) */
+              .rodape {
+                margin-top: 16px;
+                font-size: 0.8em;
+                color: #465eff;
+                text-align: right;
+                font-style: italic;
+              }
+
+              /* Classes para texto em linha */
+              .termo-chave {
+                font-weight: 700;
+                color: #465eff; /* Azul institucional */
+              }
+
+              .texto-azul {
+                color: #465eff;
+              }
+
+              .texto-amarelo {
+                color: #fcfc30;
+              }
+            </style>
+            <div class="flashcard" bis_skin_checked="1">
+              <div class="pergunta" bis_skin_checked="1">
+                Uma abordagem para o desenvolvimento e uso de sistemas de IA que
+                considera os impactos éticos, sociais e ambientais, visando
+                garantir que os sistemas sejam justos, transparentes, confiáveis
+                e seguros, minimizando riscos de prejuízo ou discriminação.
+              </div>
+            </div>
+          </div>
+          <br />
+        </div>
+        <div id="ansarea-pad" class="svelte-192a69y" bis_skin_checked="1"></div>
+        <div id="ansarea" class="svelte-192a69y" bis_skin_checked="1">
+          <div class="row justify-content-center" bis_skin_checked="1">
+            <div class="col-auto" bis_skin_checked="1">
+              <div class="pt-3" bis_skin_checked="1"></div>
+              <button class="btn btn-primary btn-lg" autofocus="">
+                Show Answer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" bis_skin_checked="1"></div>
+    </main>
+    <div
+      id="svelte-announcer"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        clip: rect(0px, 0px, 0px, 0px);
+        clip-path: inset(50%);
+        overflow: hidden;
+        white-space: nowrap;
+        width: 1px;
+        height: 1px;
+      "
+      bis_skin_checked="1"
+    ></div>
+  </div>
+
+  <div id="extension-dpfof" bis_skin_checked="1"></div>
+</body>
+
+<body
+  data-sveltekit-preload-data="hover"
+  __processed_d15ac637-9fa3-4abb-b3ff-a96f699b7bd7__="true"
+  bis_register="W3sibWFzdGVyIjp0cnVlLCJleHRlbnNpb25JZCI6ImVwcGlvY2VtaG1ubGJoanBsY2drb2ZjaWllZ29tY29uIiwiYWRibG9ja2VyU3RhdHVzIjp7IkRJU1BMQVkiOiJkaXNhYmxlZCIsIkZBQ0VCT09LIjoiZGlzYWJsZWQiLCJUV0lUVEVSIjoiZGlzYWJsZWQiLCJSRURESVQiOiJkaXNhYmxlZCIsIlBJTlRFUkVTVCI6ImRpc2FibGVkIiwiSU5TVEFHUkFNIjoiZGlzYWJsZWQiLCJUSUtUT0siOiJkaXNhYmxlZCIsIkxJTktFRElOIjoiZGlzYWJsZWQiLCJDT05GSUciOiJkaXNhYmxlZCJ9LCJ2ZXJzaW9uIjoiMi4wLjMzIiwic2NvcmUiOjIwMDMzfV0="
+>
+  <noscript>JavaScript is required.</noscript>
+  <div style="display: contents" bis_skin_checked="1">
+    <script>
+      {
+        __sveltekit_o1gkj7 = {
+          base: "",
+        };
+
+        const element = document.currentScript.parentElement;
+
+        Promise.all([
+          import("/_app/immutable/entry/start.D5kXpQJE.mjs"),
+          import("/_app/immutable/entry/app.DcuJZdbn.mjs"),
+        ]).then(([kit, app]) => {
+          kit.start(app, element);
+        });
+      }
+    </script>
+    <nav
+      class="navbar navbar-expand-md navbar-light bg-gray sticky-top svelte-uhvvkf"
+      data-sveltekit-preload-data="hover"
+    >
+      <div class="container svelte-uhvvkf" bis_skin_checked="1">
+        <div class="navbar-brand" bis_skin_checked="1">
+          <span class="align-middle">AnkiWeb</span>
+          <div
+            class="logo-container align-middle svelte-uhvvkf"
+            bis_skin_checked="1"
+          >
+            <img
+              id="logo"
+              height="32"
+              width="32"
+              alt="logo"
+              src="/logo.png"
+              class="svelte-uhvvkf"
+            />
+          </div>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse"
+          id="navbarSupportedContent"
+          bis_skin_checked="1"
+        >
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/decks"
+                class="nav-link svelte-lzss3o"
+                >Decks</a
+              >
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a href="/add" class="nav-link svelte-lzss3o">Add</a>
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/search"
+                class="nav-link svelte-lzss3o"
+                >Search</a
+              >
+            </li>
+          </ul>
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/account/settings"
+                class="nav-link svelte-lzss3o"
+                >Account</a
+              >
+            </li>
+            <li class="nav-item svelte-lzss3o">
+              <a
+                href="https://ankiweb.net:/account/logout"
+                class="nav-link svelte-lzss3o"
+                >Log Out</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <main class="container svelte-uhvvkf">
+      <div id="quiz" bis_skin_checked="1">
+        <div class="float-start" bis_skin_checked="1">
+          <a
+            class="btn btn-outline-primary"
+            href="/edit/1755741515884"
+            target="_blank"
+            >Edit</a
+          >
+          <a href="/study/options" class="btn btn-outline-primary">Limits</a>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            title="Bigger text"
+          >
+            +
+          </button>
+          <button
+            class="btn btn-outline-primary"
+            type="button"
+            title="Smaller text"
+          >
+            -
+          </button>
+        </div>
+        <div class="float-end" bis_skin_checked="1">
+          <span class="count new svelte-rf1f2f">0</span>
+          +
+          <span class="count learn svelte-rf1f2f">0</span>
+          +
+          <span class="count review svelte-rf1f2f active">1</span>
+        </div>
+        <div class="pt-1" style="clear: both" bis_skin_checked="1"></div>
+        <div id="qa_box" class="card card1 svelte-192a69y" bis_skin_checked="1">
+          <div id="qa" class="svelte-192a69y" bis_skin_checked="1">
+            <style>
+              /* === Estilo Global para Flashcards Banco do Brasil === */
+
+              .card {
+                font-family: "Segoe UI", sans-serif;
+                font-size: 16px;
+                background-color: #f0f0f0; /* Cinza claro */
+                color: #002776; /* Azul escuro */
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                max-width: 1000px;
+                margin: auto;
+              }
+
+              /* Container principal do flashcard */
+              .flashcard {
+                background-color: #ffffff; /* Branco */
+                border-radius: 12px;
+                padding: 16px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+                box-sizing: border-box;
+              }
+
+              /* Frente da carta (pergunta) */
+              .pergunta {
+                background-color: #fcfc30; /* Amarelo institucional */
+                color: #002776; /* Azul escuro */
+                padding: 20px;
+                border-radius: 10px;
+                font-weight: 700;
+                font-size: 1.3em;
+                text-align: center;
+                user-select: none;
+                box-shadow: 0 2px 6px rgba(70, 94, 255, 0.3); /* azul institucional translúcido */
+              }
+
+              /* Verso da carta (resposta) */
+              .resposta {
+                background-color: #002776; /* Azul escuro */
+                color: #ffffff; /* Branco */
+                padding: 16px;
+                border-radius: 10px;
+                margin-top: 12px;
+                font-size: 1em;
+                line-height: 1.5;
+              }
+
+              /* === Classes para estruturar o conteúdo do verso === */
+
+              /* Exemplo destacado (bloco) */
+              .exemplo {
+                margin-top: 12px;
+                padding: 12px;
+                background-color: #003b99; /* Azul médio */
+                border-radius: 8px;
+                font-style: italic;
+                color: #fcfc30; /* Amarelo para contraste */
+                border: 1.5px solid #465eff; /* Azul institucional para destaque */
+                white-space: pre-wrap;
+                font-family: "Consolas", "Courier New", monospace;
+                font-size: 0.95em;
+                line-height: 1.6;
+              }
+
+              /* Alerta ou nota importante */
+              .nota-importante {
+                margin-top: 12px;
+                padding: 10px;
+                background-color: #fcfc30; /* Amarelo */
+                color: #002776;
+                border-radius: 8px;
+                font-weight: 700;
+                border: 2px solid #465eff;
+              }
+
+              /* Container para listas (ex.: dígrafos, operações) */
+              .lista-dados {
+                margin-top: 12px;
+                padding-left: 20px;
+                color: #ffffff;
+                font-size: 1em;
+                line-height: 1.4;
+              }
+
+              /* Itens de lista */
+              .lista-dados li {
+                margin-bottom: 5px;
+              }
+
+              /* Container para código ou trechos de programação */
+              .codigo-exemplo {
+                margin-top: 12px;
+                padding: 12px;
+                background-color: #003b99; /* Azul médio para diferenciar do fundo da resposta */
+                border-radius: 8px;
+                border: 1.5px solid #465eff;
+                overflow-x: auto;
+              }
+
+              /* Estiliza a tag <pre> dentro de .codigo-exemplo */
+              .codigo-exemplo pre {
+                margin: 0;
+                padding: 0;
+                background: none;
+                border: none;
+                color: #fcfc30; /* Amarelo para o texto do código */
+                font-family: "Consolas", "Courier New", monospace;
+                font-size: 0.95em;
+                white-space: pre-wrap;
+              }
+
+              /* Tabela de dados (para conhecimentos bancários, etc) */
+              .tabela-dados {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 12px;
+                font-size: 0.9em;
+              }
+
+              .tabela-dados th,
+              .tabela-dados td {
+                border: 1px solid #465eff; /* Azul institucional */
+                padding: 8px;
+                text-align: left;
+              }
+
+              .tabela-dados th {
+                background-color: #003b99; /* Azul médio */
+                color: #ffffff;
+                font-weight: 700;
+              }
+
+              .tabela-dados tr:nth-child(even) {
+                background-color: rgba(
+                  70,
+                  94,
+                  255,
+                  0.1
+                ); /* Linhas alternadas para legibilidade */
+              }
+
+              /* Imagem explicativa */
+              .imagem {
+                margin-top: 12px;
+                text-align: center;
+              }
+
+              .imagem img {
+                max-width: 100%;
+                border-radius: 8px;
+                border: 2px solid #fcfc30; /* Amarelo institucional */
+              }
+
+              /* Rodapé do cartão (para referências rápidas, fontes, etc) */
+              .rodape {
+                margin-top: 16px;
+                font-size: 0.8em;
+                color: #465eff;
+                text-align: right;
+                font-style: italic;
+              }
+
+              /* Classes para texto em linha */
+              .termo-chave {
+                font-weight: 700;
+                color: #465eff; /* Azul institucional */
+              }
+
+              .texto-azul {
+                color: #465eff;
+              }
+
+              .texto-amarelo {
+                color: #fcfc30;
+              }
+            </style>
+            <div class="flashcard" bis_skin_checked="1">
+              <div class="pergunta" bis_skin_checked="1">
+                Uma abordagem para o desenvolvimento e uso de sistemas de IA que
+                considera os impactos éticos, sociais e ambientais, visando
+                garantir que os sistemas sejam justos, transparentes, confiáveis
+                e seguros, minimizando riscos de prejuízo ou discriminação.
+              </div>
+            </div>
+
+            <div class="resposta" bis_skin_checked="1">
+              Inteligência Artificial Responsável (Responsible AI)
+            </div>
+
+            <div
+              style="font-family: 'Liberation Sans'; font-size: 20px"
+              bis_skin_checked="1"
+            >
+              <div class="tabela-dados" bis_skin_checked="1">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Princípio</th>
+                      <th>Descrição</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="termo-chave">Transparência</span></td>
+                      <td>
+                        Tornar compreensíveis os processos e decisões dos
+                        sistemas de IA, permitindo que as pessoas entendam como
+                        foram tomadas e possam questioná-las.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="termo-chave">Explicabilidade</span></td>
+                      <td>
+                        Capacidade de um sistema de IA explicar como e por que
+                        chegou a uma determinada decisão. É importante em áreas
+                        como justiça criminal, crédito e saúde.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="termo-chave">Privacidade/Segurança</span>
+                      </td>
+                      <td>
+                        Proteger dados pessoais e sensíveis, garantindo que
+                        sejam tratados de forma ética e segura. Envolve medidas
+                        de segurança como criptografia e controle de acesso.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span class="termo-chave"
+                          >Responsabilização (Accountability)</span
+                        >
+                      </td>
+                      <td>
+                        Garantir que algoritmos e sistemas de IA possam ser
+                        responsabilizados por suas decisões e ações, o que
+                        implica transparência e mitigação de vieses.
+                      </td>
+                    </tr>
+                    <tr>
+                      <td><span class="termo-chave">Justiça/Equidade</span></td>
+                      <td>
+                        Garantir que os sistemas de IA não discriminem
+                        indivíduos ou grupos com base em características
+                        protegidas, promovendo igualdade de oportunidades.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="imagem" bis_skin_checked="1"></div>
+
+            <div
+              style="
+                margin-top: 10px;
+                font-family: 'Liberation Sans';
+                font-size: 20px;
+              "
+              bis_skin_checked="1"
+            >
+              <a
+                href="https://www.qconcursos.com/questoes-de-concursos/questoes?exclude_nullified=true&amp;exclude_outdated=true&amp;my_questions=not_resolved&amp;per_page=5&amp;q=Inteligência Artificial Responsável (Responsible AI)&amp;sort=newest"
+                target="_blank"
+              >
+                🔗 Questões no QConcursos
+              </a>
+            </div>
+          </div>
+          <br />
+        </div>
+        <div id="ansarea-pad" class="svelte-192a69y" bis_skin_checked="1"></div>
+        <div id="ansarea" class="svelte-192a69y" bis_skin_checked="1">
+          <div class="d-flex justify-content-center" bis_skin_checked="1">
+            <div bis_skin_checked="1">
+              <div class="text-center" bis_skin_checked="1">&lt;10m</div>
+              <button class="btn btn-primary btn-lg m-1">Again</button>
+            </div>
+            <div bis_skin_checked="1">
+              <div class="text-center" bis_skin_checked="1">2.4mo</div>
+              <button class="btn btn-primary btn-lg m-1">Hard</button>
+            </div>
+            <div bis_skin_checked="1">
+              <div class="text-center" bis_skin_checked="1">5mo</div>
+              <button class="btn btn-primary btn-lg m-1" autofocus="">
+                Good
+              </button>
+            </div>
+            <div bis_skin_checked="1">
+              <div class="text-center" bis_skin_checked="1">6.7mo</div>
+              <button class="btn btn-primary btn-lg m-1">Easy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" bis_skin_checked="1"></div>
+    </main>
+    <div
+      id="svelte-announcer"
+      aria-live="assertive"
+      aria-atomic="true"
+      style="
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        clip: rect(0px, 0px, 0px, 0px);
+        clip-path: inset(50%);
+        overflow: hidden;
+        white-space: nowrap;
+        width: 1px;
+        height: 1px;
+      "
+      bis_skin_checked="1"
+    ></div>
+  </div>
+
+  <div id="extension-dpfof" bis_skin_checked="1"></div>
+</body>

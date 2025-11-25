@@ -1,0 +1,154 @@
+/* ===================================
+   SHARED BASE - {{THEME_NAME}}
+   Estilos comuns entre todas as URLs
+   
+   INSTRUÇÕES:
+   1. Substitua {{THEME_NAME}} pelo nome do tema
+   2. Ajuste os valores das variáveis conforme theme-config.json
+   3. Este arquivo será importado em TODOS os styles.css de cada URL
+   =================================== */
+
+:root {
+  /* ===== Cores Principais ===== */
+  --theme-bg-primary: #e0e5ec;
+  --theme-bg-secondary: #f0f4f8;
+  --theme-text-primary: #2c3e50;
+  --theme-text-secondary: #6c757d;
+  --theme-accent: #5e72e4;
+  --theme-accent-hover: #4c63d2;
+  
+  /* ===== Sombras ===== */
+  --theme-shadow-light: #ffffff;
+  --theme-shadow-dark: #a3b1c6;
+  --theme-shadow-raised: 8px 8px 16px var(--theme-shadow-dark), -8px -8px 16px var(--theme-shadow-light);
+  --theme-shadow-pressed: inset 4px 4px 8px var(--theme-shadow-dark), inset -4px -4px 8px var(--theme-shadow-light);
+  --theme-shadow-hover: 12px 12px 24px var(--theme-shadow-dark), -12px -12px 24px var(--theme-shadow-light);
+  --theme-shadow-subtle: 4px 4px 8px var(--theme-shadow-dark), -4px -4px 8px var(--theme-shadow-light);
+  
+  /* ===== Status Colors ===== */
+  --theme-success: #28a745;
+  --theme-warning: #ffc107;
+  --theme-danger: #dc3545;
+  
+  /* ===== Espaçamentos ===== */
+  --theme-spacing-xs: 8px;
+  --theme-spacing-sm: 12px;
+  --theme-spacing-md: 16px;
+  --theme-spacing-lg: 24px;
+  --theme-spacing-xl: 32px;
+  --theme-spacing-xxl: 48px;
+  
+  /* ===== Bordas ===== */
+  --theme-radius-sm: 8px;
+  --theme-radius-md: 12px;
+  --theme-radius-lg: 16px;
+  --theme-radius-xl: 20px;
+  --theme-radius-round: 50%;
+  
+  /* ===== Fontes ===== */
+  --theme-font-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --theme-font-mono: 'Fira Code', 'Courier New', monospace;
+  --theme-font-size-xs: 10px;
+  --theme-font-size-sm: 12px;
+  --theme-font-size-md: 14px;
+  --theme-font-size-lg: 16px;
+  --theme-font-size-xl: 20px;
+  --theme-font-size-xxl: 24px;
+  --theme-font-size-xxxl: 32px;
+  
+  /* ===== Transições ===== */
+  --theme-transition-fast: 0.15s ease;
+  --theme-transition-normal: 0.3s ease;
+  --theme-transition-slow: 0.5s ease;
+}
+
+/* ===== Reset Básico ===== */
+body {
+  background: var(--theme-bg-primary) !important;
+  color: var(--theme-text-primary) !important;
+  font-family: var(--theme-font-primary) !important;
+  line-height: 1.6;
+}
+
+/* ===== Scrollbar Customizada ===== */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--theme-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--theme-shadow-dark);
+  border-radius: 6px;
+  box-shadow: var(--theme-shadow-subtle);
+  transition: background var(--theme-transition-fast);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--theme-text-secondary);
+}
+
+/* ===== Utilitários Globais ===== */
+.theme-btn {
+  padding: var(--theme-spacing-sm) var(--theme-spacing-lg);
+  border-radius: var(--theme-radius-md);
+  border: none;
+  background: var(--theme-bg-primary);
+  color: var(--theme-text-primary);
+  box-shadow: var(--theme-shadow-raised);
+  cursor: pointer;
+  transition: all var(--theme-transition-normal);
+  font-family: var(--theme-font-primary);
+  font-size: var(--theme-font-size-md);
+  font-weight: 500;
+}
+
+.theme-btn:hover {
+  box-shadow: var(--theme-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.theme-btn:active {
+  box-shadow: var(--theme-shadow-pressed);
+  transform: translateY(0);
+}
+
+.theme-btn-primary {
+  background: var(--theme-accent);
+  color: white;
+}
+
+.theme-btn-primary:hover {
+  background: var(--theme-accent-hover);
+}
+
+.theme-card {
+  background: var(--theme-bg-primary);
+  border-radius: var(--theme-radius-lg);
+  box-shadow: var(--theme-shadow-raised);
+  padding: var(--theme-spacing-lg);
+  transition: all var(--theme-transition-normal);
+}
+
+.theme-card:hover {
+  box-shadow: var(--theme-shadow-hover);
+}
+
+/* ===== Animações ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.theme-fade-in {
+  animation: fadeIn var(--theme-transition-normal);
+}

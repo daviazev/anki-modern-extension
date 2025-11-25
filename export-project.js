@@ -10,7 +10,7 @@ const IGNORE_FILES = ["package-lock.json", ".env"];
 // Extensões de arquivos binários ou irrelevantes
 const BINARY_EXT = [
   ".ico", ".png", ".jpg", ".jpeg", ".gif",
-  ".webp", ".bmp", ".txt", ".mdb", ".zip", ".pdf"
+  ".webp", ".bmp", ".txt"
 ];
 
 // Extensões que devem aparecer na lista,

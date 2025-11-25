@@ -1,0 +1,181 @@
+/* ===================================
+   Dracula Theme - Edit Page
+   Página de edição de flashcards
+   =================================== */
+
+/* Variáveis do tema */
+body.anki-modern-edit {
+  --bg-body: #282a36;
+  --bg-surface: #44475a;
+  --text-main: #f8f8f2;
+  --text-secondary: #6272a4;
+  --text-label: #bd93f9;
+  --primary: #bd93f9;
+  --primary-hover: #d4aeff;
+  --accent-cyan: #8be9fd;
+  --accent-pink: #ff79c6;
+  --accent-green: #50fa7b;
+  --accent-orange: #ffb86c;
+  --border-color: #44475a;
+}
+
+/* Background do body */
+body.anki-modern-edit {
+  background: var(--bg-body) !important;
+}
+
+/* Container principal */
+body.anki-modern-edit main.container {
+  background: var(--bg-body) !important;
+  padding: 2rem 1rem !important;
+  max-width: 1200px !important;
+}
+
+/* ===================================
+   FORMULÁRIO
+   =================================== */
+
+body.anki-modern-edit form {
+  background: var(--bg-body) !important;
+}
+
+/* Form Groups */
+body.anki-modern-edit .form-group {
+  margin-bottom: 1.5rem !important;
+}
+
+body.anki-modern-edit .form-group.row {
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+/* Labels dos campos */
+body.anki-modern-edit .col-form-label {
+  color: var(--text-label) !important;
+  font-weight: 600 !important;
+  font-size: 1.05rem !important;
+  padding-top: 0.75rem !important;
+  text-align: right !important;
+}
+
+/* ===================================
+   CAMPOS EDITÁVEIS (contenteditable)
+   =================================== */
+
+body.anki-modern-edit .form-control.field {
+  background: var(--bg-surface) !important;
+  border: 1px solid rgba(98, 114, 164, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  padding: 1rem 1.25rem !important;
+  color: var(--text-main) !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  min-height: auto !important;
+  height: auto !important;
+  transition: all 0.3s ease !important;
+  overflow-y: visible !important;
+}
+
+body.anki-modern-edit .form-control.field:focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(189, 147, 249, 0.3) !important;
+}
+
+/* NÃO estilizar conteúdo interno dos campos - preserva CSS do usuário */
+/* Usuário pode ter suas próprias classes e estilos personalizados */
+
+/* ===================================
+   CAMPO DE INPUT NORMAL (Tags)
+   =================================== */
+
+body.anki-modern-edit input.form-control {
+  background: var(--bg-surface) !important;
+  border: 1px solid rgba(98, 114, 164, 0.3) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+  padding: 1rem 1.25rem !important;
+  color: var(--text-main) !important;
+  font-size: 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+body.anki-modern-edit input.form-control:focus {
+  outline: none !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(189, 147, 249, 0.3) !important;
+}
+
+body.anki-modern-edit input.form-control::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.6 !important;
+}
+
+/* ===================================
+   BOTÃO UPDATE
+   =================================== */
+
+body.anki-modern-edit .btn-primary {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover)) !important;
+  border: 2px solid var(--primary) !important;
+  color: var(--bg-body) !important;
+  font-weight: 700 !important;
+  font-size: 1rem !important;
+  padding: 0.875rem 2.5rem !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3),
+              0 0 20px rgba(189, 147, 249, 0.3) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease !important;
+  margin-top: 1rem !important;
+}
+
+body.anki-modern-edit .btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-hover), #e0b3ff) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4),
+              0 0 30px rgba(189, 147, 249, 0.5) !important;
+}
+
+body.anki-modern-edit .btn-primary:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
+              0 0 15px rgba(189, 147, 249, 0.3) !important;
+}
+
+body.anki-modern-edit .btn-large {
+  font-size: 1.1rem !important;
+  padding: 1rem 3rem !important;
+}
+
+/* ===================================
+   RESPONSIVIDADE
+   =================================== */
+
+@media (max-width: 768px) {
+  body.anki-modern-edit main.container {
+    padding: 1rem !important;
+  }
+
+  body.anki-modern-edit .col-form-label {
+    text-align: left !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  body.anki-modern-edit .form-group.row {
+    flex-direction: column !important;
+  }
+
+  body.anki-modern-edit .form-control.field {
+    font-size: 0.95rem !important;
+  }
+
+  body.anki-modern-edit .btn-primary {
+    width: 100% !important;
+    padding: 0.875rem 1.5rem !important;
+  }
+}

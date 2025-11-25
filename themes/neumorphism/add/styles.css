@@ -1,0 +1,196 @@
+/* ===================================
+   Neumorphism Theme - Add Card Styles
+   URL: https://ankiuser.net/add
+   Abordagem: CSS puro, sem modificar DOM
+   =================================== */
+
+/* Variáveis do tema */
+:root {
+  --bg-body: #f0f2f5;
+  --surface: #ffffff;
+  --text-main: #2d3748;
+  --text-secondary: #a0aec0;
+  --primary: #5e72e4;
+  --primary-hover: #4c63d2;
+  --shadow-neumorphic: 6px 6px 12px rgba(163, 177, 198, 0.6), 
+                       -6px -6px 12px rgba(255, 255, 255, 0.9);
+  --shadow-neumorphic-inset: inset 3px 3px 6px rgba(163, 177, 198, 0.4),
+                             inset -3px -3px 6px rgba(255, 255, 255, 0.9);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+}
+
+/* Background do body */
+body {
+  background: var(--bg-body) !important;
+}
+
+/* Container principal */
+main.container.anki-modern-add {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  padding: 2rem 1rem !important;
+}
+
+/* ===================================
+   FORM GROUPS - Mantém estrutura original
+   =================================== */
+
+main.anki-modern-add .form-group {
+  margin-bottom: 1.5rem !important;
+}
+
+/* Labels */
+main.anki-modern-add .col-form-label {
+  font-weight: 600 !important;
+  font-size: 0.8125rem !important;
+  color: var(--text-main) !important;
+  padding-top: 0.5rem !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  opacity: 0.85 !important;
+}
+
+/* ===================================
+   SVELTE SELECT (Type e Deck)
+   =================================== */
+
+main.anki-modern-add .svelte-select {
+  background: var(--bg-body) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-neumorphic) !important;
+  padding: 0.75rem 1rem !important;
+  transition: all 0.3s ease !important;
+}
+
+main.anki-modern-add .svelte-select:hover {
+  box-shadow: var(--shadow-neumorphic), 0 0 0 2px rgba(94, 114, 228, 0.1) !important;
+}
+
+main.anki-modern-add .svelte-select:active,
+main.anki-modern-add .svelte-select:focus-within {
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+}
+
+main.anki-modern-add .svelte-select .value-container {
+  color: var(--text-main) !important;
+}
+
+/* Dropdown - Deixa o Svelte gerenciar posicionamento */
+.list-container {
+  background: var(--bg-body) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-neumorphic), 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+  z-index: 9999 !important;
+  max-height: 300px !important;
+  overflow-y: auto !important;
+  padding: 0.5rem !important;
+}
+
+.list-item {
+  padding: 0.75rem 1rem !important;
+  color: var(--text-main) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  border-radius: 8px !important;
+  margin-bottom: 0.25rem !important;
+}
+
+.list-item:hover {
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  color: var(--primary) !important;
+}
+
+.list-item.selected {
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+}
+
+/* ===================================
+   CAMPOS CONTENTEDITABLE
+   =================================== */
+
+main.anki-modern-add .field[contenteditable="true"] {
+  background: var(--bg-body) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  padding: 1rem !important;
+  min-height: 100px !important;
+  color: var(--text-main) !important;
+  transition: all 0.3s ease !important;
+}
+
+main.anki-modern-add .field[contenteditable="true"]:hover {
+  box-shadow: var(--shadow-neumorphic-inset), 0 0 0 2px rgba(94, 114, 228, 0.1) !important;
+}
+
+main.anki-modern-add .field[contenteditable="true"]:focus {
+  outline: none !important;
+  box-shadow: var(--shadow-neumorphic-inset), 0 0 0 2px var(--primary) !important;
+}
+
+/* ===================================
+   INPUT DE TAGS
+   =================================== */
+
+main.anki-modern-add input[type="text"].form-control {
+  background: var(--bg-body) !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  box-shadow: var(--shadow-neumorphic-inset) !important;
+  padding: 0.75rem 1rem !important;
+  color: var(--text-main) !important;
+  transition: all 0.3s ease !important;
+}
+
+main.anki-modern-add input[type="text"].form-control:hover {
+  box-shadow: var(--shadow-neumorphic-inset), 0 0 0 2px rgba(94, 114, 228, 0.1) !important;
+}
+
+main.anki-modern-add input[type="text"].form-control:focus {
+  outline: none !important;
+  box-shadow: var(--shadow-neumorphic-inset), 0 0 0 2px var(--primary) !important;
+}
+
+/* ===================================
+   BOTÃO ADD
+   =================================== */
+
+main.anki-modern-add button.btn-primary {
+  background: linear-gradient(145deg, var(--primary), var(--primary-hover)) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: var(--radius) !important;
+  padding: 0.875rem 1.5rem !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  letter-spacing: 0.5px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 4px 4px 10px rgba(94, 114, 228, 0.3),
+              -2px -2px 8px rgba(255, 255, 255, 0.1) !important;
+  margin-top: 1.5rem !important;
+  text-transform: uppercase !important;
+}
+
+main.anki-modern-add button.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px) !important;
+  box-shadow: 6px 6px 15px rgba(94, 114, 228, 0.4),
+              -3px -3px 10px rgba(255, 255, 255, 0.2) !important;
+}
+
+main.anki-modern-add button.btn-primary:active:not(:disabled) {
+  transform: translateY(0) !important;
+  box-shadow: 2px 2px 6px rgba(94, 114, 228, 0.3),
+              -1px -1px 4px rgba(255, 255, 255, 0.1) !important;
+}
+
+main.anki-modern-add button.btn-primary:disabled {
+  opacity: 0.5 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+}

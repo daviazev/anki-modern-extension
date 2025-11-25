@@ -1,0 +1,85 @@
+{
+  "name": "dracula",
+  "version": "1.0.0",
+  "description": "Tema dracula para AnkiWeb",
+  "author": "Davi Azevedo",
+  
+  "colors": {
+    "primary": "#282a36",
+    "secondary": "#44475a",
+    "textPrimary": "#f8f8f2",
+    "textSecondary": "#6272a4",
+    "accent": "#bd93f9",
+    "accentHover": "#a97fe0",
+    "shadowLight": "#383a4a",
+    "shadowDark": "#191a21",
+    "success": "#50fa7b",
+    "warning": "#f1fa8c",
+    "danger": "#ff5555",
+    "pink": "#ff79c6",
+    "cyan": "#8be9fd",
+    "green": "#50fa7b",
+    "orange": "#ffb86c",
+    "purple": "#bd93f9",
+    "red": "#ff5555",
+    "yellow": "#f1fa8c"
+  },
+  
+  "shadows": {
+    "raised": "0 4px 12px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.3)",
+    "pressed": "inset 0 2px 6px rgba(0, 0, 0, 0.4)",
+    "hover": "0 8px 20px rgba(189, 147, 249, 0.3), 0 4px 8px rgba(0, 0, 0, 0.4)",
+    "subtle": "0 2px 8px rgba(0, 0, 0, 0.3)",
+    "glow": "0 0 20px rgba(189, 147, 249, 0.4)"
+  },
+  
+  "spacing": {
+    "xs": "8px",
+    "sm": "12px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "xxl": "48px"
+  },
+  
+  "borderRadius": {
+    "sm": "8px",
+    "md": "12px",
+    "lg": "16px",
+    "xl": "20px",
+    "round": "50%"
+  },
+  
+  "fonts": {
+    "primary": "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    "monospace": "'Fira Code', 'Courier New', monospace",
+    "size": {
+      "xs": "10px",
+      "sm": "12px",
+      "md": "14px",
+      "lg": "16px",
+      "xl": "20px",
+      "xxl": "24px",
+      "xxxl": "32px"
+    },
+    "weight": {
+      "light": 300,
+      "normal": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700
+    }
+  },
+  
+  "transitions": {
+    "fast": "0.15s ease",
+    "normal": "0.3s ease",
+    "slow": "0.5s ease"
+  },
+  
+  "breakpoints": {
+    "mobile": "768px",
+    "tablet": "1024px",
+    "desktop": "1440px"
+  }
+}
